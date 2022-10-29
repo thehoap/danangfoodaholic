@@ -1,11 +1,13 @@
 import expressAsyncHandler from 'express-async-handler';
+import Restaurant from '../models/restaurantModel.js';
 
 /* 
     @route GET /restaurants
     @access PRIVATE
 */
 const getRestaurants = expressAsyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get restaurants' });
+    const restaurants = await Restaurant.find();
+    res.status(200).json(restaurants);
 });
 
 /* 
@@ -17,21 +19,43 @@ const createRestaurant = expressAsyncHandler(async (req, res) => {
         res.status(400);
         throw new Error('miss name');
     }
-    res.status(200).json({ message: 'Create restaurants' });
+    const restaurant = await Restaurant.create({ name: req.body.name });
+    res.status(200).json(restaurant);
 });
 /* 
     @route PUT /restaurants/:id
     @access PRIVATE
 */
 const updateRestaurant = expressAsyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Get restaurants ${req.params.id}` });
+    const restaurant = await Restaurant.findById(req.params.id);
+    console.log(req.params.id);
+    if (!restaurant) {
+        res.status(400);
+        throw new Error('Restaurant is not found.');
+    }
+
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+    );
+    res.status(200).json(updatedRestaurant);
 });
 /* 
     @route DELETE /restaurants/:id
     @access PRIVATE
 */
 const deleteRestaurant = expressAsyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Delete restaurants ${req.params.id}` });
+    const restaurant = await Restaurant.findById(req.params.id);
+
+    if (!restaurant) {
+        res.status(400);
+        throw new Error('Restaurant is not found.');
+    }
+
+    await restaurant.remove();
+
+    res.status(200).json({ id: req.params.id });
 });
 
 export { getRestaurants, createRestaurant, updateRestaurant, deleteRestaurant };
