@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import restaurantRouter from './routes/restaurantRoutes.js';
+
 import { errorHandler } from './middleware/errorMiddleware.js';
+import baseRouter from './routes/apiRouter.js';
 import connectDB from './config/db.js';
 
 dotenv.config();
@@ -14,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/restaurants', restaurantRouter);
+app.use('/api', baseRouter);
 
 app.use(errorHandler);
 
