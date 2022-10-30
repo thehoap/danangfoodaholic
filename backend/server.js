@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import { errorHandler } from './middleware/errorMiddleware.js';
-import baseRouter from './routes/apiRouter.js';
+import baseRouter from './routes/apiRoutes.js';
 import connectDB from './config/db.js';
 
 dotenv.config();
