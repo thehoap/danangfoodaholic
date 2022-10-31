@@ -78,9 +78,13 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     @route GET /users/profile
     @access PRIVATE
 */
+const getProfile = expressAsyncHandler(async (req, res) => {
+    const { id, email, name } = req.user;
+    res.json({ id, email, name });
+});
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-export { registerUser, loginUser };
+export { registerUser, loginUser, getProfile };
