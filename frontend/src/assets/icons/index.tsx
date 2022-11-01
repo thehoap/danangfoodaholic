@@ -1,0 +1,11 @@
+export { ReactComponent as BBQ } from './bbq.svg';
+export { ReactComponent as Bread } from './bread.svg';
+export { ReactComponent as Chocolate } from './chocolate.svg';
+export { ReactComponent as Clutery } from './clutery.svg';
+export { ReactComponent as Coffee } from './coffee.svg';
+export { ReactComponent as Comment } from './comment.svg';
+export { ReactComponent as Cookie } from './cookie.svg';
+export { ReactComponent as Facebook } from './facebook.svg';
+export { ReactComponent as Google } from './google.svg';
+export { ReactComponent as Like } from './like.svg';
+export { ReactComponent as Vegan } from './vegan.svg';
