@@ -1,5 +1,12 @@
+import ImagesUpload from 'components/ImagesUpload';
+
 const Home = () => {
-    return <div>Home</div>;
+    return (
+        <div>
+            HOME
+            <ImagesUpload />
+        </div>
+    );
 };
 
 export default Home;
