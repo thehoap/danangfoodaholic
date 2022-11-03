@@ -1,6 +1,7 @@
 import { Delete, View } from 'assets/icons';
-import React, { MouseEventHandler, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyledImagesUpload } from './styles';
+import { v4 as uuidv4 } from 'uuid';
 
 const ImagesUpload = () => {
     const [images, setImages] = useState<FileList | null>(null);
@@ -11,8 +12,9 @@ const ImagesUpload = () => {
             const addition = {};
             //@ts-ignore
             for (let [key, value] of Object.entries(choosen)) {
+                const id = uuidv4();
                 //@ts-ignore
-                addition[+key + current?.length] = value;
+                addition[id] = value;
             }
             return current ? { ...current, ...addition } : choosen;
         });
@@ -29,8 +31,9 @@ const ImagesUpload = () => {
             //@ts-ignore
             for (let [key, value] of Object.entries(current)) {
                 if (key !== id) {
+                    const _id = uuidv4();
                     //@ts-ignore
-                    rest[+key] = value;
+                    rest[_id] = value;
                 }
             }
             return rest;

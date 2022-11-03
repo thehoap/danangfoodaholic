@@ -4,7 +4,9 @@ const size = 100;
 export const StyledImagesUpload = styled.div`
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 8px;
 
     .image-preview {
         position: relative;
@@ -40,7 +42,7 @@ export const StyledImagesUpload = styled.div`
         }
     }
     .upload {
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 12px;
@@ -58,8 +60,7 @@ export const StyledImagesUpload = styled.div`
 
         &-icon {
             font-size: 24px;
-        }
-        &-text {
+            width: ${size}px;
         }
     }
 `;
