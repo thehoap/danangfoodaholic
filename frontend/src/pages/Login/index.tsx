@@ -8,16 +8,19 @@ import Input from 'components/Input';
 import { Button, Form, Typography } from 'antd';
 import { useLoginMutation } from 'services/authAPI';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const [login, { isLoading }] = useLoginMutation();
+
     const [error, setError] = useState<string>('');
-    const [login] = useLoginMutation();
 
     const initialValues = {
         email: '',
         password: '',
     };
-
     const validationSchema = yup.object().shape({
         email: yup
             .string()
@@ -35,6 +38,7 @@ const Login = () => {
                 .unwrap()
                 .then((data: ILoginResponse) => {
                     localStorage.setItem('token', data.token);
+                    navigate('/');
                 })
                 .catch((error: IError) => {
                     setError(error.data.message);
@@ -68,7 +72,7 @@ const Login = () => {
                 {error && (
                     <Typography.Text type="danger">{error}</Typography.Text>
                 )}
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={isLoading}>
                     Đăng nhập
                 </Button>
             </Form>

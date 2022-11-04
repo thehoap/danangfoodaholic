@@ -1,11 +1,12 @@
 import ImagesUpload from 'components/ImagesUpload';
+import MainLayout from 'layouts/MainLayout';
 
 const Home = () => {
     return (
-        <div>
-            HOME
+        <MainLayout>
+            <></>
             <ImagesUpload />
-        </div>
+        </MainLayout>
     );
 };
 
