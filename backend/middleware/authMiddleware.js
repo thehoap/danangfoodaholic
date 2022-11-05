@@ -1,6 +1,9 @@
 import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
+import StatusCodes from 'http-status-codes';
+
 import User from '../models/userModel.js';
+import responseFormat from '../utils/responseFormat.js';
 
 const protect = expressAsyncHandler(async (req, res, next) => {
     const authorization = req.headers.authorization;
@@ -20,16 +23,30 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 
             next();
         } catch (error) {
-            res.status(401);
-            throw new Error(
-                'Vui lòng đăng nhập trước khi truy cập vào trang này!'
+            res.status(StatusCodes.UNAUTHORIZED).json(
+                responseFormat(
+                    false,
+                    {
+                        message:
+                            'Vui lòng đăng nhập trước khi truy cập vào trang này!',
+                    },
+                    {}
+                )
             );
         }
     }
 
     if (!token) {
-        res.status(401);
-        throw new Error('Vui lòng đăng nhập trước khi truy cập vào trang này!');
+        res.status(StatusCodes.UNAUTHORIZED).json(
+            responseFormat(
+                false,
+                {
+                    message:
+                        'Vui lòng đăng nhập trước khi truy cập vào trang này!',
+                },
+                {}
+            )
+        );
     }
 });
 

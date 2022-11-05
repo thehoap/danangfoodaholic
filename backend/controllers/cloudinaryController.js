@@ -1,13 +1,20 @@
 import expressAsyncHandler from 'express-async-handler';
+import StatusCodes from 'http-status-codes';
 
+/* 
+    @route POST /commons/upload-images
+    @access PRIVATE
+*/
 const uploadImages = expressAsyncHandler(async (req, res) => {
     try {
         if (!req.files)
-            return res.status(400).json({ message: 'Chưa có ảnh.' });
+            return res
+                .status(StatusCodes.BAD_REQUEST)
+                .json({ message: 'Chưa có ảnh.' });
         const paths = req.files.map((image) => image.path);
-        return res.status(201).json(paths);
+        return res.status(StatusCodes.CREATED).json(paths);
     } catch (e) {
-        res.status(500).json({ message: e });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: e });
     }
 });
 

@@ -2,8 +2,10 @@ import expressAsyncHandler from 'express-async-handler';
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import StatusCodes from 'http-status-codes';
 
 import User from '../models/userModel.js';
+import responseFormat from '../utils/responseFormat.js';
 /* 
     @route POST /users/register
     @access PUBLIC
@@ -11,14 +13,28 @@ import User from '../models/userModel.js';
 const registerUser = expressAsyncHandler(async (req, res) => {
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
-        res.status(400);
-        throw new Error('Vui lòng nhập đầy đủ thông tin!');
+        res.status(StatusCodes.BAD_REQUEST).json(
+            responseFormat(
+                false,
+                {
+                    message: 'Vui lòng nhập đầy đủ thông tin!',
+                },
+                {}
+            )
+        );
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        res.status(400);
-        throw new Error('Tài khoản đã tồn tại. Vui lòng nhập email khác!');
+        res.status(StatusCodes.BAD_REQUEST).json(
+            responseFormat(
+                false,
+                {
+                    message: 'Tài khoản đã tồn tại. Vui lòng nhập email khác!',
+                },
+                {}
+            )
+        );
     }
 
     const salt = await bcrypt.genSalt();
@@ -33,15 +49,22 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     });
 
     if (user) {
-        res.status(201).json({
-            id,
-            email,
-            name,
-            token: generateToken(id),
-        });
+        res.status(StatusCodes.CREATED).json(
+            responseFormat(
+                true,
+                {},
+                {
+                    id,
+                    email,
+                    name,
+                    token: generateToken(id),
+                }
+            )
+        );
     } else {
-        res.status(400);
-        throw new Error('Tài khoản không hợp lệ.');
+        res.status(StatusCodes.BAD_REQUEST).json(
+            responseFormat(false, { message: 'Tài khoản không hợp lệ.' }, {})
+        );
     }
 });
 /* 
@@ -52,25 +75,46 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        res.status(400);
-        throw new Error('Bạn chưa nhập tên đăng nhập hoặc mật khẩu.');
+        res.status(StatusCodes.BAD_REQUEST).json(
+            responseFormat(
+                false,
+                { message: 'Bạn chưa nhập tên đăng nhập hoặc mật khẩu.' },
+                {}
+            )
+        );
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-        res.status(400);
-        throw new Error('Tài khoản không tồn tại. Vui lòng kiểm tra lại!');
+        res.status(StatusCodes.BAD_REQUEST).json(
+            responseFormat(
+                false,
+                { message: 'Tài khoản không tồn tại. Vui lòng kiểm tra lại!' },
+                {}
+            )
+        );
     } else {
         if (await bcrypt.compare(password, user.password)) {
-            res.json({
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                token: generateToken(user.id),
-            });
+            res.status(StatusCodes.OK).json(
+                responseFormat(
+                    true,
+                    {},
+                    {
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        token: generateToken(user.id),
+                    }
+                )
+            );
         } else {
-            res.status(400);
-            throw new Error('Mật khẩu không đúng. Vui lòng nhập lại!');
+            res.status(StatusCodes.BAD_REQUEST).json(
+                responseFormat(
+                    false,
+                    { message: 'Mật khẩu không đúng. Vui lòng nhập lại!' },
+                    {}
+                )
+            );
         }
     }
 });
@@ -80,7 +124,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 */
 const getProfile = expressAsyncHandler(async (req, res) => {
     const { id, email, name } = req.user;
-    res.json({ id, email, name });
+    res.status(StatusCodes.OK).json(
+        responseFormat(true, {}, { id, email, name })
+    );
 });
 
 const generateToken = (id) => {

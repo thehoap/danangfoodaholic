@@ -1,6 +1,9 @@
 import expressAsyncHandler from 'express-async-handler';
+import StatusCodes from 'http-status-codes';
+
 import Restaurant from '../models/restaurantModel.js';
 import Menu from '../models/menuModel.js';
+import responseFormat from '../utils/responseFormat.js';
 
 /* 
     @route GET /restaurants
@@ -8,7 +11,7 @@ import Menu from '../models/menuModel.js';
 */
 const getRestaurants = expressAsyncHandler(async (req, res) => {
     const restaurants = await Restaurant.find();
-    res.status(200).json(restaurants);
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, restaurants));
 });
 
 /* 
@@ -21,7 +24,7 @@ const getRestaurant = expressAsyncHandler(async (req, res) => {
     const menu = await Menu.findOne({ id: restaurant.menuId });
     restaurant.menu = menu.items;
 
-    res.status(200).json(restaurant);
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, restaurant));
 });
 
 export { getRestaurants, getRestaurant };
