@@ -10,7 +10,19 @@ import responseFormat from '../utils/responseFormat.js';
     @access PRIVATE
 */
 const getRestaurants = expressAsyncHandler(async (req, res) => {
-    const restaurants = await Restaurant.find();
+    let page = 1,
+        limit = 10,
+        query = {};
+
+    if (req.query.page) page = req.query.page.toString();
+    if (req.query.limit) limit = req.query.limit.toString();
+
+    const restaurants = await Restaurant.paginate(query, {
+        page,
+        limit,
+        lean: true,
+        sort: '-createdAt',
+    });
     res.status(StatusCodes.OK).json(responseFormat(true, {}, restaurants));
 });
 

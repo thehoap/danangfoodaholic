@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
 const restaurantSchema = mongoose.Schema(
     {
@@ -18,6 +19,8 @@ const restaurantSchema = mongoose.Schema(
         timestamps: true,
     }
 );
+
+restaurantSchema.plugin(paginate);
 
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
