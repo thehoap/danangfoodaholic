@@ -2,12 +2,7 @@ import ImagesUpload from 'components/ImagesUpload';
 import MainLayout from 'layouts/MainLayout';
 
 const Home = () => {
-    return (
-        <MainLayout>
-            <></>
-            <ImagesUpload />
-        </MainLayout>
-    );
+    return <MainLayout>HOME</MainLayout>;
 };
 
 export default Home;

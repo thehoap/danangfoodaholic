@@ -1,0 +1,19 @@
+$headerHeight: 80px;
+
+.layout-main {
+    &__header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $headerHeight;
+        background-color: #fff;
+        z-index: 9;
+    }
+    &__content {
+        margin-top: $headerHeight;
+        padding: 0 100px;
+    }
+    &__footer {
+    }
+}

@@ -12,3 +12,5 @@ export const IMAGE = {
     PLACEHOLDER:
         'https://res.cloudinary.com/duuxjqkla/image/upload/v1667724572/review/placeholder-image_dnr9cw.png',
 };
+
+export const PAGINATION = { PAGE_SIZE: 20 };

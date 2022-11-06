@@ -5,4 +5,7 @@ export const PATH = {
     LOGIN: {
         path: '/login',
     },
+    RESTAURANTS: {
+        path: '/restaurants',
+    },
 };

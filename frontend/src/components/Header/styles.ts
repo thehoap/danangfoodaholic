@@ -5,10 +5,6 @@ import { COLOR } from 'constants/data';
 
 export const StyledHeader = styled.header`
     ${flexSpaceBetween}
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
 
     .nav {
         background: ${COLOR.LINEAR_PRIMARY};
@@ -16,7 +12,7 @@ export const StyledHeader = styled.header`
         padding: 12px;
         border-radius: 28px;
 
-        & > a {
+        & .nav-link {
             display: inline-block;
             min-width: 120px;
             text-align: center;

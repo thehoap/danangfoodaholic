@@ -10,5 +10,7 @@ export { ReactComponent as Delete } from './delete.svg';
 export { ReactComponent as Facebook } from './facebook.svg';
 export { ReactComponent as Google } from './google.svg';
 export { ReactComponent as Like } from './like.svg';
+export { ReactComponent as Location } from './location.svg';
+export { ReactComponent as Timer } from './timer.svg';
 export { ReactComponent as Vegan } from './vegan.svg';
 export { ReactComponent as View } from './view.svg';

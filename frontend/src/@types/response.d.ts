@@ -16,6 +16,19 @@ interface IResponseFormat<T> {
     data: T;
 }
 
+interface IPagination<T> {
+    docs: T[];
+    totalDocs: number;
+    limit: number;
+    totalPages: number;
+    page: number;
+    pagingCounter: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    prevPage: number | null;
+    nextPage: number | null;
+}
+
 interface ILoginResponse {
     email: string;
     id: string;
@@ -24,7 +37,23 @@ interface ILoginResponse {
 }
 
 interface IProfileResponse {
-    email: 'pthpthpth0210@gmail.com';
-    id: '8c5c9a7a-359a-43ad-b79d-8fa9e7ac612b';
-    name: 'phan the hoa';
+    email: string;
+    id: string;
+    name: string;
+    image: string;
+}
+
+interface IRestaurant {
+    _id: string;
+    link: string;
+    image: string;
+    name: string;
+    type: string;
+    address: string;
+    id: string;
+    districtId: number;
+    wardId: number;
+    menuId: string;
+    time: string;
+    priceRange: string;
 }

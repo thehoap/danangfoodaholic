@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { PATH } from 'constants/path';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
+import Restaurants from 'pages/Restaurants';
 
 const Routers = () => {
     return (
@@ -11,6 +12,10 @@ const Routers = () => {
             <Routes>
                 <Route element={<ProtectedRoute />}>
                     <Route path={PATH.HOME.path} element={<Home />} />
+                    <Route
+                        path={PATH.RESTAURANTS.path}
+                        element={<Restaurants />}
+                    />
                 </Route>
                 <Route path={PATH.LOGIN.path} element={<Login />} />
             </Routes>

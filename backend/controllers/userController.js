@@ -103,6 +103,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
                         id: user.id,
                         email: user.email,
                         name: user.name,
+                        image: user.image,
                         token: generateToken(user.id),
                     }
                 )
@@ -123,9 +124,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     @access PRIVATE
 */
 const getProfile = expressAsyncHandler(async (req, res) => {
-    const { id, email, name } = req.user;
+    const { id, email, name, image } = req.user;
     res.status(StatusCodes.OK).json(
-        responseFormat(true, {}, { id, email, name })
+        responseFormat(true, {}, { id, email, name, image })
     );
 });
 

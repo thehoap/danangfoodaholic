@@ -8,29 +8,35 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import { ArrowDown } from 'assets/icons';
 import { IMAGE } from 'constants/data';
+import { useDispatch } from 'react-redux';
+import { updateProfile } from 'redux/slices/profileSlice';
+import { useAppSelector } from 'redux/hooks';
 
 interface IHeader {
     className: string;
 }
 
 const Header = ({ className }: IHeader) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [getProfile, { data: profile, isFetching }] =
+    const [getProfile, { data: profile, isSuccess, isFetching }] =
         useLazyGetProfileQuery();
-
-    const [user, setUser] = useState<{
-        id: string;
-        name: string;
-        email: string;
-    }>();
+    const { image, name, email } = useAppSelector((state) => state.profile);
 
     useEffect(() => {
         getProfile({});
     }, []);
 
     useEffect(() => {
-        setUser(profile?.data);
+        if (isSuccess) {
+            const payload = {
+                image: profile?.data.image,
+                name: profile?.data.name,
+                email: profile?.data.email,
+            };
+            dispatch(updateProfile(payload));
+        }
     }, [isFetching]);
 
     const handleLogout = () => {
@@ -40,8 +46,8 @@ const Header = ({ className }: IHeader) => {
 
     const navLinks: { path: string; label: string }[] = [
         { path: PATH.HOME.path, label: 'Trang chủ' },
-        { path: '/restaurants', label: 'Quán ăn' },
-        { path: '/favorites', label: 'Yêu thích' },
+        { path: PATH.RESTAURANTS.path, label: 'Quán ăn' },
+        { path: '/favorite', label: 'Yêu thích' },
     ];
 
     const menu = (
@@ -70,9 +76,12 @@ const Header = ({ className }: IHeader) => {
             <nav className="nav">
                 {navLinks.map(({ path, label }) => (
                     <NavLink
-                        key={label}
+                        key={path}
                         to={path}
-                        className={({ isActive }) => (isActive ? 'active' : '')}
+                        className={({ isActive }) =>
+                            isActive ? 'nav-link active' : 'nav-link'
+                        }
+                        end
                     >
                         {label}
                     </NavLink>
@@ -81,14 +90,11 @@ const Header = ({ className }: IHeader) => {
             <Dropdown overlay={menu} trigger={['click']} className="user">
                 <div className="user">
                     <img
-                        src={
-                            'https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=400x300&vertical=top' ||
-                            IMAGE.PLACEHOLDER
-                        }
-                        alt=""
+                        src={image || IMAGE.PLACEHOLDER}
+                        alt={name}
                         className="user-image"
                     />
-                    <p className="user-name">{user?.name}</p>
+                    <p className="user-name">{name}</p>
                     <ArrowDown />
                 </div>
             </Dropdown>
