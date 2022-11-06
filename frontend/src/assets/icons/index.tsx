@@ -1,3 +1,4 @@
+export { ReactComponent as ArrowDown } from './arrow-down.svg';
 export { ReactComponent as BBQ } from './bbq.svg';
 export { ReactComponent as Bread } from './bread.svg';
 export { ReactComponent as Chocolate } from './chocolate.svg';

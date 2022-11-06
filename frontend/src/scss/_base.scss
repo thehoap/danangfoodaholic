@@ -1,3 +1,18 @@
+/* ===== Logo ===== */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    // padding: 12px;
+
+    &-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #e41414;
+    }
+}
+
 /* ===== Scrollbar CSS ===== */
 *::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

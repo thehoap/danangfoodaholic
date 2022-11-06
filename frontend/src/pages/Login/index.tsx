@@ -36,12 +36,12 @@ const Login = () => {
         onSubmit: (values: ILogin) => {
             login(values)
                 .unwrap()
-                .then((data: ILoginResponse) => {
-                    localStorage.setItem('token', data.token);
+                .then((res: IResponseFormat<ILoginResponse>) => {
+                    localStorage.setItem('token', res.data.token);
                     navigate('/');
                 })
                 .catch((error: IError) => {
-                    setError(error.data.message);
+                    setError(error.data.meta.message);
                 });
         },
     });
