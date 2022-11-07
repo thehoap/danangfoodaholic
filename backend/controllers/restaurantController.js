@@ -16,6 +16,13 @@ const getRestaurants = expressAsyncHandler(async (req, res) => {
 
     if (req.query.page) page = req.query.page.toString();
     if (req.query.limit) limit = req.query.limit.toString();
+    if (req.query.districtId)
+        query.districtId = Number.parseInt(req.query.districtId.toString());
+    if (req.query.type) query.type = req.query.type.toString();
+    if (req.query.searchTerm) {
+        query.name = new RegExp(req.query.searchTerm, 'i');
+        query.address = new RegExp(req.query.searchTerm, 'i');
+    }
 
     const restaurants = await Restaurant.paginate(query, {
         page,

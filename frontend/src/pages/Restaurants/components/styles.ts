@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { Card } from 'antd';
 
-export const StyledRestaurant = styled(Card)`
+export const StyledRestaurantCard = styled(Card)`
     display: inline-block;
     position: relative;
-    /* width: 300px; */
     cursor: pointer;
 
     .ant-tag {
@@ -55,3 +54,5 @@ export const StyledRestaurant = styled(Card)`
         }
     }
 `;
+
+export const StyledRestaurantFilter = styled.div``;

@@ -1,22 +1,33 @@
 import { Select as AntSelect, SelectProps } from 'antd';
 import FormGroup from 'components/FormGroup';
-import { Key } from 'react';
-
-interface IOption {
-    id: Key;
-    value: Key;
-    label: Key;
-}
 
 interface ISelect extends SelectProps {
-    label: string;
+    label?: string;
     options: IOption[];
+    name: string;
+    formik: any;
+    allowClear?: boolean;
 }
 
-const Select = ({ label, options, ...props }: ISelect) => {
+const Select = ({
+    label,
+    options,
+    name,
+    formik,
+    allowClear = true,
+    ...props
+}: ISelect) => {
+    const handleChange = (value: string | number) => {
+        formik.setFieldValue(name, value);
+    };
+
     return (
         <FormGroup label={label}>
-            <AntSelect {...props}>
+            <AntSelect
+                {...props}
+                onChange={handleChange}
+                allowClear={allowClear}
+            >
                 {options.map((option: IOption) => (
                     <AntSelect.Option key={option.id} value={option.value}>
                         {option.label}

@@ -4,7 +4,7 @@ import FormGroup from 'components/FormGroup';
 const { Text } = Typography;
 
 interface IInput extends InputProps {
-    label: string;
+    label?: string;
     name: string;
     formik: any;
 }

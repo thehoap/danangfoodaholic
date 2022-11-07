@@ -1,13 +1,13 @@
 import { Card, Tag } from 'antd';
 
 import { Comment, Location, Timer, View } from 'assets/icons';
-import { StyledRestaurant } from './styles';
+import { StyledRestaurantCard } from './styles';
 
-interface IRestaurantPage {
+interface IRestaurantCard {
     restaurant: IRestaurant;
 }
 
-const Restaurant = ({ restaurant }: IRestaurantPage) => {
+const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
     const { image, name, type, address, time } = restaurant;
 
     const description = (
@@ -24,14 +24,14 @@ const Restaurant = ({ restaurant }: IRestaurantPage) => {
     );
 
     return (
-        <StyledRestaurant
+        <StyledRestaurantCard
             cover={<img src={image} alt={name} className="restaurant-image" />}
             actions={[<View />, <Comment />]}
         >
             <Card.Meta title={name} description={description} />
             <Tag>{type || 'N/A'}</Tag>
-        </StyledRestaurant>
+        </StyledRestaurantCard>
     );
 };
 
-export default Restaurant;
+export default RestaurantCard;

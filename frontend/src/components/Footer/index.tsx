@@ -58,11 +58,11 @@ const Footer = ({ className }: IFooter) => {
                     </div>
                 </div>
                 {services.map((services) => (
-                    <div className="services">
+                    <div className="services" key={services.heading}>
                         <h4 className="services-heading">{services.heading}</h4>
                         <ul className="services-list">
                             {services.items.map((item) => (
-                                <li>
+                                <li key={item.label}>
                                     <NavLink to={item.path}>
                                         {item.label}
                                     </NavLink>
