@@ -11,7 +11,7 @@ import responseFormat from '../utils/responseFormat.js';
     @access PUBLIC
 */
 const registerUser = expressAsyncHandler(async (req, res) => {
-    const { email, password, name } = req.body;
+    const { email, password, name, image } = req.body;
     if (!email || !password || !name) {
         res.status(StatusCodes.BAD_REQUEST).json(
             responseFormat(
@@ -42,6 +42,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     const id = uuidv4();
 
     const user = await User.create({
+        image,
         id,
         email,
         password: hashedPassword,
@@ -54,6 +55,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
                 true,
                 {},
                 {
+                    image,
                     id,
                     email,
                     name,

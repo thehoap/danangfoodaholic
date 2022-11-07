@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -7,8 +9,7 @@ import * as ERRORS from 'constants/errors';
 import Input from 'components/Input';
 import { Button, Form, Typography } from 'antd';
 import { useLoginMutation } from 'services/authAPI';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { PATH } from 'constants/path';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -47,12 +48,12 @@ const Login = () => {
     });
     return (
         <StyledLogin>
-            <p>Trang review ĐÀ NẴNG</p>
             <Form
                 layout="vertical"
                 initialValues={{ remember: true }}
                 onFinish={formik.handleSubmit}
             >
+                <p>Trang review ĐÀ NẴNG</p>
                 <Input
                     label="Email"
                     name="email"
@@ -62,7 +63,7 @@ const Login = () => {
                 />
 
                 <Input
-                    label="Password"
+                    label="Mật khẩu"
                     formik={formik}
                     name="password"
                     type="password"
@@ -75,6 +76,10 @@ const Login = () => {
                 <Button type="primary" htmlType="submit" loading={isLoading}>
                     Đăng nhập
                 </Button>
+                <Typography.Text type="warning">
+                    Bạn chưa có tài khoản?
+                    <NavLink to={PATH.REGISTER.path}> Đăng ký ngay.</NavLink>
+                </Typography.Text>
             </Form>
         </StyledLogin>
     );

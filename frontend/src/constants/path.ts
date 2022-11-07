@@ -5,6 +5,9 @@ export const PATH = {
     LOGIN: {
         path: '/login',
     },
+    REGISTER: {
+        path: '/register',
+    },
     RESTAURANTS: {
         path: '/restaurants',
     },

@@ -3,7 +3,6 @@ import { Dropdown, Menu } from 'antd';
 
 import { useLazyGetProfileQuery } from 'services/profileAPI';
 import { StyledHeader } from './styles';
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import { ArrowDown } from 'assets/icons';
@@ -11,6 +10,7 @@ import { IMAGE } from 'constants/data';
 import { useDispatch } from 'react-redux';
 import { updateProfile } from 'redux/slices/profileSlice';
 import { useAppSelector } from 'redux/hooks';
+import Logo from 'components/Logo';
 
 interface IHeader {
     className: string;
@@ -67,12 +67,7 @@ const Header = ({ className }: IHeader) => {
 
     return (
         <StyledHeader className={className}>
-            <NavLink to={PATH.HOME.path}>
-                <div className="logo">
-                    <Logo />
-                    <span className="logo-name">Đà Nẵng Đây Nè</span>
-                </div>
-            </NavLink>
+            <Logo />
             <nav className="nav">
                 {navLinks.map(({ path, label }) => (
                     <NavLink

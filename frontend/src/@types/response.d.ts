@@ -36,6 +36,14 @@ interface ILoginResponse {
     token: string;
 }
 
+interface IRegisterResponse {
+    image: string;
+    email: string;
+    id: string;
+    name: string;
+    token: string;
+}
+
 interface IProfileResponse {
     email: string;
     id: string;
