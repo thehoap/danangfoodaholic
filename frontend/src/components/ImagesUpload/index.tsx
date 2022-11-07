@@ -64,7 +64,7 @@ const ImagesUpload = () => {
             )}
             <label htmlFor="upload" className="upload">
                 <span className="upload-icon">+</span>
-                <span className="upload-text">Tai anh len</span>
+                <span className="upload-text">Tải ảnh lên</span>
             </label>
             <input
                 type="file"

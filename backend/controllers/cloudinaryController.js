@@ -1,5 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 import StatusCodes from 'http-status-codes';
+import responseFormat from '../utils/responseFormat.js';
 
 /* 
     @route POST /commons/upload-images
@@ -10,11 +11,13 @@ const uploadImages = expressAsyncHandler(async (req, res) => {
         if (!req.files)
             return res
                 .status(StatusCodes.BAD_REQUEST)
-                .json({ message: 'Chưa có ảnh.' });
+                .json(responseFormat(false, { message: 'Chưa có ảnh.' }, {}));
         const paths = req.files.map((image) => image.path);
         return res.status(StatusCodes.CREATED).json(paths);
     } catch (e) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: e });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+            responseFormat(false, { message: e }, {})
+        );
     }
 });
 
