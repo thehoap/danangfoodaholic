@@ -20,15 +20,20 @@ const getRestaurants = expressAsyncHandler(async (req, res) => {
         query.districtId = Number.parseInt(req.query.districtId.toString());
     if (req.query.type) query.type = req.query.type.toString();
     if (req.query.searchTerm) {
-        query.name = new RegExp(req.query.searchTerm, 'i');
-        query.address = new RegExp(req.query.searchTerm, 'i');
+        const regex = new RegExp(req.query.searchTerm, 'i');
+        query = {
+            $and: [
+                { $or: [{ name: regex }, { address: regex }] },
+                { ...query },
+            ],
+        };
     }
 
     const restaurants = await Restaurant.paginate(query, {
         page,
         limit,
         lean: true,
-        sort: '-createdAt',
+        // sort: '-createdAt',
     });
     res.status(StatusCodes.OK).json(responseFormat(true, {}, restaurants));
 });
@@ -39,7 +44,7 @@ const getRestaurants = expressAsyncHandler(async (req, res) => {
 */
 const getRestaurant = expressAsyncHandler(async (req, res) => {
     const id = req.params.id;
-    const restaurant = await Restaurant.findOne({ id }).lean();
+    const restaurant = await Restaurant.findById(id).lean();
     const menu = await Menu.findOne({ id: restaurant.menuId });
     restaurant.menu = menu.items;
 
