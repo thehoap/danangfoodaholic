@@ -10,5 +10,7 @@ export const PATH = {
     },
     RESTAURANTS: {
         path: '/restaurants',
+
+        DETAIL: '/restaurants/:id',
     },
 };

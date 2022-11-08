@@ -4,7 +4,6 @@ import { Card } from 'antd';
 export const StyledRestaurantCard = styled(Card)`
     display: inline-block;
     position: relative;
-    cursor: pointer;
 
     .ant-tag {
         position: absolute;
@@ -25,31 +24,49 @@ export const StyledRestaurantCard = styled(Card)`
         }
     }
 
-    .ant-card-meta-description {
-        & > p {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
+    .ant-card-cover {
+        cursor: pointer;
+    }
 
-            &:not(:last-child) {
-                margin-bottom: 4px;
-            }
-
-            svg {
-                /* width: 32px; */
-                flex-grow: 1;
-            }
-
-            span {
-                display: inline-block;
-                width: 85%;
-                line-height: 24px;
+    .ant-card-meta {
+        &-title {
+            p {
+                width: 100%;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
                 -webkit-box-orient: vertical;
+            }
+            cursor: pointer;
+        }
+
+        &-description {
+            & > p {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+
+                &:not(:last-child) {
+                    margin-bottom: 4px;
+                }
+
+                svg {
+                    /* width: 32px; */
+                    flex-grow: 1;
+                }
+
+                span {
+                    display: inline-block;
+                    width: 85%;
+                    line-height: 24px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
             }
         }
     }

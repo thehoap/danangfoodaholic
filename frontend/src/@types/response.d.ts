@@ -65,3 +65,16 @@ interface IRestaurant {
     time: string;
     priceRange: string;
 }
+
+interface IMenu {
+    currentPrice: string;
+    id: string;
+    image: string;
+    name: string;
+    originalPrice: string;
+    _id: string;
+}
+
+interface IRestaurantDetail extends IRestaurant {
+    menu: IMenu[];
+}

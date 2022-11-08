@@ -6,6 +6,7 @@ import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Restaurants from 'pages/Restaurants';
 import Register from 'pages/Register';
+import RestaurantDetail from 'pages/RestaurantDetail';
 
 const Routers = () => {
     return (
@@ -16,6 +17,10 @@ const Routers = () => {
                     <Route
                         path={PATH.RESTAURANTS.path}
                         element={<Restaurants />}
+                    />
+                    <Route
+                        path={PATH.RESTAURANTS.DETAIL}
+                        element={<RestaurantDetail />}
                     />
                 </Route>
                 <Route path={PATH.LOGIN.path} element={<Login />} />

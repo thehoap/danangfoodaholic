@@ -14,7 +14,10 @@ export const restaurantAPI = createApi({
                 params,
             }),
         }),
-        getRestaurant: builder.query<IResponseFormat<IRestaurant>, unknown>({
+        getRestaurant: builder.query<
+            IResponseFormat<IRestaurantDetail>,
+            string
+        >({
             query: (id: string) => ({
                 url: `/restaurants/${id}`,
             }),
