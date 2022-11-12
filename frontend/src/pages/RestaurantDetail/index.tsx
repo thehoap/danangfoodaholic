@@ -1,4 +1,5 @@
 import { Tabs } from 'antd';
+import Map from 'components/Map';
 import MainLayout from 'layouts/MainLayout';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -28,6 +29,10 @@ const RestaurantDetail = () => {
             time: '',
             priceRange: '',
             menu: [],
+            coordinates: {
+                lat: -1,
+                long: -1,
+            },
         }
     );
     const { name, image } = restaurantDetail;
@@ -51,6 +56,7 @@ const RestaurantDetail = () => {
                     <CreatePost />
                 </Tabs.TabPane>
             </Tabs>
+            <Map restaurants={[restaurantDetail]} isDetailPage={true} />
         </MainLayout>
     );
 };

@@ -13,7 +13,7 @@ export const IMAGE = {
         'https://res.cloudinary.com/duuxjqkla/image/upload/v1667724572/review/placeholder-image_dnr9cw.png',
 };
 
-export const PAGINATION = { PAGE_SIZE: 20 };
+export const PAGINATION = { PAGE_SIZE: 20, ALL: 200 };
 
 export const districts = [
     { id: 490, label: 'Quận Liên Chiểu', value: 'quan-lien-chieu' },

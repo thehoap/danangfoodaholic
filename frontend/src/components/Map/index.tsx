@@ -1,52 +1,162 @@
-import Map, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Card } from 'antd';
+
 import markerIcon from 'assets/images/marker-icon.webp';
-import { useState } from 'react';
+import position from 'assets/images/position.webp';
 
-const MapGL = () => {
-    const [showPopup, setShowPopup] = useState<boolean>(true);
+interface IMap {
+    restaurants?: IRestaurant[];
+    isDetailPage?: boolean;
+}
 
-    const mapStyle = 'mapbox://styles/mapbox/streets-v9';
-    const latitude = 16.0663227;
-    const longitude = 108.2055386;
-    const markerSize = 50;
+const mapStyle = 'mapbox://styles/mapbox/streets-v9';
+const markerSize = 30;
 
-    const togglePopup = (e: any) => {
+const Map = ({ restaurants, isDetailPage }: IMap) => {
+    // Get user's location at the moment
+    const [currentLocation, setCurrentLocation] = useState<ICoordinates>(() => {
+        const coordinates: ICoordinates = { lat: 0, long: 0 };
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                coordinates.lat = position.coords.latitude;
+                coordinates.long = position.coords.longitude;
+            },
+            (err) => console.log(err)
+        );
+        return coordinates;
+    });
+
+    /* 
+        Map's center is user's location if user is at home page. 
+        If user is at restaurant detail page, it will be the restaurant's location.
+    */
+    const initialCoordinate: ICoordinates = useMemo(() => {
+        if (restaurants && isDetailPage) {
+            return {
+                lat: Number(restaurants[0].coordinates.lat),
+                long: Number(restaurants[0].coordinates.long),
+            };
+        }
+        return currentLocation;
+    }, [restaurants, currentLocation]);
+
+    const [showPopups, setShowPopups] = useState<boolean[]>([]);
+    const [showPopupUser, setShowPopupUser] = useState<boolean>(true);
+
+    const togglePopup = (
+        e: MouseEventType<HTMLImageElement>,
+        index: number
+    ) => {
         e.stopPropagation();
-        setShowPopup((prev) => !prev);
+        setShowPopups((popups) =>
+            popups.map((popup, i) => {
+                if (i === index) return !popup;
+                return false;
+            })
+        );
     };
 
-    return (
-        <Map
+    useEffect(() => {
+        if (restaurants) {
+            setShowPopups(Array(restaurants?.length).fill(false));
+        }
+    }, [restaurants]);
+
+    return currentLocation &&
+        currentLocation.lat > 0 &&
+        currentLocation.long > 0 ? (
+        <ReactMapGL
             initialViewState={{
-                latitude,
-                longitude,
+                latitude: initialCoordinate.lat,
+                longitude: initialCoordinate.long,
                 zoom: 16,
             }}
             style={{ width: 'calc(100vw-200px)', height: '1000px' }}
             mapStyle={mapStyle}
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         >
-            <Marker longitude={longitude} latitude={latitude} anchor="bottom">
+            <Marker
+                longitude={currentLocation.long}
+                latitude={currentLocation.lat}
+                anchor="bottom"
+            >
                 <img
-                    src={markerIcon}
-                    alt="marker icon"
+                    src={position}
+                    alt="Vị trí của bạn"
                     width={markerSize}
                     height={markerSize}
-                    onClick={togglePopup}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setShowPopupUser((vis) => !vis);
+                    }}
                 />
             </Marker>
-            {showPopup && (
+            {showPopupUser && (
                 <Popup
-                    longitude={longitude}
-                    latitude={latitude}
+                    longitude={currentLocation.long}
+                    latitude={currentLocation.lat}
                     anchor="top"
-                    onClose={togglePopup}
+                    closeButton={false}
                 >
-                    You are here
+                    Bạn đang ở đây.
                 </Popup>
             )}
-        </Map>
+
+            {restaurants?.map((restaurant: IRestaurant, index: number) => {
+                const {
+                    id,
+                    coordinates: { lat, long },
+                    name,
+                    address,
+                    image,
+                } = restaurant;
+                return (
+                    <React.Fragment key={id}>
+                        <Marker longitude={long} latitude={lat} anchor="bottom">
+                            <img
+                                src={markerIcon}
+                                alt={name}
+                                width={markerSize}
+                                height={markerSize}
+                                onClick={(e) => togglePopup(e, index)}
+                            />
+                        </Marker>
+                        {showPopups[index] && (
+                            <Popup
+                                // maxWidth="fit-content"
+                                longitude={long || 0}
+                                latitude={lat || 0}
+                                anchor="top"
+                                closeButton={false}
+                            >
+                                <Card
+                                    cover={
+                                        <img
+                                            src={image}
+                                            alt={name}
+                                            className="restaurant-image"
+                                            // onClick={navigateToDetail}
+                                        />
+                                    }
+                                >
+                                    <Card.Meta
+                                        title={name}
+                                        description={<p>{address}</p>}
+                                    />
+                                </Card>
+                                {/* <img src={image} alt="" />
+                                {name} */}
+                                {/* <RestaurantCard restaurant={restaurant} /> */}
+                            </Popup>
+                        )}
+                    </React.Fragment>
+                );
+            })}
+        </ReactMapGL>
+    ) : (
+        <></>
     );
 };
 
-export default MapGL;
+export default Map;

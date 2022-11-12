@@ -64,6 +64,7 @@ interface IRestaurant {
     menuId: string;
     time: string;
     priceRange: string;
+    coordinates: ICoordinates;
 }
 
 interface IMenu {

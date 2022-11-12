@@ -18,3 +18,8 @@ interface IOption {
     value: Key;
     label: Key;
 }
+
+interface ICoordinates {
+    lat: number;
+    long: number;
+}
