@@ -3,7 +3,7 @@ import FormGroup from 'components/FormGroup';
 
 interface ISelect extends SelectProps {
     label?: string;
-    options: IOption[];
+    options?: IOption[];
     name: string;
     formik: any;
     allowClear?: boolean;
@@ -28,7 +28,7 @@ const Select = ({
                 onChange={handleChange}
                 allowClear={allowClear}
             >
-                {options.map((option: IOption) => (
+                {options?.map((option: IOption) => (
                     <AntSelect.Option key={option.id} value={option.value}>
                         {option.label}
                     </AntSelect.Option>

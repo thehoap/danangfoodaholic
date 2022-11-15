@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react';
 import { StyledImagesUpload } from './styles';
 import { v4 as uuidv4 } from 'uuid';
 
-const ImagesUpload = () => {
-    const [images, setImages] = useState<FileList | null>(null);
+interface IImagesUpload {
+    setImages: SetStateType<FormData | undefined>;
+}
+
+const ImagesUpload = ({ setImages }: IImagesUpload) => {
+    const [previewImages, setPreviewImages] = useState<FileList | null>(null);
+    const formdata = new FormData();
 
     const handlePreviewImages = (e: ChangeEventType<HTMLInputElement>) => {
-        setImages((current) => {
+        setPreviewImages((current) => {
             const choosen = e.target.files;
             const addition = {};
             //@ts-ignore
@@ -16,7 +21,16 @@ const ImagesUpload = () => {
                 //@ts-ignore
                 addition[id] = value;
             }
-            return current ? { ...current, ...addition } : choosen;
+            const result = current ? { ...current, ...addition } : choosen;
+
+            //@ts-ignore
+            Object.keys(result).forEach((id) => {
+                //@ts-ignore
+                formdata.append('images', result[id]);
+                setImages(formdata);
+            });
+
+            return result;
         });
     };
 
@@ -26,7 +40,7 @@ const ImagesUpload = () => {
 
     const handleDelete = (id: string) => () => {
         //@ts-ignore
-        setImages((current) => {
+        setPreviewImages((current) => {
             const rest = {};
             //@ts-ignore
             for (let [key, value] of Object.entries(current)) {
@@ -42,12 +56,16 @@ const ImagesUpload = () => {
 
     return (
         <StyledImagesUpload>
-            {images && Object.keys(images).length > 0 ? (
-                Object.keys(images).map((id) => (
+            {previewImages && Object.keys(previewImages).length > 0 ? (
+                Object.keys(previewImages).map((id) => (
                     <div className="image-preview" key={id}>
                         <img
-                            //@ts-ignore
-                            src={images[id] && URL.createObjectURL(images[id])}
+                            src={
+                                //@ts-ignore
+                                previewImages[id] &&
+                                //@ts-ignore
+                                URL.createObjectURL(previewImages[id])
+                            }
                         />
                         <div className="image-preview-overlay">
                             <div onClick={handleView(id)}>

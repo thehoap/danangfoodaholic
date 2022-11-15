@@ -34,6 +34,7 @@ const Header = ({ className }: IHeader) => {
                 image: profile?.data.image,
                 name: profile?.data.name,
                 email: profile?.data.email,
+                userId: profile?.data.id,
             };
             dispatch(updateProfile(payload));
         }
@@ -41,7 +42,8 @@ const Header = ({ className }: IHeader) => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate(PATH.LOGIN.path);
+        window.location.reload();
+        // navigate(PATH.LOGIN.path);
     };
 
     const navLinks: { path: string; label: string }[] = [

@@ -63,9 +63,9 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
         }
     }, [restaurants]);
 
-    return currentLocation &&
-        currentLocation.lat > 0 &&
-        currentLocation.long > 0 ? (
+    return initialCoordinate &&
+        initialCoordinate.lat > 0 &&
+        initialCoordinate.long > 0 ? (
         <ReactMapGL
             initialViewState={{
                 latitude: initialCoordinate.lat,
