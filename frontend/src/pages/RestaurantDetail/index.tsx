@@ -1,19 +1,24 @@
 import { Tabs } from 'antd';
 import Map from 'components/Map';
+import { TAB } from 'constants/data';
+import { PATH } from 'constants/path';
 import MainLayout from 'layouts/MainLayout';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLazyGetRestaurantQuery } from 'services/restaurantAPI';
 import CreatePost from './components/CreatePost';
 
 const RestaurantDetail = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [
         getRestaurant,
         { data: dataRestaurantDetail, isLoading, isFetching },
     ] = useLazyGetRestaurantQuery();
 
+    const defaultTab = searchParams.get('tab');
     const [restaurantDetail, setRestaurantDetail] = useState<IRestaurantDetail>(
         {
             _id: '',
@@ -48,11 +53,18 @@ const RestaurantDetail = () => {
         <MainLayout>
             <h1>{name}</h1>
             <img src={image} alt="" />
-            <Tabs defaultActiveKey="1">
-                <Tabs.TabPane tab="Bài đăng" key="1">
+            <Tabs
+                defaultActiveKey={defaultTab || TAB.VIEW}
+                onChange={(value) => {
+                    navigate({
+                        search: `?tab=${value}`,
+                    });
+                }}
+            >
+                <Tabs.TabPane tab="Bài đăng" key={TAB.VIEW}>
                     Content of Tab Pane 1
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Đăng bài" key="2">
+                <Tabs.TabPane tab="Đăng bài" key={TAB.CREATE}>
                     <CreatePost />
                 </Tabs.TabPane>
             </Tabs>

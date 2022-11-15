@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import ProtectedRoute from './ProtectedRoute';
 import { PATH } from 'constants/path';
@@ -9,6 +9,8 @@ import Register from 'pages/Register';
 import RestaurantDetail from 'pages/RestaurantDetail';
 
 const Routers = () => {
+    const token = localStorage.getItem('token');
+
     return (
         <BrowserRouter>
             <Routes>
@@ -23,7 +25,16 @@ const Routers = () => {
                         element={<RestaurantDetail />}
                     />
                 </Route>
-                <Route path={PATH.LOGIN.path} element={<Login />} />
+                <Route
+                    path={PATH.LOGIN.path}
+                    element={
+                        token ? (
+                            <Navigate to={PATH.HOME.path} replace />
+                        ) : (
+                            <Login />
+                        )
+                    }
+                />
                 <Route path={PATH.REGISTER.path} element={<Register />} />
             </Routes>
         </BrowserRouter>

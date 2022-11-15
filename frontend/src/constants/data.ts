@@ -6,11 +6,12 @@ export const COLOR = {
     LINEAR_PRIMARY:
         'linear-gradient(150deg, rgba(255,194,107,1) 0%, rgba(255,141,142,1) 100%)',
     WHITE: '#FFF',
+    PRIMARY: '#1890ff',
 };
 
 export const IMAGE = {
     PLACEHOLDER:
-        'https://res.cloudinary.com/duuxjqkla/image/upload/v1667724572/review/placeholder-image_dnr9cw.png',
+        'https://res.cloudinary.com/duuxjqkla/image/upload/v1668441306/review/placeholder-image_l5crky.png',
 };
 
 export const PAGINATION = { PAGE_SIZE: 20, ALL: 200 };
@@ -40,3 +41,8 @@ export const restaurantTypes = [
     'NHÀ HÀNG, TIỆM BÁNH',
     'SHOP ONLINE, GIAO CƠM VĂN PHÒNG',
 ];
+
+export enum TAB {
+    VIEW = 'view',
+    CREATE = 'create',
+}

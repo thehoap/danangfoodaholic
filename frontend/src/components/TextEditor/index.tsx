@@ -1,25 +1,31 @@
+import FormGroup from 'components/FormGroup';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 interface ITextEditor {
     formik: any;
     name: string;
+    label: string;
     placeholder: string;
 }
 
-const TextEditor = ({ formik, name, placeholder }: ITextEditor) => {
+const TextEditor = ({ formik, name, label, placeholder }: ITextEditor) => {
     return (
-        <ReactQuill
-            placeholder={placeholder}
-            modules={TextEditor.modules}
-            formats={TextEditor.formats}
-        />
+        <FormGroup label={label}>
+            <ReactQuill
+                placeholder={placeholder}
+                modules={TextEditor.modules}
+                formats={TextEditor.formats}
+                value={formik.values[name]}
+                onChange={(e) => formik.setFieldValue(name, e)}
+            />
+        </FormGroup>
     );
 };
 
 TextEditor.modules = {
     toolbar: [
-        [{ header: [1, 2, 3] }],
+        [{ header: 3 }],
         ['bold', 'italic', 'underline', 'blockquote'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['clean'],

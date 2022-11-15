@@ -3,7 +3,9 @@ import { PAGINATION } from 'constants/data';
 import MainLayout from 'layouts/MainLayout';
 import { useEffect, useState } from 'react';
 import { useLazyGetRestaurantsQuery } from 'services/restaurantAPI';
-import RestaurantCard from './components/RestaurantCard';
+import RestaurantCard, {
+    SkeletonRestaurantCard,
+} from './components/RestaurantCard';
 import RestaurantsFilter from './components/RestaurantsFilter';
 import { StyledRestaurants } from './styles';
 
@@ -39,12 +41,18 @@ const Restaurants = () => {
                 isLoading={isLoading}
             />
             <StyledRestaurants>
-                {restaurants?.map((restaurant) => (
-                    <RestaurantCard
-                        key={restaurant.id}
-                        restaurant={restaurant}
-                    />
-                ))}
+                {isLoading
+                    ? Array(PAGINATION.PAGE_SIZE)
+                          .fill(0)
+                          .map((item, index) => (
+                              <SkeletonRestaurantCard key={index} />
+                          ))
+                    : restaurants?.map((restaurant) => (
+                          <RestaurantCard
+                              key={restaurant.id}
+                              restaurant={restaurant}
+                          />
+                      ))}
             </StyledRestaurants>
             <Pagination
                 current={currentPage}

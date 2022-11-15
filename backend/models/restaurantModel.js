@@ -14,6 +14,10 @@ const restaurantSchema = mongoose.Schema(
         menuId: { type: String },
         time: { type: String },
         priceRange: { type: String },
+        coordinate: {
+            lat: { type: String },
+            long: { type: String },
+        },
     },
     {
         timestamps: true,

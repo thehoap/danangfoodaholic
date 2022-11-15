@@ -70,6 +70,28 @@ export const StyledRestaurantCard = styled(Card)`
             }
         }
     }
+
+    .ant-card-actions {
+        & li {
+            margin: 0;
+        }
+
+        & span {
+            line-height: 0;
+        }
+
+        & svg {
+            padding: 4px 0;
+            height: 32px;
+            width: 100%;
+        }
+    }
+
+    .ant-skeleton {
+        .ant-skeleton-image {
+            width: 100%;
+        }
+    }
 `;
 
 export const StyledRestaurantFilter = styled.div``;

@@ -7,7 +7,13 @@ import {
 import { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
 import profile from 'redux/slices/profileSlice';
-import { authAPI, commonAPI, profileAPI, restaurantAPI } from 'services';
+import {
+    authAPI,
+    commonAPI,
+    profileAPI,
+    restaurantAPI,
+    postAPI,
+} from 'services';
 
 const reducer = combineReducers({
     profile,
@@ -16,6 +22,7 @@ const reducer = combineReducers({
     [profileAPI.reducerPath]: profileAPI.reducer,
     [restaurantAPI.reducerPath]: restaurantAPI.reducer,
     [commonAPI.reducerPath]: commonAPI.reducer,
+    [postAPI.reducerPath]: postAPI.reducer,
 });
 
 const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
@@ -23,6 +30,7 @@ const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
         .concat(authAPI.middleware)
         .concat(profileAPI.middleware)
         .concat(restaurantAPI.middleware)
+        .concat(postAPI.middleware)
         .concat(commonAPI.middleware);
 
 export const store = configureStore({

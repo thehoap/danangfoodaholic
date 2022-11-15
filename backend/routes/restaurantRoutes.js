@@ -3,11 +3,10 @@ import {
     getRestaurants,
     getRestaurant,
 } from '../controllers/restaurantController.js';
-import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/', protect, getRestaurants);
-router.get('/:id', protect, getRestaurant);
+router.get('/', getRestaurants);
+router.get('/:id', getRestaurant);
 
 export default router;

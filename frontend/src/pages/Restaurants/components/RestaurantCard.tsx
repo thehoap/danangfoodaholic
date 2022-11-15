@@ -1,6 +1,7 @@
-import { Card, Tag } from 'antd';
+import { Card, Skeleton, Tag } from 'antd';
 
 import { Post, Location, Timer, View } from 'assets/icons';
+import { TAB } from 'constants/data';
 import { PATH } from 'constants/path';
 import { useNavigate } from 'react-router-dom';
 import { StyledRestaurantCard } from './styles';
@@ -27,9 +28,17 @@ const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
         </>
     );
 
-    const navigateToDetail = () => {
-        navigate(`${PATH.RESTAURANTS.path}/${id}`);
+    const navigateToDetail = (tab?: string) => () => {
+        navigate({
+            pathname: `${PATH.RESTAURANTS.path}/${id}`,
+            search: `?tab=${tab || TAB.VIEW}`,
+        });
     };
+
+    const actions = [
+        <View title="Xem bài đăng" onClick={navigateToDetail(TAB.VIEW)} />,
+        <Post title="Tạo bài đăng" onClick={navigateToDetail(TAB.CREATE)} />,
+    ];
 
     return (
         <StyledRestaurantCard
@@ -38,20 +47,39 @@ const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
                     src={image}
                     alt={name}
                     className="restaurant-image"
-                    onClick={navigateToDetail}
+                    onClick={navigateToDetail()}
                 />
             }
-            // actions={[<View />, <Post />]}
+            actions={actions}
         >
             <Card.Meta
                 title={
-                    <p onClick={navigateToDetail} title={name}>
+                    <p onClick={navigateToDetail()} title={name}>
                         {name}
                     </p>
                 }
                 description={description}
             />
             <Tag>{type || 'N/A'}</Tag>
+        </StyledRestaurantCard>
+    );
+};
+
+export const SkeletonRestaurantCard = () => {
+    const actions = [
+        <View title="Xem bài đăng" />,
+        <Post title="Tạo bài đăng" />,
+    ];
+    return (
+        <StyledRestaurantCard
+            cover={Array(6)
+                .fill(0)
+                .map((item, index) => (
+                    <Skeleton.Input block active key={index} />
+                ))}
+            actions={actions}
+        >
+            <Skeleton active paragraph={{ rows: 4 }} title={false} />
         </StyledRestaurantCard>
     );
 };
