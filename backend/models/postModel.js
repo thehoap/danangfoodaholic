@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
 const postSchema = mongoose.Schema(
     {
         restaurantId: { type: String, require: true },
-        userId: { type: String, require: true },
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
         title: { type: String, require: true },
         compliment: { type: String, require: true },
         need_improve: { type: String, require: true },
@@ -27,6 +28,8 @@ const postSchema = mongoose.Schema(
         id: true,
     }
 );
+
+postSchema.plugin(paginate);
 
 const Post = mongoose.model('Post', postSchema);
 

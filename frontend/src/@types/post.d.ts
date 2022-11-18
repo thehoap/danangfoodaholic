@@ -1,18 +1,7 @@
-interface ILogin {
-    email: string;
-    password: string;
-}
-
-interface IRegister {
-    image: string;
-    name: string;
-    email: string;
-    password: string;
-}
-
 interface IPost {
+    id: string;
     restaurantId: string;
-    userId: string;
+    user: IUser;
     title: string;
     compliment: string;
     need_improve: string;
@@ -30,4 +19,10 @@ interface IPost {
     };
     images: string[];
     hashtags: string[];
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+interface IPostParams extends ICommonParams {
+    restaurantId?: string;
 }

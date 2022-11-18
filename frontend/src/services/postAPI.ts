@@ -5,6 +5,15 @@ export const postAPI = createApi({
     reducerPath: 'postAPI',
     baseQuery: baseAuthQuery,
     endpoints: (builder) => ({
+        getPosts: builder.query<
+            IResponseFormat<IPagination<IPost>>,
+            IPostParams
+        >({
+            query: (params) => ({
+                url: '/posts',
+                params,
+            }),
+        }),
         createPost: builder.mutation({
             query: (body: IPost) => ({
                 url: 'posts/',
@@ -15,4 +24,4 @@ export const postAPI = createApi({
     }),
 });
 
-export const { useCreatePostMutation } = postAPI;
+export const { useLazyGetPostsQuery, useCreatePostMutation } = postAPI;

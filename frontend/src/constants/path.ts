@@ -13,4 +13,9 @@ export const PATH = {
 
         DETAIL: '/restaurants/:id',
     },
+    POSTS: {
+        path: '/posts',
+
+        DETAIL: '/posts/:id',
+    },
 };

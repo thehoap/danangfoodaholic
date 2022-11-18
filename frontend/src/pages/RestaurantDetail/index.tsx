@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import Map from 'components/Map';
+import Posts from 'components/Posts';
 import { TAB } from 'constants/data';
-import { PATH } from 'constants/path';
 import MainLayout from 'layouts/MainLayout';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -62,13 +62,13 @@ const RestaurantDetail = () => {
                 }}
             >
                 <Tabs.TabPane tab="Bài đăng" key={TAB.VIEW}>
-                    Content of Tab Pane 1
+                    <Posts restaurantId={id} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Đăng bài" key={TAB.CREATE}>
                     <CreatePost />
                 </Tabs.TabPane>
             </Tabs>
-            <Map restaurants={[restaurantDetail]} isDetailPage={true} />
+            {/* <Map restaurants={[restaurantDetail]} isDetailPage={true} /> */}
         </MainLayout>
     );
 };

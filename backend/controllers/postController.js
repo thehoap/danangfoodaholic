@@ -8,7 +8,32 @@ import responseFormat from '../utils/responseFormat.js';
     @access PRIVATE
 */
 const getPosts = async (req, res) => {
-    res.json({ message: 'get post' });
+    let page = 1,
+        limit = 10,
+        query = {};
+
+    if (req.query.page) page = req.query.page.toString();
+    if (req.query.limit) limit = req.query.limit.toString();
+    if (req.query.restaurantId)
+        query.restaurantId = req.query.restaurantId.toString();
+    if (req.query.hashtag) {
+        query = {
+            $and: [
+                { hashtags: { $all: [req.query.hashtag.toString()] } },
+                { ...query },
+            ],
+        };
+    }
+
+    const posts = await Post.paginate(query, {
+        page,
+        limit,
+        lean: true,
+        sort: { createdAt: 'desc' },
+        populate: 'user',
+    });
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, posts));
 };
 /* 
     @route POST /posts

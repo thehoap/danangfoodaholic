@@ -7,6 +7,7 @@ import Login from 'pages/Login';
 import Restaurants from 'pages/Restaurants';
 import Register from 'pages/Register';
 import RestaurantDetail from 'pages/RestaurantDetail';
+import Posts from 'pages/Posts';
 
 const Routers = () => {
     const token = localStorage.getItem('token');
@@ -24,6 +25,8 @@ const Routers = () => {
                         path={PATH.RESTAURANTS.DETAIL}
                         element={<RestaurantDetail />}
                     />
+                    <Route path={PATH.POSTS.path} element={<Posts />} />
+                    <Route path={PATH.POSTS.DETAIL} element={<Posts />} />
                 </Route>
                 <Route
                     path={PATH.LOGIN.path}

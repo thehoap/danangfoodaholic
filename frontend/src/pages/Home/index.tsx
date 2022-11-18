@@ -21,11 +21,7 @@ const Home = () => {
         setRestaurants(data?.data.docs);
     }, [isFetching]);
 
-    return (
-        <MainLayout>
-            <Map restaurants={restaurants} />
-        </MainLayout>
-    );
+    return <MainLayout>{/* <Map restaurants={restaurants} /> */}</MainLayout>;
 };
 
 export default Home;

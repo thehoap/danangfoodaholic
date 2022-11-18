@@ -31,10 +31,10 @@ const Header = ({ className }: IHeader) => {
     useEffect(() => {
         if (isSuccess) {
             const payload = {
-                image: profile?.data.image,
-                name: profile?.data.name,
-                email: profile?.data.email,
-                userId: profile?.data.id,
+                image: profile?.data?.image,
+                name: profile?.data?.name,
+                email: profile?.data?.email,
+                userId: profile?.data?.id,
             };
             dispatch(updateProfile(payload));
         }
@@ -49,7 +49,7 @@ const Header = ({ className }: IHeader) => {
     const navLinks: { path: string; label: string }[] = [
         { path: PATH.HOME.path, label: 'Trang chủ' },
         { path: PATH.RESTAURANTS.path, label: 'Quán ăn' },
-        { path: '/favorite', label: 'Yêu thích' },
+        { path: PATH.POSTS.path, label: 'Bài viết' },
     ];
 
     const menu = (

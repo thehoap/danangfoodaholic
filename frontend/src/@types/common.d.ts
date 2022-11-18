@@ -7,12 +7,6 @@ interface ICommonParams {
     sortDirection?: 'asc' | 'desc' | '';
 }
 
-interface IRestaurantFilter {
-    districtId: number | undefined;
-    type: string | undefined;
-    searchTerm: string | undefined;
-}
-
 interface IOption {
     id: Key;
     value: Key;

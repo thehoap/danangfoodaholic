@@ -4,7 +4,7 @@ import responseFormat from '../utils/responseFormat.js';
 
 const schemas = {
     createPost: Joi.object({
-        userId: Joi.string().required(),
+        user: Joi.string().required(),
         title: Joi.string().required(),
         compliment: Joi.string().required(),
         need_improve: Joi.string().required(),

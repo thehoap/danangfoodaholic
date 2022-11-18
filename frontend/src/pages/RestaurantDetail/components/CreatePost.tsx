@@ -31,8 +31,9 @@ const CreatePost = () => {
     const [images, setImages] = useState<FormData>();
 
     const initialValues = {
+        id: '',
         restaurantId: restaurantId || '',
-        userId: userId || '',
+        user: userId || '',
         title: '',
         compliment: '',
         need_improve: '',
