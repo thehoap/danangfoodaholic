@@ -12,7 +12,12 @@ export const commonAPI = createApi({
                 body,
             }),
         }),
+        getTrending: builder.query({
+            query: () => ({
+                url: 'commons/treding',
+            }),
+        }),
     }),
 });
 
-export const { useUploadImagesMutation } = commonAPI;
+export const { useUploadImagesMutation, useLazyGetTrendingQuery } = commonAPI;

@@ -24,7 +24,25 @@ export const postAPI = createApi({
             }),
             invalidatesTags: ['Post'],
         }),
+        updatePost: builder.mutation({
+            query: ({
+                body,
+                id,
+            }: {
+                body: { userId: string; action: string };
+                id: string;
+            }) => ({
+                url: `posts/${id}`,
+                method: 'PUT',
+                body,
+            }),
+            invalidatesTags: ['Post'],
+        }),
     }),
 });
 
-export const { useLazyGetPostsQuery, useCreatePostMutation } = postAPI;
+export const {
+    useLazyGetPostsQuery,
+    useCreatePostMutation,
+    useUpdatePostMutation,
+} = postAPI;

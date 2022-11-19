@@ -1,10 +1,15 @@
-import expressAsyncHandler from 'express-async-handler';
 import StatusCodes from 'http-status-codes';
+import ld from 'lodash';
+
+import expressAsyncHandler from 'express-async-handler';
+import Post from '../models/postModel.js';
+import Restaurant from '../models/restaurantModel.js';
 import responseFormat from '../utils/responseFormat.js';
 
+const { unionBy } = ld;
 /* 
     @route POST /commons/upload-images
-    @access PRIVATE
+    @access PUBLIC
 */
 const uploadImages = expressAsyncHandler(async (req, res) => {
     try {
@@ -29,4 +34,31 @@ const uploadImages = expressAsyncHandler(async (req, res) => {
 //     }
 // });
 
-export { uploadImages };
+/* 
+    @route GET /commons/trending
+    @access PRIVATE
+*/
+const getTrending = async (req, res) => {
+    let page = 1,
+        limit = 10,
+        query = {};
+
+    const restaurants = await Restaurant.find({ published: true }, null, {
+        limit,
+    });
+
+    const posts = await Post.find({ published: true }, null, {
+        limit,
+    }).populate('user');
+
+    const hashtags = posts.reduce((prev, current) => {
+        const result = unionBy(prev, current.hashtags);
+        return result;
+    }, []);
+
+    res.status(StatusCodes.OK).json(
+        responseFormat(true, {}, { restaurants, posts, hashtags })
+    );
+};
+
+export { uploadImages, getTrending };

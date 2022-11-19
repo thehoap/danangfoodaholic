@@ -1,4 +1,5 @@
 import StatusCodes from 'http-status-codes';
+import Comment from '../models/commentModel.js';
 
 import Post from '../models/postModel.js';
 import responseFormat from '../utils/responseFormat.js';
@@ -55,7 +56,24 @@ const createPost = async (req, res) => {
     @access PRIVATE
 */
 const updatePost = async (req, res) => {
-    res.json({ message: 'update post' });
+    const id = req.params.id;
+    const userId = req.body.userId;
+
+    const post = await Post.findById(id);
+
+    if (req.body.action) {
+        const action = req.body.action;
+        const index = post[action].indexOf(userId);
+        if (index > -1) {
+            post[action].splice(index, 1);
+        } else {
+            post[action].push(userId);
+        }
+    }
+
+    await Post.updateOne({ _id: id }, post);
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, post));
 };
 /* 
     @route DELETE /posts

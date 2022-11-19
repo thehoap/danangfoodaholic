@@ -1,7 +1,7 @@
 import express from 'express';
 import restaurantRouter from './restaurantRoutes.js';
 import userRouter from './userRoutes.js';
-import commonRouter from './cloudinaryRoutes.js';
+import commonRouter from './commonRoutes.js';
 import postRouter from './postRoutes.js';
 import { protect } from '../middleware/authMiddleware.js';
 

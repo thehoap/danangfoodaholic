@@ -47,6 +47,8 @@ const CreatePost = () => {
         total_bill: 0,
         images: [],
         hashtags: [],
+        comments: [],
+        likes: [],
     };
     const validationSchema = yup.object().shape({});
 

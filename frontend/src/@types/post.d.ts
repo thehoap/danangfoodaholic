@@ -19,10 +19,21 @@ interface IPost {
     };
     images: string[];
     hashtags: string[];
+    comments: string | IComment[];
+    likes: string[];
     createdAt?: string;
     updatedAt?: string;
 }
 
 interface IPostParams extends ICommonParams {
     restaurantId?: string;
+}
+
+interface IComment {
+    user: {
+        name: string;
+        image: string;
+    };
+    content: string;
+    createAt: Date;
 }

@@ -22,6 +22,8 @@ const postSchema = mongoose.Schema(
         },
         images: { type: [String], require: true },
         hashtags: { type: [String], require: true },
+        comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
+        likes: { type: [String], require: true },
     },
     {
         timestamps: true,

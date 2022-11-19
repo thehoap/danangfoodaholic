@@ -1,6 +1,9 @@
 import { Tag } from 'antd';
 import { Comment, Like } from 'assets/icons';
 import Profile from 'components/Profile';
+import { useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
+import { useUpdatePostMutation } from 'services/postAPI';
 import { timestampToDate } from 'utils/dateFormat';
 import { StyledPostDetail } from './styles';
 
@@ -11,7 +14,12 @@ interface IPostDetail {
 const dateFormat = 'DD/MM/YYYY hh:mm';
 
 const PostDetail = ({ post }: IPostDetail) => {
+    const { userId } = useAppSelector((state) => state.profile);
+
+    const [updatePost] = useUpdatePostMutation();
+
     const {
+        id,
         title,
         compliment,
         need_improve,
@@ -19,9 +27,21 @@ const PostDetail = ({ post }: IPostDetail) => {
         images,
         hashtags,
         createdAt,
+        likes,
     } = post;
-
     const postTime = timestampToDate(dateFormat, createdAt);
+
+    const [isLiked, setIsLiked] = useState<boolean>(() => {
+        const isLiked = likes?.includes(userId);
+        return isLiked;
+    });
+
+    const handleLike = () => {
+        setIsLiked((liked) => !liked);
+        updatePost({ body: { userId, action: 'likes' }, id });
+    };
+
+    const handleComment = () => {};
 
     return (
         <StyledPostDetail>
@@ -47,8 +67,11 @@ const PostDetail = ({ post }: IPostDetail) => {
                 <Tag>{hashtag}</Tag>
             ))}
             <div className="interaction">
-                <Like />
-                <Comment />
+                <Like
+                    onClick={handleLike}
+                    className={`like-icon ${isLiked ? 'active' : ''}`}
+                />
+                <Comment onClick={handleComment} />
             </div>
         </StyledPostDetail>
     );
