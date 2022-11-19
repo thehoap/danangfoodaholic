@@ -4,6 +4,7 @@ import { baseAuthQuery } from './baseQuery';
 export const postAPI = createApi({
     reducerPath: 'postAPI',
     baseQuery: baseAuthQuery,
+    tagTypes: ['Post'],
     endpoints: (builder) => ({
         getPosts: builder.query<
             IResponseFormat<IPagination<IPost>>,
@@ -13,6 +14,7 @@ export const postAPI = createApi({
                 url: '/posts',
                 params,
             }),
+            providesTags: ['Post'],
         }),
         createPost: builder.mutation({
             query: (body: IPost) => ({
@@ -20,6 +22,7 @@ export const postAPI = createApi({
                 method: 'POST',
                 body,
             }),
+            invalidatesTags: ['Post'],
         }),
     }),
 });

@@ -25,6 +25,7 @@ const Select = ({
         <FormGroup label={label}>
             <AntSelect
                 {...props}
+                value={formik.values[name]}
                 onChange={handleChange}
                 allowClear={allowClear}
             >

@@ -1,4 +1,5 @@
 import { Tag } from 'antd';
+import { Comment, Like } from 'assets/icons';
 import Profile from 'components/Profile';
 import { timestampToDate } from 'utils/dateFormat';
 import { StyledPostDetail } from './styles';
@@ -45,6 +46,10 @@ const PostDetail = ({ post }: IPostDetail) => {
             {hashtags.map((hashtag) => (
                 <Tag>{hashtag}</Tag>
             ))}
+            <div className="interaction">
+                <Like />
+                <Comment />
+            </div>
         </StyledPostDetail>
     );
 };

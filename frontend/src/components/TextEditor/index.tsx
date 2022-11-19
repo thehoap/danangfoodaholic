@@ -25,7 +25,6 @@ const TextEditor = ({ formik, name, label, placeholder }: ITextEditor) => {
 
 TextEditor.modules = {
     toolbar: [
-        [{ header: 3 }],
         ['bold', 'italic', 'underline', 'blockquote'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['clean'],

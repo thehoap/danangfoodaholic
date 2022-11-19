@@ -89,7 +89,9 @@ const CreatePost = () => {
                         console.log(error.data.meta.message);
                     });
             }
-            createPost(postValue);
+            createPost(postValue).then(() => {
+                formik.setValues(initialValues);
+            });
         },
     });
 
