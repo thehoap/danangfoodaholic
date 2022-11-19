@@ -30,7 +30,7 @@ const Posts = ({ restaurantId, hashtag }: IPosts) => {
     return (
         <StyledPosts>
             {posts?.map((post) => (
-                <PostDetail post={post} />
+                <PostDetail post={post} key={post.id} />
             ))}
         </StyledPosts>
     );

@@ -60,14 +60,19 @@ const RestaurantDetail = () => {
                         search: `?tab=${value}`,
                     });
                 }}
-            >
-                <Tabs.TabPane tab="Bài đăng" key={TAB.VIEW}>
-                    <Posts restaurantId={id} />
-                </Tabs.TabPane>
-                <Tabs.TabPane tab="Đăng bài" key={TAB.CREATE}>
-                    <CreatePost />
-                </Tabs.TabPane>
-            </Tabs>
+                items={[
+                    {
+                        label: 'Bài đăng',
+                        key: TAB.VIEW,
+                        children: <Posts restaurantId={id} />,
+                    },
+                    {
+                        label: 'Đăng bài',
+                        key: TAB.CREATE,
+                        children: <CreatePost />,
+                    },
+                ]}
+            />
             {/* <Map restaurants={[restaurantDetail]} isDetailPage={true} /> */}
         </MainLayout>
     );

@@ -1,5 +1,5 @@
-import { Tag } from 'antd';
 import { Comment, Like } from 'assets/icons';
+import Hashtag from 'components/Hashtag';
 import Profile from 'components/Profile';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
@@ -51,7 +51,7 @@ const PostDetail = ({ post }: IPostDetail) => {
             <span dangerouslySetInnerHTML={{ __html: compliment }}></span>
             <h2 className="compliment">Những điều cần cải thiện</h2>
             <span dangerouslySetInnerHTML={{ __html: need_improve }}></span>
-            {images.map((image) => (
+            {images.map((image, index) => (
                 <img
                     src={image}
                     alt=""
@@ -61,10 +61,11 @@ const PostDetail = ({ post }: IPostDetail) => {
                         height: '80px',
                         objectFit: 'cover',
                     }}
+                    key={index}
                 />
             ))}
-            {hashtags.map((hashtag) => (
-                <Tag>{hashtag}</Tag>
+            {hashtags.map((hashtag, index) => (
+                <Hashtag key={index}>{hashtag}</Hashtag>
             ))}
             <div className="interaction">
                 <Like
