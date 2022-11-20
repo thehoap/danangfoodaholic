@@ -31,10 +31,9 @@ interface IPostParams extends ICommonParams {
 }
 
 interface IComment {
-    user: {
-        name: string;
-        image: string;
-    };
+    postId: string;
+    user: { id: string; name: string; image: string };
     content: string;
-    createAt: Date;
+    createdAt?: string;
+    _id?: string;
 }

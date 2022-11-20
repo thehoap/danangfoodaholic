@@ -1,6 +1,7 @@
 import express from 'express';
 import {
     getPosts,
+    getPostDetail,
     createPost,
     deletePost,
     updatePost,
@@ -10,6 +11,7 @@ import { schemas, validate } from '../middleware/validationMiddleware.js';
 const router = express.Router();
 
 router.get('/', getPosts);
+router.get('/:id', getPostDetail);
 router.post('/', validate(schemas.createPost), createPost);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);

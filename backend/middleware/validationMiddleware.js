@@ -14,6 +14,7 @@ const schemas = {
             hygiene: Joi.number().required(),
             service: Joi.number().required(),
             price: Joi.number().required(),
+            average: Joi.number().required(),
         },
         is_recommend: Joi.boolean().required(),
         total: {

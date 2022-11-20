@@ -1,5 +1,4 @@
 import StatusCodes from 'http-status-codes';
-import Comment from '../models/commentModel.js';
 
 import Post from '../models/postModel.js';
 import responseFormat from '../utils/responseFormat.js';
@@ -35,6 +34,13 @@ const getPosts = async (req, res) => {
     });
 
     res.status(StatusCodes.OK).json(responseFormat(true, {}, posts));
+};
+/* 
+    @route GET /posts/:id
+    @access PRIVATE
+*/
+const getPostDetail = async (req, res) => {
+    res.json({ mess: 'aaaaa' });
 };
 /* 
     @route POST /posts
@@ -83,4 +89,4 @@ const deletePost = async (req, res) => {
     res.json({ message: 'delete post' });
 };
 
-export { getPosts, createPost, updatePost, deletePost };
+export { getPosts, getPostDetail, createPost, updatePost, deletePost };
