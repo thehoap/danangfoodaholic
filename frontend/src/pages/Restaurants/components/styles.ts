@@ -26,6 +26,10 @@ export const StyledRestaurantCard = styled(Card)`
 
     .ant-card-cover {
         cursor: pointer;
+
+        img {
+            width: 100%;
+        }
     }
 
     .ant-card-meta {

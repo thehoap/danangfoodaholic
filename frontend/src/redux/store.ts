@@ -13,6 +13,7 @@ import {
     profileAPI,
     restaurantAPI,
     postAPI,
+    mapAPI,
 } from 'services';
 
 const reducer = combineReducers({
@@ -23,6 +24,7 @@ const reducer = combineReducers({
     [restaurantAPI.reducerPath]: restaurantAPI.reducer,
     [commonAPI.reducerPath]: commonAPI.reducer,
     [postAPI.reducerPath]: postAPI.reducer,
+    [mapAPI.reducerPath]: mapAPI.reducer,
 });
 
 const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
@@ -31,6 +33,7 @@ const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
         .concat(profileAPI.middleware)
         .concat(restaurantAPI.middleware)
         .concat(postAPI.middleware)
+        .concat(mapAPI.middleware)
         .concat(commonAPI.middleware);
 
 export const store = configureStore({

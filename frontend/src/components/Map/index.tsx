@@ -1,9 +1,10 @@
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, LineLayer } from 'react-map-gl';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Card } from 'antd';
 
 import markerIcon from 'assets/images/marker-icon.webp';
 import position from 'assets/images/position.webp';
+import { useLazyGetDistanceQuery } from 'services/mapAPI';
 
 interface IMap {
     restaurants?: IRestaurant[];
@@ -14,9 +15,14 @@ const mapStyle = 'mapbox://styles/mapbox/streets-v9';
 const markerSize = 30;
 
 const Map = ({ restaurants, isDetailPage }: IMap) => {
+    const [getDistance] = useLazyGetDistanceQuery();
+
     // Get user's location at the moment
     const [currentLocation, setCurrentLocation] = useState<ICoordinates>(() => {
-        const coordinates: ICoordinates = { lat: 0, long: 0 };
+        const coordinates: ICoordinates = {
+            lat: 16.0663227,
+            long: 108.2055386,
+        };
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 coordinates.lat = position.coords.latitude;
@@ -43,6 +49,7 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
 
     const [showPopups, setShowPopups] = useState<boolean[]>([]);
     const [showPopupUser, setShowPopupUser] = useState<boolean>(true);
+    const [distance, setDistance] = useState<number>();
 
     const togglePopup = (
         e: MouseEventType<HTMLImageElement>,
@@ -61,7 +68,19 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
         if (restaurants) {
             setShowPopups(Array(restaurants?.length).fill(false));
         }
-    }, [restaurants]);
+        if (restaurants && isDetailPage) {
+            getDistance({
+                from: currentLocation,
+                to: restaurants[0].coordinates,
+            }).then((res: any) => {
+                console.log(res?.data);
+                const distance: number = Number(
+                    (res?.data.routes[0].distance / 1000).toFixed(2)
+                );
+                setDistance(distance);
+            });
+        }
+    }, [restaurants, currentLocation]);
 
     return initialCoordinate &&
         initialCoordinate.lat > 0 &&
@@ -99,7 +118,10 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
                     anchor="top"
                     closeButton={false}
                 >
-                    Bạn đang ở đây.
+                    Bạn đang ở đây.{' '}
+                    {isDetailPage && restaurants
+                        ? `${restaurants[0].name} cách bạn ${distance} km.`
+                        : ''}
                 </Popup>
             )}
 

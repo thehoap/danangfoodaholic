@@ -43,12 +43,9 @@ const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
     return (
         <StyledRestaurantCard
             cover={
-                <img
-                    src={image}
-                    alt={name}
-                    className="restaurant-image"
-                    onClick={navigateToDetail()}
-                />
+                <div className="restaurant-image">
+                    <img src={image} alt={name} onClick={navigateToDetail()} />
+                </div>
             }
             actions={actions}
         >
