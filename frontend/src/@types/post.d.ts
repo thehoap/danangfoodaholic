@@ -11,6 +11,7 @@ interface IPost {
         hygiene: number;
         service: number;
         price: number;
+        average: number;
     };
     is_recommend: boolean;
     total: {

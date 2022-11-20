@@ -17,6 +17,8 @@ import { useUploadImagesMutation } from 'services/commonAPI';
 import { useCreatePostMutation } from 'services/postAPI';
 import TextEditor from 'components/TextEditor';
 import { textareaConvertHTML } from 'utils/input';
+import TextArea from 'components/TextArea';
+import { getAverage } from 'utils/caculate';
 
 const CreatePost = () => {
     const { id: restaurantId } = useParams();
@@ -43,6 +45,7 @@ const CreatePost = () => {
         ratings_hygiene: 0,
         ratings_service: 0,
         ratings_price: 0,
+        ratings_average: 0,
         is_recommend: false,
         total_people: 1,
         total_bill: 0,
@@ -64,6 +67,7 @@ const CreatePost = () => {
                 ratings_hygiene,
                 ratings_service,
                 ratings_price,
+                ratings_average,
                 total_people,
                 total_bill,
                 compliment,
@@ -78,6 +82,13 @@ const CreatePost = () => {
                     hygiene: ratings_hygiene,
                     service: ratings_service,
                     price: ratings_price,
+                    average: getAverage([
+                        ratings_space,
+                        ratings_food,
+                        ratings_hygiene,
+                        ratings_service,
+                        ratings_price,
+                    ]),
                 },
                 total: {
                     people: total_people,
@@ -118,20 +129,20 @@ const CreatePost = () => {
                             value={formik.values.title}
                             onChange={formik.handleChange}
                         />
-                        <textarea
-                            // formik={formik}
+                        <TextArea
+                            formik={formik}
                             name="compliment"
                             value={formik.values.compliment}
                             onChange={formik.handleChange}
-                            // label="Bạn thích gì ở địa điểm này?"
+                            label="Bạn thích gì ở địa điểm này?"
                             placeholder="Bạn thích gì ở địa điểm này?"
                         />
-                        <textarea
-                            // formik={formik}
+                        <TextArea
+                            formik={formik}
                             name="need_improve"
                             value={formik.values.need_improve}
                             onChange={formik.handleChange}
-                            // label="Bạn muốn cải thiện điều gì?"
+                            label="Bạn muốn cải thiện điều gì?"
                             placeholder="Bạn muốn cải thiện điều gì?"
                         />
                     </Col>

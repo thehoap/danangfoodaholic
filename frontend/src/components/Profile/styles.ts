@@ -1,9 +1,10 @@
-import { flexCenter, rounded } from 'constants/css';
+import { rounded } from 'constants/css';
 import styled from 'styled-components';
 
 export const StyledProfile = styled.div`
-    ${flexCenter}
     display: inline-flex;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 12px;
 
     .profile {

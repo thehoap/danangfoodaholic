@@ -2,7 +2,7 @@ import { StyledProfile } from './styles';
 
 interface IProfile {
     image: string;
-    title: string;
+    title: any;
     description?: string;
 }
 
