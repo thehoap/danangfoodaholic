@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Comment as AntComment } from 'antd';
+import { uniqBy } from 'lodash';
 
 import { Comment, Like } from 'assets/icons';
 import Hashtag from 'components/Hashtag';
@@ -10,6 +11,7 @@ import TextArea from 'components/TextArea';
 import { useAppSelector } from 'redux/hooks';
 import {
     useCreateCommentMutation,
+    useLazyGetPostDetailQuery,
     useUpdatePostMutation,
 } from 'services/postAPI';
 import { timestampToDate } from 'utils/dateFormat';
@@ -32,6 +34,7 @@ const PostDetail = ({ post }: IPostDetail) => {
 
     const [updatePost] = useUpdatePostMutation();
     const [createComment] = useCreateCommentMutation();
+    const [getPostDetail] = useLazyGetPostDetailQuery();
 
     const {
         id,
@@ -90,9 +93,24 @@ const PostDetail = ({ post }: IPostDetail) => {
             formik.submitForm();
         }
     };
-    useEffect(() => {
-        console.log(newComments);
-    }, [newComments.length]);
+
+    const handleViewPreviousComments = (
+        e: MouseEventType<HTMLButtonElement>
+    ) => {
+        getPostDetail(id)
+            .unwrap()
+            .then((res: IResponseFormat<IPost>) => {
+                setNewComments((comments) => {
+                    if (Array.isArray(res.data.comments)) {
+                        return uniqBy(
+                            res.data.comments.concat(comments),
+                            '_id'
+                        );
+                    }
+                    return [...comments];
+                });
+            });
+    };
 
     return (
         <StyledPostDetail>
@@ -125,22 +143,25 @@ const PostDetail = ({ post }: IPostDetail) => {
                 />
                 <Comment onClick={handleShowComment} />
             </div>
-            {newComments.length > 0 &&
-                newComments.map(({ content, user, createdAt, _id }) => (
-                    <AntComment
-                        author={user.name}
-                        avatar={<img src={user.image} alt="" />}
-                        content={content}
-                        datetime={
-                            <span>
-                                {timestampToDate(dateFormat, createdAt)}
-                            </span>
-                        }
-                        key={_id}
-                    />
-                ))}
             {showComment && (
                 <div className="comment-box">
+                    <button onClick={handleViewPreviousComments}>
+                        Xem các bình luận trước
+                    </button>
+                    {newComments.length > 0 &&
+                        newComments.map(({ content, user, createdAt, _id }) => (
+                            <AntComment
+                                author={user.name}
+                                avatar={<img src={user.image} alt="" />}
+                                content={content}
+                                datetime={
+                                    <span>
+                                        {timestampToDate(dateFormat, createdAt)}
+                                    </span>
+                                }
+                                key={_id}
+                            />
+                        ))}
                     <Profile
                         image={userImage}
                         title={

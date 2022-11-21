@@ -17,6 +17,12 @@ export const postAPI = createApi({
             }),
             providesTags: ['Post'],
         }),
+        getPostDetail: builder.query<IResponseFormat<IPost>, string>({
+            query: (id) => ({
+                url: `/posts/${id}`,
+            }),
+            providesTags: ['Post'],
+        }),
         createPost: builder.mutation({
             query: (body: IPost) => ({
                 url: '/posts',
@@ -51,6 +57,7 @@ export const postAPI = createApi({
 
 export const {
     useLazyGetPostsQuery,
+    useLazyGetPostDetailQuery,
     useCreatePostMutation,
     useUpdatePostMutation,
     useCreateCommentMutation,

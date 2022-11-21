@@ -40,7 +40,13 @@ const getPosts = async (req, res) => {
     @access PRIVATE
 */
 const getPostDetail = async (req, res) => {
-    res.json({ mess: 'aaaaa' });
+    const id = req.params.id;
+    const post = await Post.findById(id)
+        .lean()
+        .sort({ createdAt: 'asc' })
+        .populate('comments');
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, post));
 };
 /* 
     @route POST /posts

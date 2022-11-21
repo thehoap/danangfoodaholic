@@ -35,5 +35,6 @@ interface IComment {
     user: { id: string; name: string; image: string };
     content: string;
     createdAt?: string;
+    updatedAt?: string;
     _id?: string;
 }
