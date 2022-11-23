@@ -10,6 +10,8 @@ import Input from 'components/Input';
 import { Button, Form, Typography } from 'antd';
 import { useLoginMutation } from 'services/authAPI';
 import { PATH } from 'constants/path';
+import { Email, Password } from 'assets/icons';
+import Logo from 'components/Logo';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -53,13 +55,14 @@ const Login = () => {
                 initialValues={{ remember: true }}
                 onFinish={formik.handleSubmit}
             >
-                <p>Trang review ĐÀ NẴNG</p>
+                <Logo />
                 <Input
                     label="Email"
                     name="email"
                     formik={formik}
                     value={formik.values.email}
                     onChange={formik.handleChange}
+                    prefix={<Email />}
                 />
 
                 <Input
@@ -69,6 +72,7 @@ const Login = () => {
                     type="password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
+                    prefix={<Password />}
                 />
                 {error && (
                     <Typography.Text type="danger">{error}</Typography.Text>
@@ -76,10 +80,10 @@ const Login = () => {
                 <Button type="primary" htmlType="submit" loading={isLoading}>
                     Đăng nhập
                 </Button>
-                <Typography.Text type="warning">
+                <p>
                     Bạn chưa có tài khoản?
                     <NavLink to={PATH.REGISTER.path}> Đăng ký ngay.</NavLink>
-                </Typography.Text>
+                </p>
             </Form>
         </StyledLogin>
     );

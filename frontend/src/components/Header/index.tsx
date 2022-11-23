@@ -78,7 +78,7 @@ const Header = ({ className }: IHeader) => {
                         className={({ isActive }) =>
                             isActive ? 'nav-link active' : 'nav-link'
                         }
-                        end
+                        end={path === PATH.HOME.path ? true : false}
                     >
                         {label}
                     </NavLink>

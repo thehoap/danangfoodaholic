@@ -14,7 +14,12 @@ const Input = ({ label, name, formik, ...props }: IInput) => {
         <FormGroup label={label}>
             <AntInput name={name} {...props} />
             {formik.errors[name] && formik.touched[name] && (
-                <Text type="danger">{formik.errors[name]}</Text>
+                <Text
+                    style={{ display: 'inline-block', marginTop: '8px' }}
+                    type="danger"
+                >
+                    {formik.errors[name]}
+                </Text>
             )}
         </FormGroup>
     );

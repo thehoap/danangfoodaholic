@@ -1,15 +1,15 @@
-import { NavLink } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import { ReactComponent as LogoImage } from 'assets/images/logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Logo = () => {
+    const navigate = useNavigate();
+
     return (
-        <NavLink to={PATH.HOME.path}>
-            <div className="logo">
-                <LogoImage />
-                <span className="logo-name">Đà Nẵng Đây Nè</span>
-            </div>
-        </NavLink>
+        <div className="logo" onClick={() => navigate(PATH.HOME.path)}>
+            <LogoImage />
+            <span className="logo-name">Đà Nẵng ăn gì</span>
+        </div>
     );
 };
 
