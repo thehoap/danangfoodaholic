@@ -1,8 +1,24 @@
-import Profile from 'components/Profile';
-import React from 'react';
+import { Divider, Tooltip } from 'antd';
+import { StyledMenu, StyledMenuItem } from './styles';
 
-const Menu = () => {
-    return <div>fasfasf</div>;
+const Menu = ({ menu }: { menu: IMenu[] }) => {
+    return (
+        <StyledMenu>
+            <h3>Menu</h3>
+            <Divider />
+            {menu.map((item: IMenu) => (
+                <StyledMenuItem>
+                    <img src={item.image} alt="" />
+                    <div>
+                        <Tooltip title={item.name}>
+                            <p>{item.name}</p>
+                        </Tooltip>
+                        <p>{item.currentPrice || item.originalPrice}</p>
+                    </div>
+                </StyledMenuItem>
+            ))}
+        </StyledMenu>
+    );
 };
 
 export default Menu;

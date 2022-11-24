@@ -42,7 +42,7 @@ const RestaurantDetail = () => {
             },
         }
     );
-    const { name, image } = restaurantDetail;
+    const { name, image, menu } = restaurantDetail;
 
     useEffect(() => {
         if (id)
@@ -72,12 +72,12 @@ const RestaurantDetail = () => {
                             label: 'Bài đăng',
                             key: TAB.VIEW,
                             children: (
-                                <Row className="post-view">
-                                    <Col span={18}>
+                                <Row className="post-view" gutter={24}>
+                                    <Col span={16}>
                                         <Posts restaurantId={id} />
                                     </Col>
-                                    <Col span={6}>
-                                        <Menu />
+                                    <Col span={8}>
+                                        <Menu menu={menu} />
                                     </Col>
                                 </Row>
                             ),
