@@ -28,6 +28,7 @@ const Select = ({
                 value={formik.values[name]}
                 onChange={handleChange}
                 allowClear={allowClear}
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
             >
                 {options?.map((option: IOption) => (
                     <AntSelect.Option key={option.id} value={option.value}>

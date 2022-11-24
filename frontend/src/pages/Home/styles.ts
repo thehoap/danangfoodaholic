@@ -2,7 +2,11 @@ import { flexSpaceBetween, rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
-export const StyledHome = styled.div``;
+export const StyledHome = styled.div`
+    section {
+        margin-bottom: 48px;
+    }
+`;
 
 export const StyledRestaurantSlider = styled.div`
     position: relative;
@@ -31,7 +35,7 @@ export const StyledRestaurantSlider = styled.div`
         border-radius: 0 0 24px 24px;
         width: 100%;
 
-        & * {
+        & > *:not(:last-child) {
             margin-bottom: 8px;
         }
 

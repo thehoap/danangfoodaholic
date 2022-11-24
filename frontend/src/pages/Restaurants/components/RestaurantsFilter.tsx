@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Col, Form, Row } from 'antd';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
@@ -38,31 +38,38 @@ const RestaurantsFilter = ({
     return (
         <StyledRestaurantFilter>
             <Form onFinish={formik.handleSubmit}>
-                <Select
-                    placeholder="Quận"
-                    options={districtOptions}
-                    name="districtId"
-                    formik={formik}
-                ></Select>
-
-                <Select
-                    placeholder="Danh mục"
-                    options={restaurantTypeOptions}
-                    name="type"
-                    formik={formik}
-                ></Select>
-
-                <Input
-                    name="searchTerm"
-                    formik={formik}
-                    value={formik.values.searchTerm}
-                    onChange={formik.handleChange}
-                    placeholder="Tìm quán ăn theo tên hoặc địa chỉ"
-                />
-
-                <Button htmlType="submit" loading={isLoading}>
-                    Tìm kiếm
-                </Button>
+                <Row gutter={24}>
+                    <Col span={7}>
+                        <Select
+                            placeholder="Quận"
+                            options={districtOptions}
+                            name="districtId"
+                            formik={formik}
+                        />
+                    </Col>
+                    <Col span={7}>
+                        <Select
+                            placeholder="Danh mục"
+                            options={restaurantTypeOptions}
+                            name="type"
+                            formik={formik}
+                        />
+                    </Col>
+                    <Col span={7}>
+                        <Input
+                            name="searchTerm"
+                            formik={formik}
+                            value={formik.values.searchTerm}
+                            onChange={formik.handleChange}
+                            placeholder="Tìm quán ăn theo tên hoặc địa chỉ"
+                        />
+                    </Col>
+                    <Col span={3}>
+                        <Button htmlType="submit" loading={isLoading}>
+                            Tìm kiếm
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
         </StyledRestaurantFilter>
     );

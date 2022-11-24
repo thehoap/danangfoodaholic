@@ -7,7 +7,9 @@ interface IRestaurantSlider {
 }
 
 const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
-    const isOnline = checkTimeBetween(restaurant?.time);
+    const dateObj = new Date();
+    const timeNow = `${dateObj.getHours()}:${dateObj.getMinutes()}`;
+    const isOnline = checkTimeBetween(timeNow, restaurant?.time);
 
     return (
         <StyledRestaurantSlider>

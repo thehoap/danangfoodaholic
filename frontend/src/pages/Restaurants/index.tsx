@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import Pagination from 'components/Pagination';
 import { PAGINATION } from 'constants/data';
 import MainLayout from 'layouts/MainLayout';
@@ -40,6 +41,7 @@ const Restaurants = () => {
                 setFilter={setFilter}
                 isLoading={isLoading}
             />
+            <Divider />
             <StyledRestaurants>
                 {isLoading
                     ? Array(PAGINATION.PAGE_SIZE)

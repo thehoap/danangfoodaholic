@@ -98,4 +98,10 @@ export const StyledRestaurantCard = styled(Card)`
     }
 `;
 
-export const StyledRestaurantFilter = styled.div``;
+export const StyledRestaurantFilter = styled.div`
+    .ant-select .ant-select-selector,
+    .ant-select-dropdown,
+    .ant-input {
+        border-radius: 12px;
+    }
+`;
