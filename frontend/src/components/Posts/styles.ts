@@ -4,14 +4,11 @@ import styled from 'styled-components';
 
 export const StyledPosts = styled.div``;
 
-const totalWidth = 700;
-const padding = 24;
-
 export const StyledPostDetail = styled.div`
-    width: ${totalWidth}px;
-    background-color: #aaa;
+    background-color: ${COLOR.WHITE};
     border-radius: 24px;
-    padding: ${padding}px;
+    padding: 24px;
+    margin-bottom: 24px;
 
     .section {
         ${flexSpaceBetween}
@@ -44,6 +41,10 @@ export const StyledPostDetail = styled.div`
             .ant-tag {
                 font-weight: 700;
             }
+        }
+
+        &-hashtag {
+            justify-content: flex-start;
         }
     }
 

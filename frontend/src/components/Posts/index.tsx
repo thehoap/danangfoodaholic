@@ -6,10 +6,9 @@ import { StyledPosts } from './styles';
 
 interface IPosts {
     restaurantId?: string;
-    hashtag?: string;
 }
 
-const Posts = ({ restaurantId, hashtag }: IPosts) => {
+const Posts = ({ restaurantId }: IPosts) => {
     const [getPosts, { data, isFetching }] = useLazyGetPostsQuery();
 
     const [posts, setPosts] = useState<IPost[]>();

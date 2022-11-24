@@ -6,7 +6,7 @@ export const COLOR = {
     LINEAR_PRIMARY:
         'linear-gradient(150deg, rgba(255,194,107,1) 0%, rgba(255,141,142,1) 100%)',
     WHITE: '#FFF',
-    PRIMARY: '#1890ff',
+    PRIMARY: '#EA6A12',
 };
 
 export const IMAGE = {

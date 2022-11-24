@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Comment as AntComment, Rate, Tag } from 'antd';
+import { Comment as AntComment, Divider, Rate, Tag } from 'antd';
 import { uniqBy } from 'lodash';
 
 import { Comment, Dislike, Heart, Like } from 'assets/icons';
@@ -19,6 +19,7 @@ import { StyledPostDetail } from './styles';
 import * as ERRORS from 'constants/errors';
 import * as REGEX from 'constants/regex';
 import ImagesPreview from 'components/ImagesPreview';
+import { PostCategory } from 'components/PostCategories/styles';
 
 interface IPostDetail {
     post: IPost;
@@ -143,11 +144,12 @@ const PostDetail = ({ post }: IPostDetail) => {
             <section className="section section-image">
                 <ImagesPreview image={images[0]} images={images} />
             </section>
-            <section className="section">
+            <section className="section section-hashtag">
                 {hashtags.map((hashtag, index) => (
-                    <Hashtag key={index}>{hashtag}</Hashtag>
+                    <PostCategory key={index}>{hashtag}</PostCategory>
                 ))}
             </section>
+            <Divider />
             <section className="section section-interaction">
                 <div>
                     <span onClick={handleLike}>
