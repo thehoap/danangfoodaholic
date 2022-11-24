@@ -10,3 +10,7 @@ export const timestampToDate = (dateFormat: string, timestamp?: string) => {
     }
     return;
 };
+
+export const checkTimeBetween = (time?: string) => {
+    return true;
+};
