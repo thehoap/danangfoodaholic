@@ -5,9 +5,7 @@ const postSchema = mongoose.Schema(
     {
         restaurantId: { type: String, require: true },
         user: { type: Schema.Types.ObjectId, ref: 'User' },
-        title: { type: String, require: true },
-        compliment: { type: String, require: true },
-        need_improve: { type: String, require: true },
+        content: { type: String, require: true },
         ratings: {
             space: { type: Number, require: true },
             food: { type: Number, require: true },
@@ -24,7 +22,6 @@ const postSchema = mongoose.Schema(
         images: { type: [String], require: true },
         hashtags: { type: [String], require: true },
         comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
-        // comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
         likes: { type: [String], require: true },
     },
     {

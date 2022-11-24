@@ -1,12 +1,12 @@
 import { Image } from 'antd';
 import { useState } from 'react';
 
-interface IPreviewImages {
+interface IImagesPreview {
     image: string;
     images: string[];
 }
 
-const PreviewImages = ({ image, images }: IPreviewImages) => {
+const ImagesPreview = ({ image, images }: IImagesPreview) => {
     const [visible, setVisible] = useState(false);
 
     return (
@@ -33,4 +33,4 @@ const PreviewImages = ({ image, images }: IPreviewImages) => {
     );
 };
 
-export default PreviewImages;
+export default ImagesPreview;

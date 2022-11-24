@@ -2,9 +2,7 @@ interface IPost {
     id: string;
     restaurantId: string;
     user: IUser;
-    title: string;
-    compliment: string;
-    need_improve: string;
+    content: string;
     ratings: {
         space: number;
         food: number;

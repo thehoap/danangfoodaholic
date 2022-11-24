@@ -13,6 +13,7 @@ export { ReactComponent as Dislike } from './dislike.svg';
 export { ReactComponent as Email } from './email.svg';
 export { ReactComponent as Facebook } from './facebook.svg';
 export { ReactComponent as Google } from './google.svg';
+export { ReactComponent as Heart } from './heart.svg';
 export { ReactComponent as Like } from './like.svg';
 export { ReactComponent as Location } from './location.svg';
 export { ReactComponent as Marker } from './marker.svg';

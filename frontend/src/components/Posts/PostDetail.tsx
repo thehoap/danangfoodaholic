@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Comment as AntComment } from 'antd';
+import { Comment as AntComment, Rate, Tag } from 'antd';
 import { uniqBy } from 'lodash';
 
-import { Comment, Like } from 'assets/icons';
+import { Comment, Dislike, Heart, Like } from 'assets/icons';
 import Hashtag from 'components/Hashtag';
 import Profile from 'components/Profile';
 import TextArea from 'components/TextArea';
@@ -18,6 +18,7 @@ import { timestampToDate } from 'utils/dateFormat';
 import { StyledPostDetail } from './styles';
 import * as ERRORS from 'constants/errors';
 import * as REGEX from 'constants/regex';
+import ImagesPreview from 'components/ImagesPreview';
 
 interface IPostDetail {
     post: IPost;
@@ -38,14 +39,15 @@ const PostDetail = ({ post }: IPostDetail) => {
 
     const {
         id,
-        title,
-        compliment,
-        need_improve,
+        content,
         user: { image, name },
         images,
         hashtags,
         createdAt,
         likes,
+        ratings: { average },
+        comments,
+        is_recommend,
     } = post;
     const postTime = timestampToDate(dateFormat, createdAt);
     const formik = useFormik({
@@ -94,9 +96,7 @@ const PostDetail = ({ post }: IPostDetail) => {
         }
     };
 
-    const handleViewPreviousComments = (
-        e: MouseEventType<HTMLButtonElement>
-    ) => {
+    const handleViewPreviousComments = () => {
         getPostDetail(id)
             .unwrap()
             .then((res: IResponseFormat<IPost>) => {
@@ -111,44 +111,68 @@ const PostDetail = ({ post }: IPostDetail) => {
                 });
             });
     };
-
+    console.log(comments?.length, newComments?.length);
     return (
         <StyledPostDetail>
-            <Profile image={image} title={name} description={postTime} />
-            <h1 className="title">{title}</h1>
-            <h2 className="compliment">Điều tôi thích ở địa điểm này</h2>
-            <span dangerouslySetInnerHTML={{ __html: compliment }}></span>
-            <h2 className="compliment">Những điều cần cải thiện</h2>
-            <span dangerouslySetInnerHTML={{ __html: need_improve }}></span>
-            {images.map((image, index) => (
-                <img
-                    src={image}
-                    alt=""
-                    className="image"
-                    style={{
-                        width: '80px',
-                        height: '80px',
-                        objectFit: 'cover',
-                    }}
-                    key={index}
-                />
-            ))}
-            {hashtags.map((hashtag, index) => (
-                <Hashtag key={index}>{hashtag}</Hashtag>
-            ))}
-            <div className="interaction">
-                <Like
-                    onClick={handleLike}
-                    className={`like-icon ${isLiked ? 'active' : ''}`}
-                />
-                <Comment onClick={handleShowComment} />
-            </div>
+            <section className="section section-header">
+                <div>
+                    <Profile
+                        image={image}
+                        title={name}
+                        description={postTime}
+                        size={52}
+                    />
+                    {is_recommend ? (
+                        <Tag color="processing">Đề xuất</Tag>
+                    ) : (
+                        <Tag color="error">Không đề xuất</Tag>
+                    )}
+                </div>
+                <Rate value={average} disabled allowHalf />
+            </section>
+            <section
+                className="content"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+            <section className="section">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+                et minima optio adipisci possimus labore ducimus culpa hic,
+                quaerat illum, nostrum incidunt, ex delectus eaque obcaecati
+                ipsam dignissimos ratione nulla?
+            </section>
+            <section className="section section-image">
+                <ImagesPreview image={images[0]} images={images} />
+            </section>
+            <section className="section">
+                {hashtags.map((hashtag, index) => (
+                    <Hashtag key={index}>{hashtag}</Hashtag>
+                ))}
+            </section>
+            <section className="section section-interaction">
+                <div>
+                    <span onClick={handleLike}>
+                        <Heart
+                            className={`like-icon ${isLiked ? 'active' : ''}`}
+                        />
+                        {likes?.length} yêu thích
+                    </span>
+                    <span onClick={handleShowComment}>
+                        <Comment />
+                        {comments?.length} bình luận
+                    </span>
+                </div>
+            </section>
             {showComment && (
                 <div className="comment-box">
-                    <button onClick={handleViewPreviousComments}>
-                        Xem các bình luận trước
-                    </button>
-                    {newComments.length > 0 &&
+                    {comments?.length > newComments?.length && (
+                        <a
+                            onClick={handleViewPreviousComments}
+                            className="comment-preview"
+                        >
+                            Xem các bình luận trước
+                        </a>
+                    )}
+                    {newComments?.length > 0 &&
                         newComments.map(({ content, user, createdAt, _id }) => (
                             <AntComment
                                 author={user.name}
@@ -164,6 +188,7 @@ const PostDetail = ({ post }: IPostDetail) => {
                         ))}
                     <Profile
                         image={userImage}
+                        size={36}
                         title={
                             <TextArea
                                 label=""
@@ -174,6 +199,7 @@ const PostDetail = ({ post }: IPostDetail) => {
                                 onChange={formik.handleChange}
                                 onKeyDown={handleCreateComment}
                                 placeholder="Bạn nghĩ gì về bài viết này?"
+                                style={{ height: '36px', resize: 'none' }}
                             />
                         }
                     />

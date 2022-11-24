@@ -37,9 +37,7 @@ const CreatePost = () => {
         id: '',
         restaurantId: restaurantId || '',
         user: userId || '',
-        title: '',
-        compliment: '',
-        need_improve: '',
+        content: '',
         ratings_space: 0,
         ratings_food: 0,
         ratings_hygiene: 0,
@@ -70,8 +68,7 @@ const CreatePost = () => {
                 ratings_average,
                 total_people,
                 total_bill,
-                compliment,
-                need_improve,
+                content,
                 ...rest
             } = values;
             const postValue = {
@@ -94,8 +91,7 @@ const CreatePost = () => {
                     people: total_people,
                     bill: total_bill,
                 },
-                compliment: textareaConvertHTML(compliment),
-                need_improve: textareaConvertHTML(need_improve),
+                content: textareaConvertHTML(content),
             };
 
             if (images) {
@@ -122,28 +118,13 @@ const CreatePost = () => {
             >
                 <Row>
                     <Col span={16}>
-                        <Input
-                            label="Tiêu đề"
-                            name="title"
-                            formik={formik}
-                            value={formik.values.title}
-                            onChange={formik.handleChange}
-                        />
                         <TextArea
                             formik={formik}
-                            name="compliment"
-                            value={formik.values.compliment}
+                            name="content"
+                            value={formik.values.content}
                             onChange={formik.handleChange}
-                            label="Bạn thích gì ở địa điểm này?"
-                            placeholder="Bạn thích gì ở địa điểm này?"
-                        />
-                        <TextArea
-                            formik={formik}
-                            name="need_improve"
-                            value={formik.values.need_improve}
-                            onChange={formik.handleChange}
-                            label="Bạn muốn cải thiện điều gì?"
-                            placeholder="Bạn muốn cải thiện điều gì?"
+                            label="Bạn nghĩ gì ở địa điểm này?"
+                            placeholder="Bạn nghĩ gì ở địa điểm này?"
                         />
                     </Col>
                     <Col span={8}>

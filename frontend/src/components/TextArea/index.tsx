@@ -14,7 +14,7 @@ interface ITextArea extends TextAreaProps {
 const TextArea = ({ label, name, formik, ...props }: ITextArea) => {
     return (
         <FormGroup label={label}>
-            <AntTextArea {...props} />
+            <AntTextArea {...props} draggable={false} />
             {formik.errors[name] && formik.touched[name] && (
                 <Text type="danger">{formik.errors[name]}</Text>
             )}

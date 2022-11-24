@@ -1,4 +1,4 @@
-import { Tabs } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 import Map from 'components/Map';
 import Posts from 'components/Posts';
 import { TAB } from 'constants/data';
@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLazyGetRestaurantQuery } from 'services/restaurantAPI';
 import CreatePost from './components/CreatePost';
+import Menu from './components/Menu';
+import { StyledRestaurantDetail } from './styles';
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
@@ -51,29 +53,44 @@ const RestaurantDetail = () => {
 
     return (
         <MainLayout>
-            <h1>{name}</h1>
-            <img src={image} alt="" />
-            <Tabs
-                defaultActiveKey={defaultTab || TAB.VIEW}
-                onChange={(value) => {
-                    navigate({
-                        search: `?tab=${value}`,
-                    });
-                }}
-                items={[
-                    {
-                        label: 'Bài đăng',
-                        key: TAB.VIEW,
-                        children: <Posts restaurantId={id} />,
-                    },
-                    {
-                        label: 'Đăng bài',
-                        key: TAB.CREATE,
-                        children: <CreatePost />,
-                    },
-                ]}
-            />
-            {/* <Map restaurants={[restaurantDetail]} isDetailPage={true} /> */}
+            <StyledRestaurantDetail>
+                <div className="thumbnail">
+                    <img src={image} alt="" />
+                    <div className="overlay">
+                        <h1>{name}</h1>
+                    </div>
+                </div>
+                <Tabs
+                    defaultActiveKey={defaultTab || TAB.VIEW}
+                    onChange={(value) => {
+                        navigate({
+                            search: `?tab=${value}`,
+                        });
+                    }}
+                    items={[
+                        {
+                            label: 'Bài đăng',
+                            key: TAB.VIEW,
+                            children: (
+                                <Row className="post-view">
+                                    <Col span={18}>
+                                        <Posts restaurantId={id} />
+                                    </Col>
+                                    <Col span={6}>
+                                        <Menu />
+                                    </Col>
+                                </Row>
+                            ),
+                        },
+                        {
+                            label: 'Đăng bài',
+                            key: TAB.CREATE,
+                            children: <CreatePost />,
+                        },
+                    ]}
+                />
+                {/* <Map restaurants={[restaurantDetail]} isDetailPage={true} /> */}
+            </StyledRestaurantDetail>
         </MainLayout>
     );
 };
