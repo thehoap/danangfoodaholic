@@ -74,6 +74,17 @@ h3 {
     .slick-prev {
         left: 0;
         transform: translateX(-50%);
+
+        &.slick-disabled {
+            cursor: not-allowed;
+            color: $disabledColor;
+            border: 1px solid $disabledColor;
+            background-color: $whiteColor;
+
+            path {
+                stroke: $disabledColor;
+            }
+        }
     }
 
     .slick-next {

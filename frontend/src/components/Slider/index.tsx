@@ -1,5 +1,5 @@
 import { Card, Carousel, Tooltip } from 'antd';
-import { ArrowRight, ArrowLeft, NewWindow } from 'assets/icons';
+import { ArrowRight, ArrowLeft, ViewMore } from 'assets/icons';
 import { PATH } from 'constants/path';
 import React, { ReactNode, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -37,7 +37,7 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
             nextArrow={
                 <Tooltip title={allowViewMore}>
                     {allowViewMore ? (
-                        <NewWindow
+                        <ViewMore
                             onClick={() => {
                                 navigate(viewMorePath);
                             }}
