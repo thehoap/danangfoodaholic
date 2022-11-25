@@ -44,7 +44,7 @@ const getTrending = async (req, res) => {
         query = {};
 
     const restaurants = await Restaurant.find({ published: true }, null, {
-        limit,
+        limit: 200,
     });
 
     const posts = await Post.find({ published: true }, null, {

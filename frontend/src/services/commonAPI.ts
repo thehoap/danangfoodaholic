@@ -1,9 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { baseNoAuthQuery } from './baseQuery';
+import { baseAuthQuery } from './baseQuery';
 
 export const commonAPI = createApi({
     reducerPath: 'commonAPI',
-    baseQuery: baseNoAuthQuery,
+    baseQuery: baseAuthQuery,
     endpoints: (builder) => ({
         uploadImages: builder.mutation<IResponseFormat<string[]>, FormData>({
             query: (body: FormData) => ({
@@ -12,11 +12,13 @@ export const commonAPI = createApi({
                 body,
             }),
         }),
-        getTrending: builder.query({
-            query: () => ({
-                url: 'commons/treding',
-            }),
-        }),
+        getTrending: builder.query<IResponseFormat<ITrendingResponse>, unknown>(
+            {
+                query: () => ({
+                    url: 'commons/trending',
+                }),
+            }
+        ),
     }),
 });
 

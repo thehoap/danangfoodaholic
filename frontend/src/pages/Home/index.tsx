@@ -11,52 +11,29 @@ import { useLazyGetRestaurantsQuery } from 'services/restaurantAPI';
 import PostSlider from './PostSlider';
 import RestaurantSlider, { SkeletonRestaurantSlider } from './RestaurantSlider';
 import { StyledHome } from './styles';
+import { useLazyGetTrendingQuery } from 'services/commonAPI';
+import { PATH } from 'constants/path';
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
-    const [getRestaurants, { data, isFetching }] = useLazyGetRestaurantsQuery();
+    // const [getRestaurants, { data, isFetching }] = useLazyGetRestaurantsQuery();
+    const [getTrending, { data: dataTrending, isFetching }] =
+        useLazyGetTrendingQuery();
 
     const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [hashtags, setHashtags] = useState<string[]>([]);
+
     useEffect(() => {
-        getRestaurants({
-            page: 1,
-            limit: PAGINATION.ALL,
-        });
+        getTrending({});
     }, []);
 
     useEffect(() => {
-        setRestaurants(data ? data.data.docs : []);
+        setRestaurants(dataTrending ? dataTrending.data.restaurants : []);
+        setPosts(dataTrending ? dataTrending.data.posts : []);
+        setHashtags(dataTrending ? dataTrending.data.hashtags : []);
     }, [isFetching]);
-    const hashtags = [
-        'LO2jZirB',
-        'W6JscPdX',
-        'MAOCxXW5',
-        '7rMIIm2J',
-        'h3z5AlqF',
-        'EYpufHL2',
-        'wle133yg',
-        'TKaCHQfZ',
-        '2gqXOhNl',
-        'TP37AO9A',
-        'KElYB9QE',
-        '5fJbhK8C',
-        'AA11DY6x',
-        'ODxRDgnk',
-        'RCq4Y17k',
-        'x4lOTCvP',
-        'Lc0vsq0X',
-        '2vIIp7dp',
-        'jWOp2EHU',
-        '7JZtOxMc',
-        '9MHr9au5',
-        '38n0A2Bs',
-        'zEAhpKkC',
-        'SYv2Fd9b',
-        'fjG3rzDz',
-        'eEdE8Zvz',
-        '69bbAf85',
-        '46b1L8bX',
-        'YhayjvcS',
-    ];
+
     return (
         <MainLayout>
             <StyledHome>
@@ -74,15 +51,29 @@ const Home = () => {
                                     />
                                 ))}
                             slidesToShow={4.5}
+                            viewMorePath={PATH.RESTAURANTS.path}
                         />
                     </Spin>
                 </section>
                 <section>
                     <h3>Trending Posts</h3>
                     <Divider />
-                    <Row>
+                    <Row gutter={40}>
                         <Col span={16}>
-                            <PostSlider />
+                            <Spin spinning={isFetching}>
+                                <Slider
+                                    data={posts
+                                        .slice(0, 10)
+                                        .map((post, index) => (
+                                            <PostSlider
+                                                post={post}
+                                                key={index}
+                                            />
+                                        ))}
+                                    slidesToShow={2.5}
+                                    viewMorePath={PATH.POSTS.path}
+                                />
+                            </Spin>
                         </Col>
                         <Col span={8}>
                             <PostCategories hashtags={hashtags} />
@@ -92,7 +83,7 @@ const Home = () => {
                 <section>
                     <h3>Map</h3>
                     <Divider />
-                    <Map restaurants={restaurants} />
+                    {/* <Map restaurants={restaurants} /> */}
                 </section>
             </StyledHome>
         </MainLayout>

@@ -17,3 +17,9 @@ interface ICoordinates {
     lat: number;
     long: number;
 }
+
+interface ITrendingResponse {
+    restaurants: IRestaurant[];
+    posts: IPost[];
+    hashtags: string[];
+}

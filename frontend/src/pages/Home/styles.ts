@@ -1,4 +1,4 @@
-import { flexSpaceBetween, rounded } from 'constants/css';
+import { flexCenter, flexSpaceBetween, rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
@@ -63,6 +63,83 @@ export const StyledRestaurantSlider = styled.div`
                 &.offline {
                     background-color: #cd201f;
                 }
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 68px;
+            background-color: ${COLOR.WHITE};
+            border-radius: 24px 24px 0 0;
+            z-index: -1;
+        }
+
+        .ant-skeleton-content {
+            flex-direction: column;
+
+            .ant-skeleton-paragraph {
+                width: 100% !important;
+            }
+        }
+    }
+`;
+
+export const StyledPostSlider = styled.div`
+    position: relative;
+    width: 272px;
+    /* height: 262px; */
+    border-radius: 24px;
+    z-index: 1;
+
+    .image-wrapper {
+        background-color: transparent;
+        ${flexSpaceBetween}
+
+        .ant-skeleton-image,
+        img {
+            margin-left: 20px;
+            display: inline-block;
+            ${rounded(136)}
+        }
+
+        .ant-skeleton-image svg {
+            height: 136px;
+        }
+
+        & > span {
+            ${flexSpaceBetween}
+            gap:8px;
+            transform: translate(-100%, 200%);
+            z-index: 1;
+        }
+    }
+
+    .information {
+        position: relative;
+        text-align: left;
+        background-color: ${COLOR.WHITE};
+        padding: 24px;
+        border-radius: 0 0 24px 24px;
+        width: 100%;
+
+        & > p {
+            margin: 16px 0;
+        }
+
+        & > div {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            gap: 20px;
+
+            & > span {
+                ${flexSpaceBetween}
+                gap: 8px;
             }
         }
 

@@ -10,7 +10,7 @@ const baseRouter = express.Router();
 
 baseRouter.use('/restaurants', protect, restaurantRouter);
 baseRouter.use('/users', userRouter);
-baseRouter.use('/commons', commonRouter);
+baseRouter.use('/commons', protect, commonRouter);
 baseRouter.use('/posts', protect, postRouter);
 baseRouter.use('/comments', protect, commentRouter);
 

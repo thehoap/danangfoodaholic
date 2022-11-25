@@ -1,36 +1,38 @@
-import { Rate, Tooltip } from 'antd';
-import { checkTimeBetween } from 'utils/dateFormat';
-import { StyledRestaurantSlider } from './styles';
+import { Rate } from 'antd';
+import { Comment, Heart } from 'assets/icons';
+import { StyledPostSlider } from './styles';
 
 interface IPostSlider {
-    restaurant?: IRestaurant;
+    post: IPost;
 }
 
-const PostSlider = ({ restaurant }: IPostSlider) => {
-    const dateObj = new Date();
-    const timeNow = `${dateObj.getHours()}:${dateObj.getMinutes()}`;
-    const isOnline = checkTimeBetween(timeNow, restaurant?.time);
-
+const PostSlider = ({ post }: IPostSlider) => {
     return (
-        <StyledRestaurantSlider>
+        <StyledPostSlider>
             <div className="image-wrapper">
-                <img src={restaurant?.image} alt="" />
+                <img src={post?.user.image} alt="" />
+                <span>
+                    <Rate value={1} disabled count={1} />
+                    {post?.ratings.average || 3}
+                </span>
             </div>
             <div className="information">
-                <h4>{restaurant?.name}</h4>
-                <Rate value={3} disabled />
+                <p>
+                    {post?.content ||
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem maiores labore soluta aut, corporis itaque vero quae culpa facilis? Cumque assumenda odio nemo quae blanditiis dolore cum aperiam eaque harum'}
+                </p>
                 <div>
-                    <span>{restaurant?.priceRange}</span>
-                    <Tooltip title={isOnline ? 'Online' : 'Offline'}>
-                        <div
-                            className={`status ${
-                                isOnline ? 'online' : 'offline'
-                            }`}
-                        />
-                    </Tooltip>
+                    <span>
+                        <Heart />
+                        {post?.likes?.length}
+                    </span>
+                    <span>
+                        <Comment />
+                        {post?.comments?.length}
+                    </span>
                 </div>
             </div>
-        </StyledRestaurantSlider>
+        </StyledPostSlider>
     );
 };
 
