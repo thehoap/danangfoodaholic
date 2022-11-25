@@ -1,4 +1,4 @@
-import { Rate, Tooltip } from 'antd';
+import { Rate, Skeleton, Tooltip } from 'antd';
 import { checkTimeBetween } from 'utils/dateFormat';
 import { StyledRestaurantSlider } from './styles';
 
@@ -29,6 +29,19 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
                         />
                     </Tooltip>
                 </div>
+            </div>
+        </StyledRestaurantSlider>
+    );
+};
+
+export const SkeletonRestaurantSlider = () => {
+    return (
+        <StyledRestaurantSlider>
+            <div className="image-wrapper">
+                <Skeleton.Image active />
+            </div>
+            <div className="information">
+                <Skeleton paragraph={{ rows: 3 }} title={false} active />
             </div>
         </StyledRestaurantSlider>
     );

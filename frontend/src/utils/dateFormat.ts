@@ -19,11 +19,6 @@ const convertToMinutues = (time: string) => {
 
 export const checkTimeBetween = (timeNow: string, duration?: string) => {
     const [open, close] = duration?.split(' - ') || '00:00 - 00:00';
-    console.log(
-        convertToMinutues(open),
-        convertToMinutues(close),
-        convertToMinutues(timeNow)
-    );
 
     return (
         convertToMinutues(timeNow) > convertToMinutues(open) &&

@@ -19,11 +19,14 @@ export const StyledRestaurantSlider = styled.div`
         text-align: center;
         background-color: transparent;
 
+        .ant-skeleton-image,
         img {
             display: inline-block;
-            ${rounded(
-                136
-            )}/* box-shadow: rgba(17, 12, 46, 0.15) 0px 20px 100px 0px; */
+            ${rounded(136)}
+        }
+
+        .ant-skeleton-image svg {
+            height: 136px;
         }
     }
 
@@ -74,6 +77,14 @@ export const StyledRestaurantSlider = styled.div`
             background-color: ${COLOR.WHITE};
             border-radius: 24px 24px 0 0;
             z-index: -1;
+        }
+
+        .ant-skeleton-content {
+            flex-direction: column;
+
+            .ant-skeleton-paragraph {
+                width: 100% !important;
+            }
         }
     }
 `;

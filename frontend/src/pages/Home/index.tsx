@@ -2,19 +2,20 @@ import { Col, Divider, Row } from 'antd';
 import Map from 'components/Map';
 import PostCategories from 'components/PostCategories';
 import Slider from 'components/Slider';
+import Spin from 'components/Spin';
+import { Spin as AntSpin } from 'antd';
 import { PAGINATION } from 'constants/data';
 import MainLayout from 'layouts/MainLayout';
 import { useEffect, useState } from 'react';
 import { useLazyGetRestaurantsQuery } from 'services/restaurantAPI';
 import PostSlider from './PostSlider';
-import RestaurantSlider from './RestaurantSlider';
+import RestaurantSlider, { SkeletonRestaurantSlider } from './RestaurantSlider';
 import { StyledHome } from './styles';
 
 const Home = () => {
-    const [getRestaurants, { data, isLoading, isFetching }] =
-        useLazyGetRestaurantsQuery();
+    const [getRestaurants, { data, isFetching }] = useLazyGetRestaurantsQuery();
 
-    const [restaurants, setRestaurants] = useState<IRestaurant[]>();
+    const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
     useEffect(() => {
         getRestaurants({
             page: 1,
@@ -23,7 +24,7 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        setRestaurants(data?.data.docs);
+        setRestaurants(data ? data.data.docs : []);
     }, [isFetching]);
     const hashtags = [
         'LO2jZirB',
@@ -62,20 +63,19 @@ const Home = () => {
                 <section>
                     <h3>Trending Restaurants</h3>
                     <Divider />
-                    <Slider
-                        data={
-                            restaurants &&
-                            restaurants
-                                ?.slice(0, 10)
+                    <Spin spinning={isFetching}>
+                        <Slider
+                            data={restaurants
+                                .slice(0, 10)
                                 .map((restaurant, index) => (
                                     <RestaurantSlider
                                         restaurant={restaurant}
                                         key={index}
                                     />
-                                ))
-                        }
-                        slidesToShow={4.5}
-                    />
+                                ))}
+                            slidesToShow={4.5}
+                        />
+                    </Spin>
                 </section>
                 <section>
                     <h3>Trending Posts</h3>

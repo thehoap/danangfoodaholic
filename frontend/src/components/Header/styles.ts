@@ -5,22 +5,27 @@ import { COLOR } from 'constants/data';
 
 export const StyledHeader = styled.header`
     ${flexSpaceBetween}
+    padding: 16px 20px;
 
     .nav {
-        background: ${COLOR.LINEAR_PRIMARY};
+        background-color: ${COLOR.PRIMARY};
         ${flexSpaceBetween}
-        padding: 12px;
+        padding: 12px 20px;
+        gap: 20px;
         border-radius: 28px;
 
         & .nav-link {
             display: inline-block;
             min-width: 120px;
             text-align: center;
-            color: ${COLOR.TEXT};
+            color: ${COLOR.WHITE};
+            font-size: 20px;
+            font-weight: 600;
             padding: 8px 12px;
             border-radius: 28px;
 
             &.active {
+                color: ${COLOR.PRIMARY};
                 background-color: ${COLOR.WHITE};
             }
         }
