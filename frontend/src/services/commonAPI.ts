@@ -5,13 +5,6 @@ export const commonAPI = createApi({
     reducerPath: 'commonAPI',
     baseQuery: baseAuthQuery,
     endpoints: (builder) => ({
-        uploadImages: builder.mutation<IResponseFormat<string[]>, FormData>({
-            query: (body: FormData) => ({
-                url: 'commons/upload-images',
-                method: 'POST',
-                body,
-            }),
-        }),
         getTrending: builder.query<IResponseFormat<ITrendingResponse>, unknown>(
             {
                 query: () => ({
@@ -22,4 +15,4 @@ export const commonAPI = createApi({
     }),
 });
 
-export const { useUploadImagesMutation, useLazyGetTrendingQuery } = commonAPI;
+export const { useLazyGetTrendingQuery } = commonAPI;

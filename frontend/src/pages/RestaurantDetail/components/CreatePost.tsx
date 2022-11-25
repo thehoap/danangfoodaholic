@@ -13,7 +13,7 @@ import Recommend from './Recommend';
 import { StyledCreatePost } from './styles';
 import Select from 'components/Select';
 import ImagesUpload from 'components/ImagesUpload';
-import { useUploadImagesMutation } from 'services/commonAPI';
+import { useUploadImagesMutation } from 'services/authAPI';
 import { useCreatePostMutation } from 'services/postAPI';
 import TextEditor from 'components/TextEditor';
 import { textareaConvertHTML } from 'utils/input';

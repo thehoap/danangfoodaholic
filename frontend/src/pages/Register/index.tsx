@@ -11,7 +11,7 @@ import Input from 'components/Input';
 import { useRegisterMutation } from 'services/authAPI';
 import { PATH } from 'constants/path';
 import ImageUpload from 'components/ImageUpload';
-import { useUploadImagesMutation } from 'services/commonAPI';
+import { useUploadImagesMutation } from 'services/authAPI';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { SerializedError } from '@reduxjs/toolkit';
 

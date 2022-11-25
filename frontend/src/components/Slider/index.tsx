@@ -24,29 +24,32 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
     const navigate = useNavigate();
     const [allowViewMore, setAllowViewMore] = useState<'' | 'View more'>('');
 
+    const handleViewMore = (index: number) => {
+        if (data.length - slidesToShow == index) setAllowViewMore('View more');
+        else setAllowViewMore('');
+    };
+
+    const nextArrow = (
+        <Tooltip title={allowViewMore}>
+            {allowViewMore ? (
+                <ViewMore
+                    onClick={() => {
+                        navigate(viewMorePath);
+                    }}
+                />
+            ) : (
+                <ArrowRight />
+            )}
+        </Tooltip>
+    );
+
     return (
         <Carousel
             {...settings}
             slidesToShow={slidesToShow}
-            afterChange={(e) => {
-                if (data.length - slidesToShow == e)
-                    setAllowViewMore('View more');
-                else setAllowViewMore('');
-            }}
+            afterChange={handleViewMore}
             prevArrow={<ArrowLeft />}
-            nextArrow={
-                <Tooltip title={allowViewMore}>
-                    {allowViewMore ? (
-                        <ViewMore
-                            onClick={() => {
-                                navigate(viewMorePath);
-                            }}
-                        />
-                    ) : (
-                        <ArrowRight />
-                    )}
-                </Tooltip>
-            }
+            nextArrow={nextArrow}
         >
             {data}
         </Carousel>

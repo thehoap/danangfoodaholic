@@ -19,7 +19,18 @@ export const authAPI = createApi({
                 body,
             }),
         }),
+        uploadImages: builder.mutation<IResponseFormat<string[]>, FormData>({
+            query: (body: FormData) => ({
+                url: 'commons/upload-images',
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authAPI;
+export const {
+    useUploadImagesMutation,
+    useLoginMutation,
+    useRegisterMutation,
+} = authAPI;
