@@ -82,7 +82,7 @@ const ImagesUpload = ({ setImages }: IImagesUpload) => {
             )}
             <label htmlFor="upload" className="upload">
                 <span className="upload-icon">+</span>
-                <span className="upload-text">Tải ảnh lên</span>
+                <span className="upload-text">Upload images</span>
             </label>
             <input
                 type="file"

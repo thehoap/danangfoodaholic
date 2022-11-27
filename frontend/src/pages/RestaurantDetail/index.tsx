@@ -69,7 +69,7 @@ const RestaurantDetail = () => {
                     }}
                     items={[
                         {
-                            label: 'Bài đăng',
+                            label: 'New feed',
                             key: TAB.VIEW,
                             children: (
                                 <Row className="post-view" gutter={24}>
@@ -83,7 +83,7 @@ const RestaurantDetail = () => {
                             ),
                         },
                         {
-                            label: 'Đăng bài',
+                            label: 'Post your review',
                             key: TAB.CREATE,
                             children: <CreatePost />,
                         },

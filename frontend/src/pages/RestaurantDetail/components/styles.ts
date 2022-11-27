@@ -2,7 +2,26 @@ import { flexSpaceBetween, rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
-export const StyledCreatePost = styled.div``;
+export const StyledCreatePost = styled.div`
+    .ant-form > .ant-row {
+        justify-content: center;
+        & > .ant-col {
+            padding: 24px;
+            border-radius: 24px;
+            background-color: ${COLOR.WHITE};
+        }
+
+        .btns {
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+    }
+
+    textarea {
+        height: 60px;
+    }
+`;
 
 export const StyledRecommend = styled.div`
     .ant-form-item-control-input-content {

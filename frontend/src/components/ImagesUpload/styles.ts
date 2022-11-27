@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const size = 100;
+const size = 112;
 export const StyledImagesUpload = styled.div`
     display: flex;
     gap: 8px;
@@ -16,6 +16,7 @@ export const StyledImagesUpload = styled.div`
             width: ${size}px;
             height: ${size}px;
             object-fit: cover;
+            user-select: none;
         }
 
         &-overlay {
@@ -53,6 +54,7 @@ export const StyledImagesUpload = styled.div`
         text-align: center;
         border: 1px dashed #000;
         cursor: pointer;
+        user-select: none;
 
         &:hover {
             border-color: #6cb7fd;

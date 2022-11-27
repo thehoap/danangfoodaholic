@@ -11,7 +11,7 @@ interface IRecommend {
 const Recommend = ({ formik, name }: IRecommend) => {
     return (
         <StyledRecommend>
-            <FormGroup label="Bạn có giới thiệu địa điểm này cho người khác không?">
+            <FormGroup label="Do you recommend this stall for others?">
                 <Radio.Group
                     name={name}
                     onChange={formik.handleChange}
@@ -24,7 +24,7 @@ const Recommend = ({ formik, name }: IRecommend) => {
                         }`}
                     >
                         <Like />
-                        <span>Có</span>
+                        <span>Yes</span>
                     </label>
                     <Radio id="yes" value={true} />
 
@@ -35,7 +35,7 @@ const Recommend = ({ formik, name }: IRecommend) => {
                         }`}
                     >
                         <Dislike />
-                        <span>Không</span>
+                        <span>No</span>
                     </label>
                     <Radio id="no" value={false} />
                 </Radio.Group>

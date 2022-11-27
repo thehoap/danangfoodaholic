@@ -8,6 +8,7 @@ export const COLOR = {
     WHITE: '#FFF',
     PRIMARY: '#EA6A12',
     SECONDARY: '#fff5ee',
+    GREY: '#A3ABBD',
 };
 
 export const IMAGE = {

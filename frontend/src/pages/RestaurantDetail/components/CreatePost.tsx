@@ -44,7 +44,7 @@ const CreatePost = () => {
         ratings_service: 0,
         ratings_price: 0,
         ratings_average: 0,
-        is_recommend: false,
+        is_recommend: true,
         total_people: 1,
         total_bill: 0,
         images: [],
@@ -123,89 +123,108 @@ const CreatePost = () => {
                             name="content"
                             value={formik.values.content}
                             onChange={formik.handleChange}
-                            label="Bạn nghĩ gì ở địa điểm này?"
-                            placeholder="Bạn nghĩ gì ở địa điểm này?"
+                            label="What do you think about this food stall?"
+                            placeholder="Tell what you like/dislike, your favorite dishes, drinks.."
                         />
-                    </Col>
-                    <Col span={8}>
-                        <Rating
-                            label="Không gian"
-                            formik={formik}
-                            name="ratings_space"
-                        />
-                        <Rating
-                            label="Món ăn"
-                            formik={formik}
-                            name="ratings_food"
-                        />
-                        <Rating
-                            label="Phục vụ"
-                            formik={formik}
-                            name="ratings_service"
-                        />
-                        <Rating
-                            label="Giá cả"
-                            formik={formik}
-                            name="ratings_price"
-                        />
-                        <Rating
-                            label="Vệ sinh"
-                            formik={formik}
-                            name="ratings_hygiene"
-                        />
-
-                        <Recommend formik={formik} name="is_recommend" />
+                        {/* </Col>
+                    <Col span={8}> */}
                         <Row>
                             <Col span={12}>
-                                <InputNumber
-                                    label="Số người"
-                                    name="total_people"
-                                    value={formik.values.total_people}
-                                    onChange={(value) =>
-                                        formik.setFieldValue(
-                                            'total_people',
-                                            value
-                                        )
-                                    }
-                                    min={1}
+                                <Rating
+                                    label="Space"
+                                    formik={formik}
+                                    name="ratings_space"
+                                />
+                                <Rating
+                                    label="Dishes"
+                                    formik={formik}
+                                    name="ratings_food"
+                                />
+                                <Rating
+                                    label="Service"
+                                    formik={formik}
+                                    name="ratings_service"
+                                />
+                                <Rating
+                                    label="Price"
+                                    formik={formik}
+                                    name="ratings_price"
+                                />
+                                <Rating
+                                    label="Hygiene"
+                                    formik={formik}
+                                    name="ratings_hygiene"
                                 />
                             </Col>
                             <Col span={12}>
-                                <InputNumber
-                                    label="Tổng tiền"
-                                    name="total_bill"
-                                    value={formik.values.total_bill}
-                                    onChange={(value) =>
-                                        formik.setFieldValue(
-                                            'total_bill',
-                                            value
-                                        )
-                                    }
-                                    min={0}
-                                    step={1000}
-                                    addonAfter="VND"
+                                <Recommend
+                                    formik={formik}
+                                    name="is_recommend"
+                                />
+                                <Row>
+                                    <Col span={12}>
+                                        <InputNumber
+                                            label="Quantity of people"
+                                            name="total_people"
+                                            value={formik.values.total_people}
+                                            onChange={(value) =>
+                                                formik.setFieldValue(
+                                                    'total_people',
+                                                    value
+                                                )
+                                            }
+                                            min={1}
+                                        />
+                                    </Col>
+                                    <Col span={12}>
+                                        <InputNumber
+                                            label="Total money"
+                                            name="total_bill"
+                                            value={formik.values.total_bill}
+                                            onChange={(value) =>
+                                                formik.setFieldValue(
+                                                    'total_bill',
+                                                    value
+                                                )
+                                            }
+                                            min={0}
+                                            step={1000}
+                                            addonAfter="VND"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Select
+                                    label="Hashtags"
+                                    name="hashtags"
+                                    formik={formik}
+                                    mode="tags"
+                                    tokenSeparators={[' ']}
                                 />
                             </Col>
                         </Row>
-
-                        <Select
-                            label="Hash tags"
-                            name="hashtags"
-                            formik={formik}
-                            mode="tags"
-                            tokenSeparators={[' ']}
-                        />
+                        <ImagesUpload setImages={setImages} />
+                        <Row className="btns">
+                            <Button
+                                type="default"
+                                htmlType="submit"
+                                loading={
+                                    isLoadingUploadImages || isLoadingCreatePost
+                                }
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                loading={
+                                    isLoadingUploadImages || isLoadingCreatePost
+                                }
+                            >
+                                Post
+                            </Button>
+                        </Row>
                     </Col>
                 </Row>
-
-                <ImagesUpload setImages={setImages} />
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={isLoadingUploadImages || isLoadingCreatePost}
-                >
-                    Đăng bài
-                </Button>
             </Form>
         </StyledCreatePost>
     );
