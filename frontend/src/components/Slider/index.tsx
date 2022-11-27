@@ -18,6 +18,7 @@ const settings = {
     speed: 500,
     dots: false,
     arrows: true,
+    draggable: true,
 };
 
 const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
@@ -50,6 +51,7 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
             afterChange={handleViewMore}
             prevArrow={<ArrowLeft />}
             nextArrow={nextArrow}
+            slidesToScroll={Math.floor(slidesToShow)}
         >
             {data}
         </Carousel>

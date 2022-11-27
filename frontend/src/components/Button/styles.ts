@@ -11,11 +11,17 @@ export const StyledButton = styled(Button)`
     background-color: ${(props) => conditionalColor(props)};
     color: ${COLOR.SECONDARY};
     font-weight: 600;
-    text-transform: capitalize;
     padding: 0;
     border-radius: 12px;
     border: 1px solid ${(props) => conditionalColor(props)};
     transition: all 0.2s linear;
+    padding: 8px 16px;
+    height: initial;
+
+    &:focus {
+        background-color: ${(props) => conditionalColor(props)};
+        border: 1px solid ${(props) => conditionalColor(props)};
+    }
 
     &:hover,
     &:active {

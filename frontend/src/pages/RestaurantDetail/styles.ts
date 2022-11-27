@@ -24,6 +24,9 @@ export const StyledRestaurantDetail = styled.div`
         }
     }
 
+    .ant-tabs-top > .ant-tabs-nav:before {
+        border-color: #ddd;
+    }
     .ant-tabs-nav {
         .ant-tabs-nav-wrap {
             justify-content: center;

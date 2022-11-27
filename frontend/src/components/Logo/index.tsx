@@ -8,7 +8,7 @@ const Logo = () => {
     return (
         <div className="logo" onClick={() => navigate(PATH.HOME.path)}>
             <LogoImage />
-            <span className="logo-name">Đà Nẵng ăn gì</span>
+            <span className="logo-name">Da Nang Foodaholic</span>
         </div>
     );
 };

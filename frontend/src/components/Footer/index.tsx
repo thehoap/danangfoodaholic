@@ -53,9 +53,14 @@ const Footer = ({ className }: IFooter) => {
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Mollitia, tenetur.
                     </p>
-                    <div className="facebook">
-                        <Facebook />
-                    </div>
+                    <a
+                        href="https://www.facebook.com/danangfoodaholic/"
+                        target="_blank"
+                    >
+                        <div className="facebook">
+                            <Facebook />
+                        </div>
+                    </a>
                 </div>
                 {services.map((services) => (
                     <div className="services" key={services.heading}>

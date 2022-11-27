@@ -1,6 +1,6 @@
 import { flexCenter, flexSpaceBetween, rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledHome = styled.div`
     section {
@@ -8,26 +8,16 @@ export const StyledHome = styled.div`
     }
 `;
 
-export const StyledRestaurantSlider = styled.div`
+const sliderItemCSS = css`
     position: relative;
     width: 272px;
     /* height: 262px; */
     border-radius: 24px;
     z-index: 1;
+    cursor: grabbing;
 
-    .image-wrapper {
-        text-align: center;
-        background-color: transparent;
-
-        .ant-skeleton-image,
-        img {
-            display: inline-block;
-            ${rounded(136)}
-        }
-
-        .ant-skeleton-image svg {
-            height: 136px;
-        }
+    * {
+        user-select: none;
     }
 
     .information {
@@ -38,6 +28,35 @@ export const StyledRestaurantSlider = styled.div`
         border-radius: 0 0 24px 24px;
         width: 100%;
 
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 68px;
+            background-color: ${COLOR.WHITE};
+            border-radius: 24px 24px 0 0;
+            z-index: -1;
+        }
+    }
+`;
+
+export const StyledRestaurantSlider = styled.div`
+    ${sliderItemCSS}
+
+    .image-wrapper {
+        text-align: center;
+        background-color: transparent;
+
+        img {
+            display: inline-block;
+            ${rounded(136)}
+        }
+    }
+
+    .information {
         & > *:not(:last-child) {
             margin-bottom: 8px;
         }
@@ -65,50 +84,20 @@ export const StyledRestaurantSlider = styled.div`
                 }
             }
         }
-
-        &::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 0;
-            right: 0;
-            width: 100%;
-            height: 68px;
-            background-color: ${COLOR.WHITE};
-            border-radius: 24px 24px 0 0;
-            z-index: -1;
-        }
-
-        .ant-skeleton-content {
-            flex-direction: column;
-
-            .ant-skeleton-paragraph {
-                width: 100% !important;
-            }
-        }
     }
 `;
 
 export const StyledPostSlider = styled.div`
-    position: relative;
-    width: 272px;
-    /* height: 262px; */
-    border-radius: 24px;
-    z-index: 1;
+    ${sliderItemCSS}
 
     .image-wrapper {
         background-color: transparent;
         ${flexSpaceBetween}
 
-        .ant-skeleton-image,
         img {
             margin-left: 20px;
             display: inline-block;
             ${rounded(136)}
-        }
-
-        .ant-skeleton-image svg {
-            height: 136px;
         }
 
         & > span {
@@ -120,13 +109,6 @@ export const StyledPostSlider = styled.div`
     }
 
     .information {
-        position: relative;
-        text-align: left;
-        background-color: ${COLOR.WHITE};
-        padding: 24px;
-        border-radius: 0 0 24px 24px;
-        width: 100%;
-
         & > p {
             margin: 16px 0;
         }
@@ -140,27 +122,6 @@ export const StyledPostSlider = styled.div`
             & > span {
                 ${flexSpaceBetween}
                 gap: 8px;
-            }
-        }
-
-        &::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 0;
-            right: 0;
-            width: 100%;
-            height: 68px;
-            background-color: ${COLOR.WHITE};
-            border-radius: 24px 24px 0 0;
-            z-index: -1;
-        }
-
-        .ant-skeleton-content {
-            flex-direction: column;
-
-            .ant-skeleton-paragraph {
-                width: 100% !important;
             }
         }
     }

@@ -9,7 +9,7 @@ interface IRating extends RateProps {
 }
 
 const Rating = ({ label, formik, name, ...props }: IRating) => {
-    const desc = ['Kinh khủng', 'Tệ', 'Bình thường', 'Tốt', 'Tuyệt vời'];
+    const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
     return (
         <StyledRating>

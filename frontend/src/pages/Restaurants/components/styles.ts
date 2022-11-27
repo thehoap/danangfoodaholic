@@ -104,4 +104,12 @@ export const StyledRestaurantFilter = styled.div`
     .ant-input {
         border-radius: 12px;
     }
+
+    .ant-row {
+        align-items: center;
+
+        .ant-form-item {
+            margin-bottom: 0;
+        }
+    }
 `;

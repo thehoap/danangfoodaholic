@@ -120,14 +120,13 @@ const CreatePost = () => {
                     <Col span={16}>
                         <TextArea
                             formik={formik}
+                            id="content"
                             name="content"
                             value={formik.values.content}
                             onChange={formik.handleChange}
                             label="What do you think about this food stall?"
                             placeholder="Tell what you like/dislike, your favorite dishes, drinks.."
                         />
-                        {/* </Col>
-                    <Col span={8}> */}
                         <Row>
                             <Col span={12}>
                                 <Rating

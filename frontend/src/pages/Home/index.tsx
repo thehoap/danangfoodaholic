@@ -3,20 +3,15 @@ import Map from 'components/Map';
 import PostCategories from 'components/PostCategories';
 import Slider from 'components/Slider';
 import Spin from 'components/Spin';
-import { Spin as AntSpin } from 'antd';
-import { PAGINATION } from 'constants/data';
 import MainLayout from 'layouts/MainLayout';
 import { useEffect, useState } from 'react';
-import { useLazyGetRestaurantsQuery } from 'services/restaurantAPI';
 import PostSlider from './PostSlider';
-import RestaurantSlider, { SkeletonRestaurantSlider } from './RestaurantSlider';
+import RestaurantSlider from './RestaurantSlider';
 import { StyledHome } from './styles';
 import { useLazyGetTrendingQuery } from 'services/commonAPI';
 import { PATH } from 'constants/path';
-import { NavLink } from 'react-router-dom';
 
 const Home = () => {
-    // const [getRestaurants, { data, isFetching }] = useLazyGetRestaurantsQuery();
     const [getTrending, { data: dataTrending, isFetching }] =
         useLazyGetTrendingQuery();
 

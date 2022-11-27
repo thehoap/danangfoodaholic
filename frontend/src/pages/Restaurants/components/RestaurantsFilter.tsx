@@ -41,7 +41,7 @@ const RestaurantsFilter = ({
                 <Row gutter={24}>
                     <Col span={7}>
                         <Select
-                            placeholder="Quận"
+                            placeholder="Districts"
                             options={districtOptions}
                             name="districtId"
                             formik={formik}
@@ -49,7 +49,7 @@ const RestaurantsFilter = ({
                     </Col>
                     <Col span={7}>
                         <Select
-                            placeholder="Danh mục"
+                            placeholder="Categories"
                             options={restaurantTypeOptions}
                             name="type"
                             formik={formik}
@@ -61,12 +61,16 @@ const RestaurantsFilter = ({
                             formik={formik}
                             value={formik.values.searchTerm}
                             onChange={formik.handleChange}
-                            placeholder="Tìm quán ăn theo tên hoặc địa chỉ"
+                            placeholder="Find your food stalls by their name or address"
                         />
                     </Col>
                     <Col span={3}>
-                        <Button htmlType="submit" loading={isLoading}>
-                            Tìm kiếm
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            loading={isLoading}
+                        >
+                            Apply
                         </Button>
                     </Col>
                 </Row>

@@ -19,7 +19,7 @@ export const StyledCreatePost = styled.div`
     }
 
     textarea {
-        height: 60px;
+        height: 160px;
     }
 `;
 

@@ -13,7 +13,7 @@ import { StyledRestaurantDetail } from './styles';
 const RestaurantDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
 
     const [
         getRestaurant,
@@ -51,6 +51,12 @@ const RestaurantDetail = () => {
             );
     }, []);
 
+    const handleChangeTab = (tab: string) => {
+        navigate({
+            search: `?tab=${tab}`,
+        });
+    };
+
     return (
         <MainLayout>
             <StyledRestaurantDetail>
@@ -61,12 +67,8 @@ const RestaurantDetail = () => {
                     </div>
                 </div>
                 <Tabs
-                    defaultActiveKey={defaultTab || TAB.VIEW}
-                    onChange={(value) => {
-                        navigate({
-                            search: `?tab=${value}`,
-                        });
-                    }}
+                    activeKey={defaultTab || TAB.VIEW}
+                    onChange={handleChangeTab}
                     items={[
                         {
                             label: 'New feed',

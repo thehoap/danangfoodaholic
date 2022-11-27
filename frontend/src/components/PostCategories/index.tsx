@@ -1,4 +1,4 @@
-import { Divider, Tag } from 'antd';
+import { Divider } from 'antd';
 import { PostCategory, StyledPostCategories } from './styles';
 
 interface IPostCategories {

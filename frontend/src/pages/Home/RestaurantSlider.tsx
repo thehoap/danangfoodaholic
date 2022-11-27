@@ -34,17 +34,4 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
     );
 };
 
-export const SkeletonRestaurantSlider = () => {
-    return (
-        <StyledRestaurantSlider>
-            <div className="image-wrapper">
-                <Skeleton.Image active />
-            </div>
-            <div className="information">
-                <Skeleton paragraph={{ rows: 3 }} title={false} active />
-            </div>
-        </StyledRestaurantSlider>
-    );
-};
-
 export default RestaurantSlider;
