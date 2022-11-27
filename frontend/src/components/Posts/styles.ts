@@ -27,15 +27,13 @@ export const StyledPostDetail = styled.div`
         }
 
         &-interaction {
-            div {
-                ${flexSpaceBetween}
-                gap: 28px;
+            justify-content: flex-start;
+            gap: 28px;
 
-                span {
-                    ${flexSpaceBetween}
-                    gap:4px;
-                    cursor: pointer;
-                }
+            span {
+                ${flexSpaceBetween}
+                gap:4px;
+                cursor: pointer;
             }
 
             .ant-tag {

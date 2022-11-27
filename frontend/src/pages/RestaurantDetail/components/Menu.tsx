@@ -7,7 +7,7 @@ const Menu = ({ menu }: { menu: IMenu[] }) => {
             <h3>Menu</h3>
             <Divider />
             {menu.map((item: IMenu) => (
-                <StyledMenuItem>
+                <StyledMenuItem key={item._id}>
                     <img src={item.image} alt="" />
                     <div>
                         <Tooltip title={item.name}>

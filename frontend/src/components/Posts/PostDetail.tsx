@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Comment as AntComment, Divider, Rate, Tag } from 'antd';
+import { Comment as AntComment, Divider, Rate, Skeleton, Tag } from 'antd';
 import { uniqBy } from 'lodash';
 
 import { Comment, Dislike, Heart, Like } from 'assets/icons';
@@ -151,18 +151,14 @@ const PostDetail = ({ post }: IPostDetail) => {
             </section>
             <Divider />
             <section className="section section-interaction">
-                <div>
-                    <span onClick={handleLike}>
-                        <Heart
-                            className={`like-icon ${isLiked ? 'active' : ''}`}
-                        />
-                        {likes?.length} yêu thích
-                    </span>
-                    <span onClick={handleShowComment}>
-                        <Comment />
-                        {comments?.length} bình luận
-                    </span>
-                </div>
+                <span onClick={handleLike}>
+                    <Heart className={`like-icon ${isLiked ? 'active' : ''}`} />
+                    {likes?.length} yêu thích
+                </span>
+                <span onClick={handleShowComment}>
+                    <Comment />
+                    {comments?.length} bình luận
+                </span>
             </section>
             {showComment && (
                 <div className="comment-box">
@@ -207,6 +203,42 @@ const PostDetail = ({ post }: IPostDetail) => {
                     />
                 </div>
             )}
+        </StyledPostDetail>
+    );
+};
+
+export const SkeletonPostDetail = () => {
+    return (
+        <StyledPostDetail>
+            <section className="section section-header">
+                <div>
+                    <Skeleton.Avatar active />
+                    <Skeleton.Input active />
+                </div>
+            </section>
+            <section className="section">
+                <Skeleton paragraph={{ rows: 4 }} title={false} />
+            </section>
+            <section className="section section-image">
+                <Skeleton.Image active />
+                <Skeleton.Image active />
+                <Skeleton.Image active />
+                <Skeleton.Image active />
+                <Skeleton.Image active />
+                <Skeleton.Image active />
+            </section>
+            <section className="section section-hashtag">
+                <Skeleton.Button active />
+            </section>
+            <Divider />
+            <section className="section section-interaction">
+                <span>
+                    <Skeleton.Input active />
+                </span>
+                <span>
+                    <Skeleton.Input active />
+                </span>
+            </section>
         </StyledPostDetail>
     );
 };

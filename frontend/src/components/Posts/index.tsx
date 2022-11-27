@@ -4,7 +4,7 @@ import { PAGINATION, TAB } from 'constants/data';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLazyGetPostsQuery } from 'services/postAPI';
-import PostDetail from './PostDetail';
+import PostDetail, { SkeletonPostDetail } from './PostDetail';
 import { StyledPosts } from './styles';
 
 interface IPosts {
@@ -13,7 +13,7 @@ interface IPosts {
 
 const Posts = ({ restaurantId }: IPosts) => {
     const navigate = useNavigate();
-    const [getPosts, { data, isFetching }] = useLazyGetPostsQuery();
+    const [getPosts, { data, isLoading, isFetching }] = useLazyGetPostsQuery();
 
     const [posts, setPosts] = useState<IPost[]>();
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -32,7 +32,11 @@ const Posts = ({ restaurantId }: IPosts) => {
 
     return (
         <StyledPosts>
-            {posts && posts?.length > 0 ? (
+            {isLoading ? (
+                Array(10)
+                    .fill(0)
+                    .map((_, index) => <SkeletonPostDetail key={index} />)
+            ) : posts && posts?.length > 0 ? (
                 posts?.map((post) => <PostDetail post={post} key={post.id} />)
             ) : (
                 <Empty description="There are no reviews here. Do you want to create your own ones? ">

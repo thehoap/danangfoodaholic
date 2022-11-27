@@ -11,7 +11,7 @@ const PostCategories = ({ hashtags }: IPostCategories) => {
             <h3>Post Categories</h3>
             <Divider />
             {hashtags.map((hashtag) => (
-                <PostCategory>{hashtag}</PostCategory>
+                <PostCategory key={hashtag}>{hashtag}</PostCategory>
             ))}
         </StyledPostCategories>
     );
