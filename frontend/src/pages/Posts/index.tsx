@@ -45,14 +45,7 @@ const Posts = () => {
     return (
         <MainLayout>
             <StyledPosts>
-                <Row gutter={24}>
-                    <Col span={16}>
-                        <PostsList />
-                    </Col>
-                    <Col span={8}>
-                        <PostCategories hashtags={hashtags} />
-                    </Col>
-                </Row>
+                <PostsList />
             </StyledPosts>
         </MainLayout>
     );

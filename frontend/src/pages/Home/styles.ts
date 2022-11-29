@@ -14,7 +14,6 @@ const sliderItemCSS = css`
     /* height: 262px; */
     border-radius: 24px;
     z-index: 1;
-    cursor: grabbing;
 
     * {
         user-select: none;
@@ -69,6 +68,12 @@ export const StyledRestaurantSlider = styled.div`
             -webkit-line-clamp: 1;
             line-clamp: 1;
             -webkit-box-orient: vertical;
+
+            a {
+                color: ${COLOR.PRIMARY};
+                font-weight: 600;
+                font-size: 16px;
+            }
         }
 
         div {

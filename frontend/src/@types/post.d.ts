@@ -26,6 +26,7 @@ interface IPost {
 
 interface IPostParams extends ICommonParams {
     restaurantId?: string;
+    hashtag?: string;
 }
 
 interface IComment {

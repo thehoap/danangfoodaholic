@@ -1,8 +1,8 @@
-import { Card, Carousel, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { ArrowRight, ArrowLeft, ViewMore } from 'assets/icons';
-import { PATH } from 'constants/path';
-import React, { ReactNode, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { ReactNode, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { StyledSlider } from './styles';
 
 interface ISlider {
     data: ReactNode[];
@@ -45,7 +45,7 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
     );
 
     return (
-        <Carousel
+        <StyledSlider
             {...settings}
             slidesToShow={slidesToShow}
             afterChange={handleViewMore}
@@ -54,7 +54,7 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
             slidesToScroll={Math.floor(slidesToShow)}
         >
             {data}
-        </Carousel>
+        </StyledSlider>
     );
 };
 

@@ -1,4 +1,6 @@
-import { Rate, Skeleton, Tooltip } from 'antd';
+import { Rate, Tooltip } from 'antd';
+import { PATH } from 'constants/path';
+import { Link } from 'react-router-dom';
 import { checkTimeBetween } from 'utils/dateFormat';
 import { StyledRestaurantSlider } from './styles';
 
@@ -17,7 +19,13 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
                 <img src={restaurant?.image} alt="" />
             </div>
             <div className="information">
-                <h4>{restaurant?.name}</h4>
+                <h4>
+                    <Tooltip title={restaurant?.name}>
+                        <Link to={`${PATH.RESTAURANTS.path}/${restaurant?.id}`}>
+                            {restaurant?.name}
+                        </Link>
+                    </Tooltip>
+                </h4>
                 <Rate value={3} disabled />
                 <div>
                     <span>{restaurant?.priceRange}</span>

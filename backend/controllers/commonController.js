@@ -43,15 +43,17 @@ const getTrending = async (req, res) => {
         limit = 10,
         query = {};
 
-    const restaurants = await Restaurant.find({ published: true }, null, {
+    const restaurants = await Restaurant.find({}, null, {
         limit: 200,
     });
 
-    const posts = await Post.find({ published: true }, null, {
-        limit,
-    }).populate('user');
-
-    const hashtags = posts.reduce((prev, current) => {
+    const _posts = await Post.find({}, null, {
+        limit: 50,
+    })
+        .populate('user')
+        .sort({ likes: -1 });
+    const posts = _posts.slice(0, 10);
+    const hashtags = _posts.reduce((prev, current) => {
         const result = unionBy(prev, current.hashtags);
         return result;
     }, []);

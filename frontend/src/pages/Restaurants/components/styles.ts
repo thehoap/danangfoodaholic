@@ -4,10 +4,12 @@ import { Card } from 'antd';
 export const StyledRestaurantCard = styled(Card)`
     display: inline-block;
     position: relative;
+    border-radius: 20px !important;
+    overflow: hidden;
 
     .ant-tag {
         position: absolute;
-        top: 8px;
+        top: 20px;
         right: -12px;
 
         &::before {

@@ -23,11 +23,12 @@ import { PostCategory } from 'components/PostCategories/styles';
 
 interface IPostDetail {
     post: IPost;
+    setHashtag: SetStateType<string>;
 }
 
 const dateFormat = 'DD/MM/YYYY hh:mm';
 
-const PostDetail = ({ post }: IPostDetail) => {
+const PostDetail = ({ post, setHashtag }: IPostDetail) => {
     const {
         name: userName,
         userId,
@@ -146,7 +147,12 @@ const PostDetail = ({ post }: IPostDetail) => {
             </section>
             <section className="section section-hashtag">
                 {hashtags.map((hashtag, index) => (
-                    <PostCategory key={index}>{hashtag}</PostCategory>
+                    <PostCategory
+                        onClick={() => setHashtag(hashtag)}
+                        key={index}
+                    >
+                        {hashtag}
+                    </PostCategory>
                 ))}
             </section>
             <Divider />

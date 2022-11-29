@@ -17,14 +17,16 @@ const Posts = ({ restaurantId }: IPosts) => {
 
     const [posts, setPosts] = useState<IPost[]>();
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [hashtag, setHashtag] = useState<string>('');
 
     useEffect(() => {
         getPosts({
             page: currentPage,
             limit: PAGINATION.PAGE_SIZE,
             restaurantId,
+            hashtag,
         });
-    }, []);
+    }, [hashtag]);
 
     useEffect(() => {
         setPosts(data?.data.docs);
@@ -32,12 +34,18 @@ const Posts = ({ restaurantId }: IPosts) => {
 
     return (
         <StyledPosts>
-            {isLoading ? (
+            {isFetching ? (
                 Array(10)
                     .fill(0)
                     .map((_, index) => <SkeletonPostDetail key={index} />)
             ) : posts && posts?.length > 0 ? (
-                posts?.map((post) => <PostDetail post={post} key={post.id} />)
+                posts?.map((post) => (
+                    <PostDetail
+                        post={post}
+                        key={post.id}
+                        setHashtag={setHashtag}
+                    />
+                ))
             ) : (
                 <Empty description="There are no reviews here. Do you want to create your own ones? ">
                     <Button

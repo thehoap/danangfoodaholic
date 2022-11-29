@@ -18,10 +18,15 @@ const convertToMinutues = (time: string) => {
 };
 
 export const checkTimeBetween = (timeNow: string, duration?: string) => {
-    const [open, close] = duration?.split(' - ') || '00:00 - 00:00';
-
-    return (
-        convertToMinutues(timeNow) > convertToMinutues(open) &&
-        convertToMinutues(timeNow) < convertToMinutues(close)
-    );
+    let isOnline: boolean = false;
+    const openDurations = duration?.split('|');
+    openDurations?.forEach((openDuration) => {
+        const [open, close] = openDuration?.split(' - ') || '00:00 - 00:00';
+        if (
+            convertToMinutues(timeNow) > convertToMinutues(open) &&
+            convertToMinutues(timeNow) < convertToMinutues(close)
+        )
+            isOnline = true;
+    });
+    return isOnline;
 };

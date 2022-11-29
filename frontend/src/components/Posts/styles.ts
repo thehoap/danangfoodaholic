@@ -2,7 +2,9 @@ import { flexSpaceBetween } from './../../constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
-export const StyledPosts = styled.div``;
+export const StyledPosts = styled.div`
+    width: 100%;
+`;
 
 export const StyledPostDetail = styled.div`
     background-color: ${COLOR.WHITE};
