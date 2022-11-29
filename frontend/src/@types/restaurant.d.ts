@@ -11,7 +11,7 @@ interface IRestaurant {
     name: string;
     type: string;
     address: string;
-    id: string;
+    // id: string;
     districtId: number;
     wardId: number;
     menuId: string;

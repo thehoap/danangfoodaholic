@@ -13,7 +13,7 @@ const ImagesPreview = ({ image, images }: IImagesPreview) => {
         <>
             <Image
                 preview={{ visible: false }}
-                width={200}
+                width={150}
                 src={image}
                 onClick={() => setVisible(true)}
             />

@@ -3,7 +3,7 @@ import paginate from 'mongoose-paginate-v2';
 
 const postSchema = mongoose.Schema(
     {
-        restaurantId: { type: String, require: true },
+        restaurantId: { type: Schema.Types.ObjectId, ref: 'Restaurant' },
         user: { type: Schema.Types.ObjectId, ref: 'User' },
         content: { type: String, require: true },
         ratings: {

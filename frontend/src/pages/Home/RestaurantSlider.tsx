@@ -21,7 +21,9 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
             <div className="information">
                 <h4>
                     <Tooltip title={restaurant?.name}>
-                        <Link to={`${PATH.RESTAURANTS.path}/${restaurant?.id}`}>
+                        <Link
+                            to={`${PATH.RESTAURANTS.path}/${restaurant?._id}`}
+                        >
                             {restaurant?.name}
                         </Link>
                     </Tooltip>

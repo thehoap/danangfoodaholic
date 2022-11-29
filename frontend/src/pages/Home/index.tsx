@@ -47,6 +47,56 @@ const Home = () => {
                                 ))}
                             slidesToShow={4.5}
                             viewMorePath={PATH.RESTAURANTS.path}
+                            responsive={[
+                                {
+                                    breakpoint: 1452,
+                                    settings: {
+                                        slidesToShow: 4,
+                                    },
+                                },
+                                {
+                                    breakpoint: 1324,
+                                    settings: {
+                                        slidesToShow: 3.5,
+                                    },
+                                },
+                                {
+                                    breakpoint: 1180,
+                                    settings: {
+                                        slidesToShow: 3,
+                                    },
+                                },
+                                {
+                                    breakpoint: 1032,
+                                    settings: {
+                                        slidesToShow: 2.5,
+                                    },
+                                },
+                                {
+                                    breakpoint: 988,
+                                    settings: {
+                                        slidesToShow: 2,
+                                    },
+                                },
+                                {
+                                    breakpoint: 840,
+                                    settings: {
+                                        slidesToShow: 1.5,
+                                    },
+                                },
+                                {
+                                    breakpoint: 692,
+                                    settings: {
+                                        slidesToShow: 1,
+                                    },
+                                },
+                                {
+                                    breakpoint: 544,
+                                    settings: {
+                                        slidesToShow: 0.5,
+                                    },
+                                },
+                            ]}
                         />
                     </Spin>
                 </section>

@@ -21,6 +21,16 @@ export const StyledPostDetail = styled.div`
                 ${flexSpaceBetween}
                 gap:16px;
             }
+
+            .profile {
+                &-title {
+                    margin-bottom: 0;
+                    span {
+                        font-weight: normal;
+                        font-size: 16px;
+                    }
+                }
+            }
         }
 
         &-image {

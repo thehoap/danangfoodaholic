@@ -1,6 +1,7 @@
 import { Empty } from 'antd';
 import Button from 'components/Button';
 import { PAGINATION, TAB } from 'constants/data';
+import { PATH } from 'constants/path';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLazyGetPostsQuery } from 'services/postAPI';
@@ -47,16 +48,28 @@ const Posts = ({ restaurantId }: IPosts) => {
                     />
                 ))
             ) : (
-                <Empty description="There are no reviews here. Do you want to create your own ones? ">
+                <Empty
+                    description={`There are no reviews here. ${
+                        restaurantId
+                            ? 'Do you want to create your own ones?'
+                            : 'Choose the restaurant that you have experienced then create one.'
+                    } `}
+                >
                     <Button
                         type="primary"
                         onClick={() => {
-                            navigate({
-                                search: `?tab=${TAB.CREATE}`,
-                            });
+                            navigate(
+                                restaurantId
+                                    ? {
+                                          search: `?tab=${TAB.CREATE}`,
+                                      }
+                                    : PATH.RESTAURANTS.path
+                            );
                         }}
                     >
-                        Create my review
+                        {restaurantId
+                            ? 'Create my review'
+                            : 'Go to Restaurants'}
                     </Button>
                 </Empty>
             )}

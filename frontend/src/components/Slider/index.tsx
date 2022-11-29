@@ -1,10 +1,10 @@
-import { Tooltip } from 'antd';
+import { CarouselProps, Tooltip } from 'antd';
 import { ArrowRight, ArrowLeft, ViewMore } from 'assets/icons';
 import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StyledSlider } from './styles';
 
-interface ISlider {
+interface ISlider extends CarouselProps {
     data: ReactNode[];
     slidesToShow: number;
     viewMorePath: string;
@@ -21,7 +21,7 @@ const settings = {
     draggable: true,
 };
 
-const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
+const Slider = ({ data, slidesToShow, viewMorePath, ...props }: ISlider) => {
     const navigate = useNavigate();
     const [allowViewMore, setAllowViewMore] = useState<'' | 'View more'>('');
 
@@ -52,6 +52,7 @@ const Slider = ({ data, slidesToShow, viewMorePath }: ISlider) => {
             prevArrow={<ArrowLeft />}
             nextArrow={nextArrow}
             slidesToScroll={Math.floor(slidesToShow)}
+            {...props}
         >
             {data}
         </StyledSlider>

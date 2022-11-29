@@ -17,10 +17,7 @@ const PostSlider = ({ post }: IPostSlider) => {
                 </span>
             </div>
             <div className="information">
-                <p>
-                    {post?.content ||
-                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem maiores labore soluta aut, corporis itaque vero quae culpa facilis? Cumque assumenda odio nemo quae blanditiis dolore cum aperiam eaque harum'}
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: post?.content }} />
                 <div>
                     <span>
                         <Heart />

@@ -18,6 +18,7 @@ const restaurantSchema = mongoose.Schema(
             lat: { type: String },
             long: { type: String },
         },
+        ratings: { type: Number },
     },
     {
         timestamps: true,

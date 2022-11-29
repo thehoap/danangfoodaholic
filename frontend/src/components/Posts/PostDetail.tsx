@@ -1,7 +1,14 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Comment as AntComment, Divider, Rate, Skeleton, Tag } from 'antd';
+import {
+    Comment as AntComment,
+    Divider,
+    Popover,
+    Rate,
+    Skeleton,
+    Tag,
+} from 'antd';
 import { uniqBy } from 'lodash';
 
 import { Comment, Dislike, Heart, Like } from 'assets/icons';
@@ -20,6 +27,9 @@ import * as ERRORS from 'constants/errors';
 import * as REGEX from 'constants/regex';
 import ImagesPreview from 'components/ImagesPreview';
 import { PostCategory } from 'components/PostCategories/styles';
+import { Link } from 'react-router-dom';
+import { PATH } from 'constants/path';
+import RestaurantCard from 'pages/Restaurants/components/RestaurantCard';
 
 interface IPostDetail {
     post: IPost;
@@ -50,6 +60,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
         ratings: { average },
         comments,
         is_recommend,
+        restaurantId,
     } = post;
     const postTime = timestampToDate(dateFormat, createdAt);
     const formik = useFormik({
@@ -113,6 +124,29 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                 });
             });
     };
+    if (typeof restaurantId !== 'string') console.log(restaurantId?._id);
+    const profileTitle = (
+        <p>
+            {name}
+            {typeof restaurantId !== 'string' && (
+                <>
+                    <span>
+                        {is_recommend ? ' recommends ' : " doesn't recommend "}
+                    </span>
+                    <Popover
+                        content={<RestaurantCard restaurant={restaurantId} />}
+                        id="popover-restaurant-card"
+                    >
+                        <Link
+                            to={`${PATH.RESTAURANTS.path}/${restaurantId?._id}`}
+                        >
+                            {restaurantId?.name}
+                        </Link>
+                    </Popover>
+                </>
+            )}
+        </p>
+    );
     console.log(comments?.length, newComments?.length);
     return (
         <StyledPostDetail>
@@ -120,28 +154,17 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                 <div>
                     <Profile
                         image={image}
-                        title={name}
+                        title={profileTitle}
                         description={postTime}
                         size={52}
                     />
-                    {is_recommend ? (
-                        <Tag color="processing">Đề xuất</Tag>
-                    ) : (
-                        <Tag color="error">Không đề xuất</Tag>
-                    )}
                 </div>
                 <Rate value={average} disabled allowHalf />
             </section>
             <section
-                className="content"
+                className="section section-content"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
-            <section className="section">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-                et minima optio adipisci possimus labore ducimus culpa hic,
-                quaerat illum, nostrum incidunt, ex delectus eaque obcaecati
-                ipsam dignissimos ratione nulla?
-            </section>
             <section className="section section-image">
                 <ImagesPreview image={images[0]} images={images} />
             </section>

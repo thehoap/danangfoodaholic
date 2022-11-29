@@ -51,7 +51,7 @@ const Restaurants = () => {
                           ))
                     : restaurants?.map((restaurant) => (
                           <RestaurantCard
-                              key={restaurant.id}
+                              key={restaurant._id}
                               restaurant={restaurant}
                           />
                       ))}

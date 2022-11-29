@@ -47,20 +47,20 @@ const Header = ({ className }: IHeader) => {
     };
 
     const navLinks: { path: string; label: string }[] = [
-        { path: PATH.HOME.path, label: 'Trang chủ' },
-        { path: PATH.RESTAURANTS.path, label: 'Quán ăn' },
-        { path: PATH.POSTS.path, label: 'Bài viết' },
+        { path: PATH.HOME.path, label: 'Home' },
+        { path: PATH.RESTAURANTS.path, label: 'Restaurants' },
+        { path: PATH.POSTS.path, label: 'Posts' },
     ];
 
     const menu = (
         <Menu
             items={[
                 {
-                    label: <NavLink to={PATH.HOME.path}>Trang cá nhân</NavLink>,
+                    label: <NavLink to={PATH.HOME.path}>My profile</NavLink>,
                     key: 'profile',
                 },
                 {
-                    label: <p onClick={handleLogout}>Đăng xuất</p>,
+                    label: <p onClick={handleLogout}>Log out</p>,
                     key: 'logout',
                 },
             ]}

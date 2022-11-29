@@ -29,7 +29,6 @@ const RestaurantDetail = () => {
             name: '',
             type: '',
             address: '',
-            id: '',
             districtId: -1,
             wardId: -1,
             menuId: '',

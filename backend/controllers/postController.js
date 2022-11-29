@@ -30,7 +30,7 @@ const getPosts = async (req, res) => {
         limit,
         lean: true,
         sort: { createdAt: 'desc' },
-        populate: 'user',
+        populate: req.query.restaurantId ? 'user' : 'user restaurantId',
     });
 
     res.status(StatusCodes.OK).json(responseFormat(true, {}, posts));

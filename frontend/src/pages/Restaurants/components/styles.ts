@@ -1,3 +1,5 @@
+import { flexCenter } from 'constants/css';
+import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 import { Card } from 'antd';
 
@@ -72,6 +74,11 @@ export const StyledRestaurantCard = styled(Card)`
                     -webkit-line-clamp: 2;
                     line-clamp: 2;
                     -webkit-box-orient: vertical;
+
+                    &.time {
+                        -webkit-line-clamp: 1;
+                        line-clamp: 1;
+                    }
                 }
             }
         }
@@ -89,7 +96,20 @@ export const StyledRestaurantCard = styled(Card)`
         & svg {
             padding: 4px 0;
             height: 32px;
-            width: 100%;
+            /* width: 100%; */
+        }
+
+        .action {
+            ${flexCenter}
+            gap:8px;
+            padding: 4px 0;
+
+            &:hover > * {
+                color: ${COLOR.PRIMARY};
+                path {
+                    stroke: ${COLOR.PRIMARY};
+                }
+            }
         }
     }
 

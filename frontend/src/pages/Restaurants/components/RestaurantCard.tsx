@@ -13,7 +13,7 @@ interface IRestaurantCard {
 const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
     const navigate = useNavigate();
 
-    const { id, image, name, type, address, time } = restaurant;
+    const { _id, image, name, type, address, time } = restaurant;
 
     const description = (
         <>
@@ -23,21 +23,29 @@ const RestaurantCard = ({ restaurant }: IRestaurantCard) => {
             </p>
             <p onClick={(e) => e.stopPropagation()}>
                 <Timer />
-                <span>{time}</span>
+                <span title={time} className="time">
+                    {time}
+                </span>
             </p>
         </>
     );
 
     const navigateToDetail = (tab?: string) => () => {
         navigate({
-            pathname: `${PATH.RESTAURANTS.path}/${id}`,
+            pathname: `${PATH.RESTAURANTS.path}/${_id}`,
             search: `?tab=${tab || TAB.VIEW}`,
         });
     };
 
     const actions = [
-        <View title="Xem bài đăng" onClick={navigateToDetail(TAB.VIEW)} />,
-        <Post title="Tạo bài đăng" onClick={navigateToDetail(TAB.CREATE)} />,
+        <a className="action" onClick={navigateToDetail(TAB.VIEW)}>
+            <View />
+            <p>View</p>
+        </a>,
+        <a className="action" onClick={navigateToDetail(TAB.CREATE)}>
+            <Post />
+            <p>Create</p>
+        </a>,
     ];
 
     return (

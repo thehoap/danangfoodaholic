@@ -203,13 +203,7 @@ const CreatePost = () => {
                         </Row>
                         <ImagesUpload setImages={setImages} />
                         <Row className="btns">
-                            <Button
-                                type="default"
-                                htmlType="submit"
-                                loading={
-                                    isLoadingUploadImages || isLoadingCreatePost
-                                }
-                            >
+                            <Button type="default" htmlType="submit">
                                 Cancel
                             </Button>
                             <Button

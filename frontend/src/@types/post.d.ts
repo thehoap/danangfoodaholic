@@ -1,6 +1,6 @@
 interface IPost {
     id: string;
-    restaurantId: string;
+    restaurantId: string | IRestaurant;
     user: IUser;
     content: string;
     ratings: {
@@ -37,3 +37,7 @@ interface IComment {
     updatedAt?: string;
     _id?: string;
 }
+
+// interface IPostResponse extends IPost {
+//     restaurantId: IRestaurant;
+// }

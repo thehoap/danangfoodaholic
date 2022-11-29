@@ -118,23 +118,23 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
                     anchor="top"
                     closeButton={false}
                 >
-                    Bạn đang ở đây.{' '}
+                    You are here.
                     {isDetailPage && restaurants
-                        ? `${restaurants[0].name} cách bạn ${distance} km.`
+                        ? ` ${restaurants[0].name} cách bạn ${distance} km.`
                         : ''}
                 </Popup>
             )}
 
             {restaurants?.map((restaurant: IRestaurant, index: number) => {
                 const {
-                    id,
+                    _id,
                     coordinates: { lat, long },
                     name,
                     address,
                     image,
                 } = restaurant;
                 return (
-                    <React.Fragment key={id}>
+                    <React.Fragment key={_id}>
                         <Marker longitude={long} latitude={lat} anchor="bottom">
                             <img
                                 src={markerIcon}
