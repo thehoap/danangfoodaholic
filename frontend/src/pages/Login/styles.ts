@@ -1,4 +1,5 @@
 import { flexCenter } from 'constants/css';
+import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
 export const StyledLogin = styled.div`
@@ -10,18 +11,25 @@ export const StyledLogin = styled.div`
 
     .logo {
         margin: 0 auto;
-        width: 80%;
+        width: 90%;
         margin-bottom: 20px;
     }
 
     form {
-        width: 420px;
+        width: 440px;
         height: 480px;
         background-color: #fff;
         border-radius: 32px;
         margin-left: auto;
         margin-right: 80px;
         padding: 40px;
+
+        p > a {
+            color: ${COLOR.PRIMARY};
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     .ant-btn {

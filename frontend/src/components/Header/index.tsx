@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Dropdown, Menu } from 'antd';
 
 import { useLazyGetProfileQuery } from 'services/profileAPI';
 import { StyledHeader } from './styles';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { PATH } from 'constants/path';
-import { ArrowDown } from 'assets/icons';
+import { ArrowDown, Logout, User } from 'assets/icons';
 import { IMAGE } from 'constants/data';
 import { useDispatch } from 'react-redux';
 import { updateProfile } from 'redux/slices/profileSlice';
@@ -23,6 +23,7 @@ const Header = ({ className }: IHeader) => {
     const [getProfile, { data: profile, isSuccess, isFetching }] =
         useLazyGetProfileQuery();
     const { image, name, email } = useAppSelector((state) => state.profile);
+    const userRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         getProfile({});
@@ -43,7 +44,6 @@ const Header = ({ className }: IHeader) => {
     const handleLogout = () => {
         localStorage.clear();
         window.location.reload();
-        // navigate(PATH.LOGIN.path);
     };
 
     const navLinks: { path: string; label: string }[] = [
@@ -56,11 +56,21 @@ const Header = ({ className }: IHeader) => {
         <Menu
             items={[
                 {
-                    label: <NavLink to={PATH.HOME.path}>My profile</NavLink>,
+                    label: (
+                        <NavLink to={PATH.HOME.path}>
+                            <User />
+                            <span>My profile</span>
+                        </NavLink>
+                    ),
                     key: 'profile',
                 },
                 {
-                    label: <p onClick={handleLogout}>Log out</p>,
+                    label: (
+                        <p onClick={handleLogout}>
+                            <Logout />
+                            <span>Log out</span>
+                        </p>
+                    ),
                     key: 'logout',
                 },
             ]}
@@ -84,17 +94,24 @@ const Header = ({ className }: IHeader) => {
                     </NavLink>
                 ))}
             </nav>
-            <Dropdown overlay={menu} trigger={['click']} className="user">
-                <div className="user">
-                    <img
-                        src={image || IMAGE.PLACEHOLDER}
-                        alt={name}
-                        className="user-image"
-                    />
-                    <p className="user-name">{name}</p>
-                    <ArrowDown />
-                </div>
-            </Dropdown>
+            <div className="user" ref={userRef}>
+                <img
+                    src={image || IMAGE.PLACEHOLDER}
+                    alt={name}
+                    className="user-image"
+                />
+                <p className="user-name">{name}</p>
+                <Dropdown
+                    overlay={menu}
+                    trigger={['click']}
+                    getPopupContainer={() => userRef.current as HTMLElement}
+                    className="user-dropdown"
+                >
+                    <div className="user-arrow">
+                        <ArrowDown />
+                    </div>
+                </Dropdown>
+            </div>
         </StyledHeader>
     );
 };

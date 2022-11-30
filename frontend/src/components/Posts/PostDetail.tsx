@@ -170,7 +170,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                         size={52}
                     />
                 </div>
-                <Rate value={4.5} disabled allowHalf />
+                <Rate value={average} disabled allowHalf />
             </section>
             <section
                 className="section section-content"

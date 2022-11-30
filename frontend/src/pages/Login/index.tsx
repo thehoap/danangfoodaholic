@@ -6,8 +6,9 @@ import * as yup from 'yup';
 import { StyledLogin } from './styles';
 import * as REGEX from 'constants/regex';
 import * as ERRORS from 'constants/errors';
+import Button from 'components/Button';
 import Input from 'components/Input';
-import { Button, Form, Typography } from 'antd';
+import { Form, Typography } from 'antd';
 import { useLoginMutation } from 'services/authAPI';
 import { PATH } from 'constants/path';
 import { Email, Password } from 'assets/icons';
@@ -66,7 +67,7 @@ const Login = () => {
                 />
 
                 <Input
-                    label="Mật khẩu"
+                    label="Password"
                     formik={formik}
                     name="password"
                     type="password"
@@ -78,11 +79,11 @@ const Login = () => {
                     <Typography.Text type="danger">{error}</Typography.Text>
                 )}
                 <Button type="primary" htmlType="submit" loading={isLoading}>
-                    Đăng nhập
+                    Login
                 </Button>
                 <p>
-                    Bạn chưa có tài khoản?
-                    <NavLink to={PATH.REGISTER.path}> Đăng ký ngay.</NavLink>
+                    Don't you have an account?
+                    <NavLink to={PATH.REGISTER.path}> Register now!</NavLink>
                 </p>
             </Form>
         </StyledLogin>

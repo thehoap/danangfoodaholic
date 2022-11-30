@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Button, Form, Typography } from 'antd';
+import { Col, Form, Row, Typography } from 'antd';
 
 import { StyledRegister } from './styles';
 import * as REGEX from 'constants/regex';
 import * as ERRORS from 'constants/errors';
 import Input from 'components/Input';
+import Button from 'components/Button';
 import { useRegisterMutation } from 'services/authAPI';
-import { PATH } from 'constants/path';
 import ImageUpload from 'components/ImageUpload';
 import { useUploadImagesMutation } from 'services/authAPI';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { SerializedError } from '@reduxjs/toolkit';
+import Logo from 'components/Logo';
+import { PATH } from 'constants/path';
+import { Email, Password, User } from 'assets/icons';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -73,15 +74,16 @@ const Register = () => {
                 initialValues={{ remember: true }}
                 onFinish={formik.handleSubmit}
             >
-                <p>Trang review ĐÀ NẴNG</p>
-                <ImageUpload label="Ảnh đại diện" setImages={setImages} />
+                <Logo />
+                <ImageUpload label="" setImages={setImages} />
 
                 <Input
-                    label="Tên người dùng"
+                    label="Username"
                     name="name"
                     formik={formik}
                     value={formik.values.name}
                     onChange={formik.handleChange}
+                    prefix={<User />}
                 />
 
                 <Input
@@ -91,34 +93,55 @@ const Register = () => {
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     autoComplete="off"
+                    prefix={<Email />}
                 />
 
-                <Input
-                    label="Mật khẩu"
-                    formik={formik}
-                    name="password"
-                    type="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                />
-
-                <Input
-                    label="Xác nhận mật khẩu"
-                    type="password"
-                    formik={formik}
-                    name="confirmPassword"
-                />
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Input
+                            label="Password"
+                            formik={formik}
+                            name="password"
+                            type="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            prefix={<Password />}
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <Input
+                            label="Comfirm password"
+                            type="password"
+                            formik={formik}
+                            name="confirmPassword"
+                            prefix={<Password />}
+                        />
+                    </Col>
+                </Row>
 
                 {error && (
                     <Typography.Text type="danger">{error}</Typography.Text>
                 )}
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={isLoadingRegister || isLoadingUploadImages}
-                >
-                    Đăng ký
-                </Button>
+
+                <Row gutter={4}>
+                    <Col span={12}>
+                        <Button
+                            type="default"
+                            onClick={() => navigate(PATH.LOGIN.path)}
+                        >
+                            Back to login
+                        </Button>
+                    </Col>
+                    <Col span={12}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            loading={isLoadingRegister || isLoadingUploadImages}
+                        >
+                            Register
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
         </StyledRegister>
     );
