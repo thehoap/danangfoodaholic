@@ -11,6 +11,14 @@ import { StyledHome } from './styles';
 import { useLazyGetTrendingQuery } from 'services/commonAPI';
 import { PATH } from 'constants/path';
 
+const restaurantSlidesToShow = 4.5;
+const restaurantResponsive: number[] = [
+    1452, 1324, 1180, 1032, 988, 840, 692, 544,
+];
+
+const postSlidesToShow = 2.5;
+const postResponsive: number[] = [1264, 1080, 860];
+
 const Home = () => {
     const [getTrending, { data: dataTrending, isFetching }] =
         useLazyGetTrendingQuery();
@@ -47,56 +55,16 @@ const Home = () => {
                                 ))}
                             slidesToShow={4.5}
                             viewMorePath={PATH.RESTAURANTS.path}
-                            responsive={[
-                                {
-                                    breakpoint: 1452,
+                            responsive={restaurantResponsive.map(
+                                (breakpoint, index) => ({
+                                    breakpoint,
                                     settings: {
-                                        slidesToShow: 4,
+                                        slidesToShow:
+                                            restaurantSlidesToShow -
+                                            0.5 * (index + 1),
                                     },
-                                },
-                                {
-                                    breakpoint: 1324,
-                                    settings: {
-                                        slidesToShow: 3.5,
-                                    },
-                                },
-                                {
-                                    breakpoint: 1180,
-                                    settings: {
-                                        slidesToShow: 3,
-                                    },
-                                },
-                                {
-                                    breakpoint: 1032,
-                                    settings: {
-                                        slidesToShow: 2.5,
-                                    },
-                                },
-                                {
-                                    breakpoint: 988,
-                                    settings: {
-                                        slidesToShow: 2,
-                                    },
-                                },
-                                {
-                                    breakpoint: 840,
-                                    settings: {
-                                        slidesToShow: 1.5,
-                                    },
-                                },
-                                {
-                                    breakpoint: 692,
-                                    settings: {
-                                        slidesToShow: 1,
-                                    },
-                                },
-                                {
-                                    breakpoint: 544,
-                                    settings: {
-                                        slidesToShow: 0.5,
-                                    },
-                                },
-                            ]}
+                                })
+                            )}
                         />
                     </Spin>
                 </section>
@@ -115,8 +83,18 @@ const Home = () => {
                                                 key={index}
                                             />
                                         ))}
-                                    slidesToShow={2.5}
+                                    slidesToShow={postSlidesToShow}
                                     viewMorePath={PATH.POSTS.path}
+                                    responsive={postResponsive.map(
+                                        (breakpoint, index) => ({
+                                            breakpoint,
+                                            settings: {
+                                                slidesToShow:
+                                                    postSlidesToShow -
+                                                    0.5 * (index + 1),
+                                            },
+                                        })
+                                    )}
                                 />
                             </Spin>
                         </Col>
