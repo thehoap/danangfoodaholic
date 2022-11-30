@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Comment as AntComment,
     Divider,
@@ -30,6 +30,7 @@ import { PostCategory } from 'components/PostCategories/styles';
 import { Link } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import RestaurantCard from 'pages/Restaurants/components/RestaurantCard';
+import { textareaConvertHTML } from 'utils/input';
 
 interface IPostDetail {
     post: IPost;
@@ -77,12 +78,18 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                 .matches(REGEX.NO_SPACES_ONLY, ERRORS.COMMENT.required),
         }),
         onSubmit: (values: IComment) => {
+            values = {
+                ...values,
+                content: textareaConvertHTML(values.content),
+            };
+
             createComment(values)
                 .unwrap()
                 .then((res: IResponseFormat<IComment>) => {
                     formik.resetForm();
                     const comment = res.data;
                     setNewComments((comments) => [...comments, { ...comment }]);
+                    setCountNewComments((count) => count + 1);
                 });
         },
     });
@@ -93,6 +100,9 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
     });
     const [showComment, setShowComment] = useState<boolean>(false);
     const [newComments, setNewComments] = useState<IComment[]>([]);
+    const [countNewComments, setCountNewComments] = useState<number>(
+        comments?.length
+    );
 
     const handleLike = () => {
         setIsLiked((liked) => !liked);
@@ -105,6 +115,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
 
     const handleCreateComment = (e: KeyboardEventType<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             formik.submitForm();
         }
     };
@@ -124,7 +135,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                 });
             });
     };
-    if (typeof restaurantId !== 'string') console.log(restaurantId?._id);
+
     const profileTitle = (
         <p>
             {name}
@@ -147,7 +158,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
             )}
         </p>
     );
-    console.log(comments?.length, newComments?.length);
+
     return (
         <StyledPostDetail>
             <section className="section section-header">
@@ -159,14 +170,14 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                         size={52}
                     />
                 </div>
-                <Rate value={average} disabled allowHalf />
+                <Rate value={4.5} disabled allowHalf />
             </section>
             <section
                 className="section section-content"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
             <section className="section section-image">
-                <ImagesPreview image={images[0]} images={images} />
+                <ImagesPreview width={150} images={images} />
             </section>
             <section className="section section-hashtag">
                 {hashtags.map((hashtag, index) => (
@@ -186,7 +197,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                 </span>
                 <span onClick={handleShowComment}>
                     <Comment />
-                    {comments?.length} bình luận
+                    {countNewComments} bình luận
                 </span>
             </section>
             {showComment && (
@@ -204,7 +215,13 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                             <AntComment
                                 author={user.name}
                                 avatar={<img src={user.image} alt="" />}
-                                content={content}
+                                content={
+                                    <p
+                                        dangerouslySetInnerHTML={{
+                                            __html: content,
+                                        }}
+                                    />
+                                }
                                 datetime={
                                     <span>
                                         {timestampToDate(dateFormat, createdAt)}
@@ -225,7 +242,7 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
                                 value={formik.values.content}
                                 onChange={formik.handleChange}
                                 onKeyDown={handleCreateComment}
-                                placeholder="Bạn nghĩ gì về bài viết này?"
+                                placeholder="Write a comment... "
                                 style={{ height: '36px', resize: 'none' }}
                             />
                         }

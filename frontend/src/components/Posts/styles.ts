@@ -32,10 +32,9 @@ export const StyledPostDetail = styled.div`
                 }
             }
         }
-
         &-image {
-            img {
-            }
+            justify-content: space-around;
+            gap: 8px;
         }
 
         &-interaction {
@@ -44,7 +43,7 @@ export const StyledPostDetail = styled.div`
 
             span {
                 ${flexSpaceBetween}
-                gap:4px;
+                gap: 4px;
                 cursor: pointer;
             }
 
@@ -82,6 +81,16 @@ export const StyledPostDetail = styled.div`
         .ant-comment-content-author-name {
             font-weight: 600;
             font-size: 16px;
+        }
+
+        .ant-comment-content-detail {
+            p {
+                line-height: 1.4;
+            }
+        }
+
+        .ant-form-item {
+            margin-bottom: 0;
         }
     }
 `;

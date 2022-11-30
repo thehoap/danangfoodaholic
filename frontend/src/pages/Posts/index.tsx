@@ -45,7 +45,11 @@ const Posts = () => {
     return (
         <MainLayout>
             <StyledPosts>
-                <PostsList />
+                <Row>
+                    <Col span={16}>
+                        <PostsList />
+                    </Col>
+                </Row>
             </StyledPosts>
         </MainLayout>
     );
