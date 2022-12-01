@@ -10,9 +10,10 @@ import { StyledPosts } from './styles';
 
 interface IPosts {
     restaurantId?: string;
+    setAmoutPosts?: SetStateType<number>;
 }
 
-const Posts = ({ restaurantId }: IPosts) => {
+const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
     const navigate = useNavigate();
     const [searchParams, _] = useSearchParams();
     const [getPosts, { data, isLoading, isFetching }] = useLazyGetPostsQuery();
@@ -37,6 +38,7 @@ const Posts = ({ restaurantId }: IPosts) => {
 
     useEffect(() => {
         setPosts(data?.data.docs);
+        setAmoutPosts && setAmoutPosts(data?.data.totalDocs || 0);
     }, [isFetching]);
 
     return (

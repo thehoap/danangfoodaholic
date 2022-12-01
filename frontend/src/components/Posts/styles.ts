@@ -31,6 +31,11 @@ export const StyledPostDetail = styled.div`
                     }
                 }
             }
+
+            .rating-average {
+                font-size: 20px;
+                font-weight: 600;
+            }
         }
         &-image {
             justify-content: space-around;

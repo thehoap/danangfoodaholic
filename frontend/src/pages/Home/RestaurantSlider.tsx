@@ -1,6 +1,7 @@
 import { Rate, Tooltip } from 'antd';
 import { PATH } from 'constants/path';
 import { Link } from 'react-router-dom';
+import { getAverage } from 'utils/caculate';
 import { checkTimeBetween } from 'utils/dateFormat';
 import { StyledRestaurantSlider } from './styles';
 
@@ -28,7 +29,10 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
                         </Link>
                     </Tooltip>
                 </h4>
-                <Rate value={3} disabled />
+                <Rate
+                    value={getAverage(restaurant?.ratings.average || [])}
+                    disabled
+                />
                 <div>
                     <span>{restaurant?.priceRange}</span>
                     <Tooltip title={isOnline ? 'Online' : 'Offline'}>

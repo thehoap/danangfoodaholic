@@ -18,6 +18,14 @@ interface IRestaurant {
     time: string;
     priceRange: string;
     coordinates: ICoordinates;
+    ratings: {
+        space: number[];
+        food: number[];
+        hygiene: number[];
+        service: number[];
+        price: number[];
+        average: number[];
+    };
 }
 
 interface IMenu {

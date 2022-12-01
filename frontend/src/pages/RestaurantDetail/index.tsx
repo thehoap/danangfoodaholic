@@ -1,4 +1,4 @@
-import { Col, Empty, Row, Tabs } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 import Map from 'components/Map';
 import Posts from 'components/Posts';
 import { TAB } from 'constants/data';
@@ -11,6 +11,7 @@ import Menu from './components/Menu';
 import RadarChart from './components/RadarChart';
 import { StyledRestaurantDetail } from './styles';
 import { getAverage } from 'utils/caculate';
+import { Location, Money, Timer } from 'assets/icons';
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
@@ -54,9 +55,13 @@ const RestaurantDetail = () => {
     const {
         name,
         image,
+        address,
+        time,
+        priceRange,
         menu,
         ratings: { space, food, hygiene, service, price, average },
     } = restaurantDetail;
+    const [amountPosts, setAmoutPosts] = useState<number>(0);
 
     useEffect(() => {
         if (id)
@@ -77,7 +82,32 @@ const RestaurantDetail = () => {
                 <div className="thumbnail">
                     <img src={image} alt="" />
                     <div className="overlay">
-                        <h1>{name}</h1>
+                        <Row>
+                            <Col span={12}>
+                                <p className="heading">{name}</p>
+                                <p className="description">
+                                    <Location /> {address}
+                                </p>
+                            </Col>
+                            <Col span={6}>
+                                <p className="description">
+                                    <Timer /> {time}
+                                </p>
+                                <p className="description">
+                                    <Money /> {priceRange}
+                                </p>
+                            </Col>
+                            <Col span={6} className="stats">
+                                <div>
+                                    <span> {getAverage(average) || 0}</span>
+                                    <p>points</p>
+                                </div>
+                                <div>
+                                    <span>{amountPosts}</span>
+                                    <p>reviews</p>
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
                 </div>
                 <Tabs
@@ -90,7 +120,10 @@ const RestaurantDetail = () => {
                             children: (
                                 <Row className="post-view" gutter={24}>
                                     <Col span={16}>
-                                        <Posts restaurantId={id} />
+                                        <Posts
+                                            restaurantId={id}
+                                            setAmoutPosts={setAmoutPosts}
+                                        />
                                     </Col>
                                     <Col span={8}>
                                         <RadarChart

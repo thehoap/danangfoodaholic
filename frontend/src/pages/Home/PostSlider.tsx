@@ -13,7 +13,7 @@ const PostSlider = ({ post }: IPostSlider) => {
                 <img src={post?.user.image} alt="" />
                 <span>
                     <Rate value={1} disabled count={1} />
-                    {post?.ratings.average || 3}
+                    {post?.ratings.average}
                 </span>
             </div>
             <div className="information">

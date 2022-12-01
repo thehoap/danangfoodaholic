@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { Comment as AntComment, Divider, Popover, Rate, Skeleton } from 'antd';
-import { uniqBy } from 'lodash';
+import { Comment as AntComment, Divider, Popover, Skeleton } from 'antd';
+import { isInteger, uniqBy } from 'lodash';
 
 import { Comment, Heart } from 'assets/icons';
 import Profile from 'components/Profile';
@@ -18,11 +18,13 @@ import { StyledPostDetail } from './styles';
 import * as ERRORS from 'constants/errors';
 import * as REGEX from 'constants/regex';
 import ImagesPreview from 'components/ImagesPreview';
+import Rate from 'components/Rate';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import RestaurantCard from 'pages/Restaurants/components/RestaurantCard';
 import { textareaConvertHTML } from 'utils/input';
 import PostCategory from 'components/PostCategories/PostCategory';
+import { roundToHalf } from 'utils/caculate';
 
 interface IPostDetail {
     post: IPost;
@@ -163,7 +165,17 @@ const PostDetail = ({ post }: IPostDetail) => {
                         size={52}
                     />
                 </div>
-                <Rate value={average} disabled allowHalf />
+                <div>
+                    <span className="rating-average"> {average}</span>
+                    <Rate
+                        value={
+                            isInteger(average) ? average : roundToHalf(average)
+                        }
+                        exactValue={average}
+                        disabled
+                        allowHalf
+                    />
+                </div>
             </section>
             <section
                 className="section section-content"
