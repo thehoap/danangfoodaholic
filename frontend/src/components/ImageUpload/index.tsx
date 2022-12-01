@@ -11,7 +11,7 @@ interface IImageUpload {
 
 const ImageUpload = ({ label, setImages }: IImageUpload) => {
     const [image, setImage] = useState<File | null>(null);
-    const uploadRef = useRef<HTMLLabelElement>(null);
+    const uploadRef = useRef<HTMLLabelElement | null>(null);
     const formdata = new FormData();
 
     const handlePreviewImages = (e: ChangeEventType<HTMLInputElement>) => {

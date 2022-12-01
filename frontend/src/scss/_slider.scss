@@ -1,0 +1,49 @@
+@import './variables';
+
+.ant-carousel {
+    .slick-prev,
+    .slick-next {
+        z-index: 1;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 50%;
+        border: 1px solid $primaryColor;
+        background-color: $primaryColor;
+        transition: all 0.2s linear;
+
+        path {
+            stroke: $whiteColor;
+        }
+
+        &:hover {
+            color: $primaryColor;
+            background: $whiteColor;
+
+            path {
+                stroke: $primaryColor;
+            }
+        }
+    }
+
+    .slick-prev {
+        left: 0;
+        transform: translateX(-50%);
+
+        &.slick-disabled {
+            cursor: not-allowed;
+            color: $disabledColor;
+            border: 1px solid $disabledColor;
+            background-color: $whiteColor;
+
+            path {
+                stroke: $disabledColor;
+            }
+        }
+    }
+
+    .slick-next {
+        right: 0;
+        transform: translateX(50%);
+    }
+}

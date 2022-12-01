@@ -19,6 +19,19 @@ const restaurantResponsive: number[] = [
 const postSlidesToShow = 2.5;
 const postResponsive: number[] = [1264, 1080, 860];
 
+const responsiveSlider = (breakpoints: number[], maxSlidesToShow: number) => {
+    return breakpoints.map((breakpoint, index) => {
+        const slidesToShow = maxSlidesToShow - 0.5 * (index + 1);
+        return {
+            breakpoint,
+            settings: {
+                slidesToShow,
+                slidesToScroll: slidesToShow,
+            },
+        };
+    });
+};
+
 const Home = () => {
     const [getTrending, { data: dataTrending, isFetching }] =
         useLazyGetTrendingQuery();
@@ -46,24 +59,18 @@ const Home = () => {
                     <Spin spinning={isFetching}>
                         <Slider
                             data={restaurants
-                                .slice(0, 10)
+                                .slice(0, 20)
                                 .map((restaurant, index) => (
                                     <RestaurantSlider
                                         restaurant={restaurant}
                                         key={index}
                                     />
                                 ))}
-                            slidesToShow={4.5}
+                            slidesToShow={restaurantSlidesToShow}
                             viewMorePath={PATH.RESTAURANTS.path}
-                            responsive={restaurantResponsive.map(
-                                (breakpoint, index) => ({
-                                    breakpoint,
-                                    settings: {
-                                        slidesToShow:
-                                            restaurantSlidesToShow -
-                                            0.5 * (index + 1),
-                                    },
-                                })
+                            responsive={responsiveSlider(
+                                restaurantResponsive,
+                                restaurantSlidesToShow
                             )}
                         />
                     </Spin>
@@ -85,15 +92,9 @@ const Home = () => {
                                         ))}
                                     slidesToShow={postSlidesToShow}
                                     viewMorePath={PATH.POSTS.path}
-                                    responsive={postResponsive.map(
-                                        (breakpoint, index) => ({
-                                            breakpoint,
-                                            settings: {
-                                                slidesToShow:
-                                                    postSlidesToShow -
-                                                    0.5 * (index + 1),
-                                            },
-                                        })
+                                    responsive={responsiveSlider(
+                                        postResponsive,
+                                        postSlidesToShow
                                     )}
                                 />
                             </Spin>

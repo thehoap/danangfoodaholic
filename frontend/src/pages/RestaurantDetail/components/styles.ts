@@ -1,5 +1,6 @@
-import { flexSpaceBetween, rounded } from 'constants/css';
+import { rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
+import { Radar } from 'react-chartjs-2';
 import styled from 'styled-components';
 
 export const StyledCreatePost = styled.div`
@@ -108,4 +109,11 @@ export const StyledMenuItem = styled.div`
             -webkit-box-orient: vertical;
         }
     }
+`;
+
+export const StyledRadar = styled(Radar)`
+    background-color: ${COLOR.WHITE};
+    border-radius: 24px;
+    margin-bottom: 24px;
+    font-size: 16px;
 `;

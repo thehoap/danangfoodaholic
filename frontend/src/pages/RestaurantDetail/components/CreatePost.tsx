@@ -1,11 +1,10 @@
 import { Col, Form, Row } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import Button from 'components/Button';
-import Input from 'components/Input';
 import InputNumber from 'components/InputNumber';
 import Rating from 'components/Rating';
 import { useAppSelector } from 'redux/hooks';
@@ -15,12 +14,13 @@ import Select from 'components/Select';
 import ImagesUpload from 'components/ImagesUpload';
 import { useUploadImagesMutation } from 'services/authAPI';
 import { useCreatePostMutation } from 'services/postAPI';
-import TextEditor from 'components/TextEditor';
 import { textareaConvertHTML } from 'utils/input';
 import TextArea from 'components/TextArea';
 import { getAverage } from 'utils/caculate';
+import { TAB } from 'constants/data';
 
 const CreatePost = () => {
+    const navigate = useNavigate();
     const { id: restaurantId } = useParams();
     const { userId } = useAppSelector((state) => state.profile);
 
@@ -105,9 +105,17 @@ const CreatePost = () => {
             }
             createPost(postValue).then(() => {
                 formik.setValues(initialValues);
+                handleNavigateView();
             });
         },
     });
+
+    const handleNavigateView = () => {
+        window.scrollTo(0, 0);
+        navigate({
+            search: `?tab=${TAB.VIEW}`,
+        });
+    };
 
     return (
         <StyledCreatePost>
@@ -135,7 +143,7 @@ const CreatePost = () => {
                                     name="ratings_space"
                                 />
                                 <Rating
-                                    label="Dishes"
+                                    label="Food/Drink"
                                     formik={formik}
                                     name="ratings_food"
                                 />
@@ -203,7 +211,7 @@ const CreatePost = () => {
                         </Row>
                         <ImagesUpload setImages={setImages} />
                         <Row className="btns">
-                            <Button type="default" htmlType="submit">
+                            <Button type="default" onClick={handleNavigateView}>
                                 Cancel
                             </Button>
                             <Button

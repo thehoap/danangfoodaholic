@@ -1,0 +1,21 @@
+#popover-restaurant-card {
+    width: 250px;
+    border-radius: 16px;
+
+    .ant-popover-inner-content {
+        padding: 4px;
+    }
+
+    .ant-card {
+        width: 100%;
+    }
+
+    .ant-card-body {
+        padding: 12px;
+    }
+
+    .ant-tag,
+    .ant-card-actions {
+        display: none;
+    }
+}

@@ -1,14 +1,16 @@
-import { Col, Row, Tabs } from 'antd';
+import { Col, Empty, Row, Tabs } from 'antd';
 import Map from 'components/Map';
 import Posts from 'components/Posts';
 import { TAB } from 'constants/data';
 import MainLayout from 'layouts/MainLayout';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLazyGetRestaurantQuery } from 'services/restaurantAPI';
 import CreatePost from './components/CreatePost';
 import Menu from './components/Menu';
+import RadarChart from './components/RadarChart';
 import { StyledRestaurantDetail } from './styles';
+import { getAverage } from 'utils/caculate';
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
@@ -39,9 +41,22 @@ const RestaurantDetail = () => {
                 lat: -1,
                 long: -1,
             },
+            ratings: {
+                space: [],
+                food: [],
+                hygiene: [],
+                service: [],
+                price: [],
+                average: [],
+            },
         }
     );
-    const { name, image, menu } = restaurantDetail;
+    const {
+        name,
+        image,
+        menu,
+        ratings: { space, food, hygiene, service, price, average },
+    } = restaurantDetail;
 
     useEffect(() => {
         if (id)
@@ -78,6 +93,15 @@ const RestaurantDetail = () => {
                                         <Posts restaurantId={id} />
                                     </Col>
                                     <Col span={8}>
+                                        <RadarChart
+                                            stats={[
+                                                getAverage(space),
+                                                getAverage(food),
+                                                getAverage(hygiene),
+                                                getAverage(service),
+                                                getAverage(price),
+                                            ]}
+                                        />
                                         <Menu menu={menu} />
                                     </Col>
                                 </Row>

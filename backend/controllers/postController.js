@@ -1,6 +1,7 @@
 import StatusCodes from 'http-status-codes';
 
 import Post from '../models/postModel.js';
+import Restaurant from '../models/restaurantModel.js';
 import responseFormat from '../utils/responseFormat.js';
 
 /* 
@@ -45,6 +46,17 @@ const getPostDetail = async (req, res) => {
         .lean()
         .sort({ createdAt: 'asc' })
         .populate('comments');
+
+    const restaurant = await Restaurant.findById(post.restaurantId);
+    restaurant.ratings = {
+        space: [...restaurant.ratings.space, post.ratings.space],
+        food: [...restaurant.ratings.food, post.ratings.food],
+        hygiene: [...restaurant.ratings.hygiene, post.ratings.hygiene],
+        service: [...restaurant.ratings.service, post.ratings.service],
+        price: [...restaurant.ratings.price, post.ratings.price],
+        average: [...restaurant.ratings.average, post.ratings.average],
+    };
+    await Restaurant.updateOne({ _id: post.restaurantId }, restaurant);
 
     res.status(StatusCodes.OK).json(responseFormat(true, {}, post));
 };

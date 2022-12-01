@@ -31,4 +31,12 @@ interface IMenu {
 
 interface IRestaurantDetail extends IRestaurant {
     menu: IMenu[];
+    ratings: {
+        space: number[];
+        food: number[];
+        hygiene: number[];
+        service: number[];
+        price: number[];
+        average: number[];
+    };
 }
