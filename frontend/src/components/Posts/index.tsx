@@ -3,7 +3,7 @@ import Button from 'components/Button';
 import { PAGINATION, TAB } from 'constants/data';
 import { PATH } from 'constants/path';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLazyGetPostsQuery } from 'services/postAPI';
 import PostDetail, { SkeletonPostDetail } from './PostDetail';
 import { StyledPosts } from './styles';
@@ -14,11 +14,17 @@ interface IPosts {
 
 const Posts = ({ restaurantId }: IPosts) => {
     const navigate = useNavigate();
+    const [searchParams, _] = useSearchParams();
     const [getPosts, { data, isLoading, isFetching }] = useLazyGetPostsQuery();
 
+    const _hashtag = searchParams.get('hashtag');
     const [posts, setPosts] = useState<IPost[]>();
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [hashtag, setHashtag] = useState<string>('');
+    const [hashtag, setHashtag] = useState<string>(_hashtag || '');
+
+    useEffect(() => {
+        setHashtag('');
+    }, []);
 
     useEffect(() => {
         getPosts({
@@ -27,7 +33,7 @@ const Posts = ({ restaurantId }: IPosts) => {
             restaurantId,
             hashtag,
         });
-    }, [hashtag]);
+    }, [_hashtag]);
 
     useEffect(() => {
         setPosts(data?.data.docs);
@@ -40,13 +46,7 @@ const Posts = ({ restaurantId }: IPosts) => {
                     .fill(0)
                     .map((_, index) => <SkeletonPostDetail key={index} />)
             ) : posts && posts?.length > 0 ? (
-                posts?.map((post) => (
-                    <PostDetail
-                        post={post}
-                        key={post.id}
-                        setHashtag={setHashtag}
-                    />
-                ))
+                posts?.map((post) => <PostDetail post={post} key={post.id} />)
             ) : (
                 <Empty
                     description={`There are no reviews here. ${

@@ -1,18 +1,10 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import {
-    Comment as AntComment,
-    Divider,
-    Popover,
-    Rate,
-    Skeleton,
-    Tag,
-} from 'antd';
+import { useState } from 'react';
+import { Comment as AntComment, Divider, Popover, Rate, Skeleton } from 'antd';
 import { uniqBy } from 'lodash';
 
-import { Comment, Dislike, Heart, Like } from 'assets/icons';
-import Hashtag from 'components/Hashtag';
+import { Comment, Heart } from 'assets/icons';
 import Profile from 'components/Profile';
 import TextArea from 'components/TextArea';
 import { useAppSelector } from 'redux/hooks';
@@ -26,26 +18,27 @@ import { StyledPostDetail } from './styles';
 import * as ERRORS from 'constants/errors';
 import * as REGEX from 'constants/regex';
 import ImagesPreview from 'components/ImagesPreview';
-import { PostCategory } from 'components/PostCategories/styles';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { PATH } from 'constants/path';
 import RestaurantCard from 'pages/Restaurants/components/RestaurantCard';
 import { textareaConvertHTML } from 'utils/input';
+import PostCategory from 'components/PostCategories/PostCategory';
 
 interface IPostDetail {
     post: IPost;
-    setHashtag: SetStateType<string>;
 }
 
 const dateFormat = 'DD/MM/YYYY hh:mm';
 
-const PostDetail = ({ post, setHashtag }: IPostDetail) => {
+const PostDetail = ({ post }: IPostDetail) => {
     const {
         name: userName,
         userId,
         image: userImage,
     } = useAppSelector((state) => state.profile);
+    const [searchParams, _] = useSearchParams();
 
+    const _hashtag = searchParams.get('hashtag');
     const [updatePost] = useUpdatePostMutation();
     const [createComment] = useCreateCommentMutation();
     const [getPostDetail] = useLazyGetPostDetailQuery();
@@ -182,11 +175,10 @@ const PostDetail = ({ post, setHashtag }: IPostDetail) => {
             <section className="section section-hashtag">
                 {hashtags.map((hashtag, index) => (
                     <PostCategory
-                        onClick={() => setHashtag(hashtag)}
                         key={index}
-                    >
-                        {hashtag}
-                    </PostCategory>
+                        hashtag={hashtag}
+                        active={hashtag === _hashtag}
+                    />
                 ))}
             </section>
             <Divider />

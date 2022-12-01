@@ -5,7 +5,7 @@ export const StyledRestaurantDetail = styled.div`
         position: relative;
         img {
             width: 100%;
-            height: 200px;
+            height: 240px;
             object-fit: cover;
         }
 
@@ -16,11 +16,9 @@ export const StyledRestaurantDetail = styled.div`
             right: 0;
             width: 100%;
             height: 100px;
-            /* background-color: red; */
             background: rgba(255, 255, 255, 0.6);
-            /* Glass Card */
-
-            backdrop-filter: blur(21px);
+            backdrop-filter: blur(8px);
+            padding: 16px;
         }
     }
 

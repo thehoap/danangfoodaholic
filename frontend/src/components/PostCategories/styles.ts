@@ -7,7 +7,7 @@ export const StyledPostCategories = styled.div`
     border-radius: 24px;
 `;
 
-export const PostCategory = styled.div`
+export const StyledPostCategory = styled.div`
     display: inline-block;
     padding: 8px 12px;
     border-radius: 20px;
@@ -19,8 +19,12 @@ export const PostCategory = styled.div`
     cursor: pointer;
     transition: all 0.2s linear;
 
+    &.active,
     &:hover {
         background-color: ${COLOR.PRIMARY};
         color: ${COLOR.WHITE};
+    }
+
+    &.active {
     }
 `;
