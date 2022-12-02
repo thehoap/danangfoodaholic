@@ -32,6 +32,7 @@ export const StyledHeader = styled.header`
     }
 
     .user {
+        position: relative;
         ${flexSpaceBetween}
         gap: 20px;
         padding: 6px 12px;
@@ -76,8 +77,8 @@ export const StyledHeader = styled.header`
         }
 
         & .ant-dropdown {
-            left: 1300px !important;
-            top: 80px !important;
+            left: 60px !important;
+            top: 72px !important;
 
             &-menu {
                 border-radius: 12px;

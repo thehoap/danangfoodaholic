@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const StyledPosts = styled.div`
     width: 100%;
+    text-align: center;
 `;
 
 export const StyledPostDetail = styled.div`

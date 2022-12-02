@@ -18,4 +18,10 @@ export const PATH = {
 
         DETAIL: '/posts/:id',
     },
+    PROFILE: {
+        path: '/profile/:id',
+    },
+    ERROR: {
+        path: '*',
+    },
 };

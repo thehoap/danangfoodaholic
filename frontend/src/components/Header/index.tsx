@@ -18,7 +18,7 @@ interface IHeader {
 
 const Header = ({ className }: IHeader) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const { userId } = useAppSelector((state) => state.profile);
 
     const [getProfile, { data: profile, isSuccess, isFetching }] =
         useLazyGetProfileQuery();
@@ -57,7 +57,7 @@ const Header = ({ className }: IHeader) => {
             items={[
                 {
                     label: (
-                        <NavLink to={PATH.HOME.path}>
+                        <NavLink to={PATH.PROFILE.path.replace(':id', userId)}>
                             <User />
                             <span>My profile</span>
                         </NavLink>

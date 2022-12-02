@@ -13,6 +13,7 @@ $headerHeight: 88px;
     &__content {
         background-color: #fcf6ee;
         margin-top: $headerHeight;
+        min-height: calc(100vh - 88px);
         padding: 40px 100px;
     }
     &__footer {

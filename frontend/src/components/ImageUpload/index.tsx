@@ -7,9 +7,10 @@ import { StyledImageUpload } from './styles';
 interface IImageUpload {
     label: string;
     setImages: SetStateType<FormData | undefined>;
+    imageUrl?: string;
 }
 
-const ImageUpload = ({ label, setImages }: IImageUpload) => {
+const ImageUpload = ({ label, setImages, imageUrl }: IImageUpload) => {
     const [image, setImage] = useState<File | null>(null);
     const uploadRef = useRef<HTMLLabelElement | null>(null);
     const formdata = new FormData();
@@ -35,6 +36,8 @@ const ImageUpload = ({ label, setImages }: IImageUpload) => {
                     src={
                         image
                             ? image && URL.createObjectURL(image)
+                            : imageUrl
+                            ? imageUrl
                             : IMAGE.PLACEHOLDER
                     }
                     width={100}

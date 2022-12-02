@@ -8,6 +8,7 @@ export const StyledImageUpload = styled.div`
     img {
         display: inline-block;
         ${rounded(size)}
+        cursor: pointer;
     }
     button {
         text-align: center;

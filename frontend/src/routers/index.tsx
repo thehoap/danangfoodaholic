@@ -8,6 +8,8 @@ import Restaurants from 'pages/Restaurants';
 import Register from 'pages/Register';
 import RestaurantDetail from 'pages/RestaurantDetail';
 import Posts from 'pages/Posts';
+import Profile from 'pages/Profile';
+import Error from 'pages/Error';
 
 const Routers = () => {
     const token = localStorage.getItem('token');
@@ -27,6 +29,7 @@ const Routers = () => {
                     />
                     <Route path={PATH.POSTS.path} element={<Posts />} />
                     <Route path={PATH.POSTS.DETAIL} element={<Posts />} />
+                    <Route path={PATH.PROFILE.path} element={<Profile />} />
                 </Route>
                 <Route
                     path={PATH.LOGIN.path}
@@ -39,6 +42,7 @@ const Routers = () => {
                     }
                 />
                 <Route path={PATH.REGISTER.path} element={<Register />} />
+                <Route path={PATH.ERROR.path} element={<Error />} />
             </Routes>
         </BrowserRouter>
     );

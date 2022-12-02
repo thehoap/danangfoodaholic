@@ -48,3 +48,5 @@ export enum TAB {
     VIEW = 'view',
     CREATE = 'create',
 }
+
+export const FACEBOOK_BREAKLINE = '%0A';
