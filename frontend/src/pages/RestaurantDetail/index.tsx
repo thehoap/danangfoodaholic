@@ -12,11 +12,14 @@ import RadarChart from './components/RadarChart';
 import { StyledRestaurantDetail } from './styles';
 import { getAverage } from 'utils/calculate';
 import { Location, Money, Timer } from 'assets/icons';
+import { useAppDispatch } from 'redux/hooks';
+import { getReviewedRestaurant } from 'redux/slices/restaurantSlice';
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [searchParams, _] = useSearchParams();
+    const appDispatch = useAppDispatch();
 
     const [
         getRestaurant,
@@ -65,9 +68,12 @@ const RestaurantDetail = () => {
 
     useEffect(() => {
         if (id)
-            getRestaurant(id).then(
-                (res) => res?.data && setRestaurantDetail(res?.data?.data)
-            );
+            getRestaurant(id).then((res) => {
+                if (res?.data) {
+                    setRestaurantDetail(res?.data?.data);
+                    appDispatch(getReviewedRestaurant(res?.data?.data));
+                }
+            });
     }, []);
 
     const handleChangeTab = (tab: string) => {
@@ -147,7 +153,7 @@ const RestaurantDetail = () => {
                         },
                     ]}
                 />
-                {/* <Map restaurants={[restaurantDetail]} isDetailPage={true} /> */}
+                <Map restaurants={[restaurantDetail]} isDetailPage={true} />
             </StyledRestaurantDetail>
         </MainLayout>
     );

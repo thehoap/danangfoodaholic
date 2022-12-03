@@ -4,10 +4,11 @@ import { StyledImagesUpload } from './styles';
 import { v4 as uuidv4 } from 'uuid';
 
 interface IImagesUpload {
+    images: FormData | undefined;
     setImages: SetStateType<FormData | undefined>;
 }
 
-const ImagesUpload = ({ setImages }: IImagesUpload) => {
+const ImagesUpload = ({ images, setImages }: IImagesUpload) => {
     const [previewImages, setPreviewImages] = useState<FileList | null>(null);
     const formdata = new FormData();
 

@@ -21,3 +21,8 @@ export const baseMapboxQuery = fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_MAPBOX_URL,
     cache: 'no-cache',
 });
+
+export const baseFacebookQuery = fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_API_FACEBOOK_URL,
+    cache: 'no-cache',
+});

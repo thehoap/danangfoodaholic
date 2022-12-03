@@ -73,9 +73,8 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
                 from: currentLocation,
                 to: restaurants[0].coordinates,
             }).then((res: any) => {
-                console.log(res?.data);
                 const distance: number = Number(
-                    (res?.data.routes[0].distance / 1000).toFixed(2)
+                    (res?.data?.routes[0].distance / 1000).toFixed(2)
                 );
                 setDistance(distance);
             });

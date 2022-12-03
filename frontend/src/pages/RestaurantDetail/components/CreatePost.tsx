@@ -1,4 +1,4 @@
-import { Col, Form, Row } from 'antd';
+import { Col, Form, message, Row } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,8 +16,13 @@ import { useUploadImagesMutation } from 'services/authAPI';
 import { useCreatePostMutation } from 'services/postAPI';
 import { textareaConvertHTML } from 'utils/input';
 import TextArea from 'components/TextArea';
-import { getAverage } from 'utils/caculate';
-import { TAB } from 'constants/data';
+import { getAverage } from 'utils/calculate';
+import { FACEBOOK_BREAKLINE, TAB } from 'constants/data';
+import {
+    useTestMessageMutation,
+    useTestPhotoMutation,
+} from 'services/facebookAPI';
+import useUploadFacebook from 'hooks/useUploadFacebook';
 
 const CreatePost = () => {
     const navigate = useNavigate();
@@ -30,10 +35,14 @@ const CreatePost = () => {
     ] = useUploadImagesMutation();
     const [createPost, { data: dataPost, isLoading: isLoadingCreatePost }] =
         useCreatePostMutation();
+    // const [testMessage, { data, isLoading }] = useTestMessageMutation();
+    const [testPhoto, { data, isLoading }] = useTestPhotoMutation();
 
     const [images, setImages] = useState<FormData>();
+    const [cloundinaryImages, setCloudinaryImages] = useState<string[]>([]);
+    const [isReady, setIsReady] = useState<boolean>(false);
 
-    const initialValues = {
+    const initialValues: IPostFormInput = {
         id: '',
         restaurantId: restaurantId || '',
         user: userId || '',
@@ -71,7 +80,7 @@ const CreatePost = () => {
                 content,
                 ...rest
             } = values;
-            const postValue = {
+            const postValue: IPostRequest = {
                 ...rest,
                 ratings: {
                     space: ratings_space,
@@ -97,6 +106,7 @@ const CreatePost = () => {
             if (images) {
                 postValue.images = await uploadImages(images)
                     .then((res: any) => {
+                        setCloudinaryImages(res.data);
                         return res.data;
                     })
                     .catch((error: IError) => {
@@ -104,8 +114,7 @@ const CreatePost = () => {
                     });
             }
             createPost(postValue).then(() => {
-                formik.setValues(initialValues);
-                handleNavigateView();
+                setIsReady(true);
             });
         },
     });
@@ -116,6 +125,17 @@ const CreatePost = () => {
             search: `?tab=${TAB.VIEW}`,
         });
     };
+
+    const doneUploadFacebook = useUploadFacebook(
+        formik.values,
+        cloundinaryImages,
+        isReady
+    );
+
+    if (doneUploadFacebook) {
+        formik.setValues(initialValues);
+        handleNavigateView();
+    }
 
     return (
         <StyledCreatePost>
@@ -197,6 +217,7 @@ const CreatePost = () => {
                                             min={0}
                                             step={1000}
                                             addonAfter="VND"
+                                            // autoFocus
                                         />
                                     </Col>
                                 </Row>
@@ -209,7 +230,7 @@ const CreatePost = () => {
                                 />
                             </Col>
                         </Row>
-                        <ImagesUpload setImages={setImages} />
+                        <ImagesUpload images={images} setImages={setImages} />
                         <Row className="btns">
                             <Button type="default" onClick={handleNavigateView}>
                                 Cancel
@@ -218,7 +239,9 @@ const CreatePost = () => {
                                 type="primary"
                                 htmlType="submit"
                                 loading={
-                                    isLoadingUploadImages || isLoadingCreatePost
+                                    isLoadingUploadImages ||
+                                    isLoadingCreatePost ||
+                                    isLoading
                                 }
                             >
                                 Post

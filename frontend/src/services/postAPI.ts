@@ -24,7 +24,7 @@ export const postAPI = createApi({
             providesTags: ['Post'],
         }),
         createPost: builder.mutation({
-            query: (body: IPost) => ({
+            query: (body: IPostRequest) => ({
                 url: '/posts',
                 method: 'POST',
                 body,

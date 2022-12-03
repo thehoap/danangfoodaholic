@@ -4,7 +4,11 @@ import styled from 'styled-components';
 
 export const StyledPosts = styled.div`
     width: 100%;
-    text-align: center;
+
+    .ant-btn {
+        display: block;
+        margin: 0 auto;
+    }
 `;
 
 export const StyledPostDetail = styled.div`

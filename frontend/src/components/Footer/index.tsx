@@ -22,7 +22,7 @@ const Footer = ({ className }: IFooter) => {
                     <div className="facebook">
                         <Facebook />
                     </div>
-                    <Tooltip title="Visit us on Facebook to see your review">
+                    <Tooltip title="Visit us on Facebook">
                         <span>Da Nang Foodaholic</span>
                     </Tooltip>
                 </a>

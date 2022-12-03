@@ -107,7 +107,7 @@ const Home = () => {
                 <section>
                     <h3>Map</h3>
                     <Divider />
-                    {/* <Map restaurants={restaurants} /> */}
+                    <Map restaurants={restaurants} />
                 </section>
             </StyledHome>
         </MainLayout>

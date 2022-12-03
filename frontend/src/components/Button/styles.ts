@@ -24,7 +24,7 @@ export const StyledButton = styled(Button)`
     }
 
     &:not(:disabled):hover,
-    &:active {
+    &:not(:disabled):active {
         color: ${(props) => conditionalColor(props)} !important;
         border: 1px solid ${(props) => conditionalColor(props)};
         background-color: ${COLOR.WHITE};

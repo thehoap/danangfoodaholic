@@ -7,6 +7,7 @@ import {
 import { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
 import profile from 'redux/slices/profileSlice';
+import restaurant from 'redux/slices/restaurantSlice';
 import {
     authAPI,
     commonAPI,
@@ -14,11 +15,12 @@ import {
     restaurantAPI,
     postAPI,
     mapAPI,
+    facebookAPI,
 } from 'services';
-import { facebookAPI } from 'services/facebookAPI';
 
 const reducer = combineReducers({
     profile,
+    restaurant,
 
     [authAPI.reducerPath]: authAPI.reducer,
     [profileAPI.reducerPath]: profileAPI.reducer,

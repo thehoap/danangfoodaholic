@@ -4,3 +4,4 @@ export { restaurantAPI } from './restaurantAPI';
 export { commonAPI } from './commonAPI';
 export { postAPI } from './postAPI';
 export { mapAPI } from './mapAPI';
+export { facebookAPI } from './facebookAPI';
