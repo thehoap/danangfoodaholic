@@ -1,4 +1,4 @@
-import { flexCenter } from 'constants/css';
+import { flexCenter, hiddenLongText } from 'constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 import { Card } from 'antd';
@@ -40,11 +40,7 @@ export const StyledRestaurantCard = styled(Card)`
         &-title {
             p {
                 width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                -webkit-line-clamp: 1;
-                line-clamp: 1;
-                -webkit-box-orient: vertical;
+                ${hiddenLongText(1)}
             }
             cursor: pointer;
         }
@@ -69,11 +65,7 @@ export const StyledRestaurantCard = styled(Card)`
                     width: 85%;
                     line-height: 24px;
                     overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    line-clamp: 2;
-                    -webkit-box-orient: vertical;
+                    ${hiddenLongText(2)}
 
                     &.time {
                         -webkit-line-clamp: 1;

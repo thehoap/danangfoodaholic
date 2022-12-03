@@ -45,7 +45,7 @@ const getTrending = async (req, res) => {
 
     const restaurants = await Restaurant.find({}, null, {
         limit: 200,
-    });
+    }).sort({ 'ratings.average': -1, name: 1 });
 
     const _posts = await Post.find({}, null, {
         limit: 50,

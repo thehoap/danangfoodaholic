@@ -24,7 +24,7 @@ import { PATH } from 'constants/path';
 import RestaurantCard from 'pages/Restaurants/components/RestaurantCard';
 import { textareaConvertHTML } from 'utils/input';
 import PostCategory from 'components/PostCategories/PostCategory';
-import { roundToHalf } from 'utils/caculate';
+import { roundToHalf } from 'utils/calculate';
 
 interface IPostDetail {
     post: IPost;

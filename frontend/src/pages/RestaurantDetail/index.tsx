@@ -10,7 +10,7 @@ import CreatePost from './components/CreatePost';
 import Menu from './components/Menu';
 import RadarChart from './components/RadarChart';
 import { StyledRestaurantDetail } from './styles';
-import { getAverage } from 'utils/caculate';
+import { getAverage } from 'utils/calculate';
 import { Location, Money, Timer } from 'assets/icons';
 
 const RestaurantDetail = () => {

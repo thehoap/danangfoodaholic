@@ -1,4 +1,9 @@
-import { flexCenter, flexSpaceBetween, rounded } from 'constants/css';
+import {
+    flexCenter,
+    flexSpaceBetween,
+    hiddenLongText,
+    rounded,
+} from 'constants/css';
 import { COLOR } from 'constants/data';
 import styled, { css } from 'styled-components';
 
@@ -62,12 +67,7 @@ export const StyledRestaurantSlider = styled.div`
 
         h4 {
             width: 100%;
-            display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 1;
-            line-clamp: 1;
-            -webkit-box-orient: vertical;
+            ${hiddenLongText(1)}
 
             a {
                 color: ${COLOR.PRIMARY};
@@ -116,6 +116,9 @@ export const StyledPostSlider = styled.div`
     .information {
         & > p {
             margin: 16px 0;
+            height: 72px;
+            width: 100%;
+            ${hiddenLongText(3)}
         }
 
         & > div {

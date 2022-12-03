@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getDecimal } from 'utils/caculate';
+import { getDecimal } from 'utils/calculate';
 
 interface IStyledRate {
     exactValue: number;

@@ -1,5 +1,5 @@
 import { Rate as AntRate, RateProps } from 'antd';
-import { getDecimal } from 'utils/caculate';
+import { getDecimal } from 'utils/calculate';
 import { StyledRate } from './styles';
 
 export interface IRate extends RateProps {

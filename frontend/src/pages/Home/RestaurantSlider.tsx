@@ -1,7 +1,7 @@
 import { Rate, Tooltip } from 'antd';
 import { PATH } from 'constants/path';
 import { Link } from 'react-router-dom';
-import { getAverage } from 'utils/caculate';
+import { getAverage } from 'utils/calculate';
 import { checkTimeBetween } from 'utils/dateFormat';
 import { StyledRestaurantSlider } from './styles';
 

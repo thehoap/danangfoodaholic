@@ -1,4 +1,4 @@
-import { rounded } from 'constants/css';
+import { hiddenLongText, rounded } from 'constants/css';
 import { COLOR } from 'constants/data';
 import { Radar } from 'react-chartjs-2';
 import styled from 'styled-components';
@@ -101,12 +101,7 @@ export const StyledMenuItem = styled.div`
 
         p {
             width: 100%;
-            display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 1;
-            line-clamp: 1;
-            -webkit-box-orient: vertical;
+            ${hiddenLongText(1)}
         }
     }
 `;

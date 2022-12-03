@@ -26,3 +26,12 @@ export const highlightText = css`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 `;
+
+export const hiddenLongText = (line: number) => css`
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: ${line};
+    line-clamp: ${line};
+    -webkit-box-orient: vertical;
+`;

@@ -22,10 +22,16 @@ const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hashtag, setHashtag] = useState<string>(_hashtag || '');
+    const [fisrtLoading, setFirstLoading] = useState(true);
 
     useEffect(() => {
-        setHashtag('');
-    }, []);
+        if (_hashtag) {
+            setHashtag(_hashtag);
+            setCurrentPage(1);
+            setPosts([]);
+            setFirstLoading(true);
+        }
+    }, [_hashtag]);
 
     useEffect(() => {
         getPosts({
@@ -34,19 +40,17 @@ const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
             restaurantId,
             hashtag,
         });
-    }, [_hashtag, currentPage]);
+    }, [hashtag, currentPage]);
 
     useEffect(() => {
-        setPosts((prev) => {
-            console.log(prev.concat(data?.data.docs || []));
-            return prev.concat(data?.data.docs || []);
-        });
+        setPosts((prev) => prev.concat(data?.data.docs || []));
         setAmoutPosts && setAmoutPosts(data?.data.totalDocs || 0);
+        data && setFirstLoading(false);
     }, [data]);
 
     return (
         <StyledPosts>
-            {isFetching && !data ? (
+            {fisrtLoading ? (
                 Array(10)
                     .fill(0)
                     .map((_, index) => <SkeletonPostDetail key={index} />)

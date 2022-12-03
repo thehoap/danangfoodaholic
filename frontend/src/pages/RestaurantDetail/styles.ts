@@ -5,6 +5,8 @@ import styled from 'styled-components';
 export const StyledRestaurantDetail = styled.div`
     .thumbnail {
         position: relative;
+        border-radius: 32px;
+        overflow: hidden;
 
         img {
             width: 100%;

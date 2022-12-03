@@ -15,6 +15,7 @@ import {
     postAPI,
     mapAPI,
 } from 'services';
+import { facebookAPI } from 'services/facebookAPI';
 
 const reducer = combineReducers({
     profile,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
     [commonAPI.reducerPath]: commonAPI.reducer,
     [postAPI.reducerPath]: postAPI.reducer,
     [mapAPI.reducerPath]: mapAPI.reducer,
+    [facebookAPI.reducerPath]: facebookAPI.reducer,
 });
 
 const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
@@ -34,6 +36,7 @@ const middleware = (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
         .concat(restaurantAPI.middleware)
         .concat(postAPI.middleware)
         .concat(mapAPI.middleware)
+        .concat(facebookAPI.middleware)
         .concat(commonAPI.middleware);
 
 export const store = configureStore({
