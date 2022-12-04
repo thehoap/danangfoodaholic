@@ -4,9 +4,9 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { errorHandler } from './backend/middleware/errorMiddleware.js';
-import baseRouter from './backend/routes/apiRoutes.js';
-import connectDB from './backend/config/db.js';
+import { errorHandler } from './middleware/errorMiddleware.js';
+import baseRouter from './routes/apiRoutes.js';
+import connectDB from './config/db.js';
 
 dotenv.config();
 const port = process.env.PORT;
