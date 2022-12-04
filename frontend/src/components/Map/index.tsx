@@ -5,7 +5,6 @@ import { Card } from 'antd';
 import markerIcon from 'assets/images/marker-icon.webp';
 import position from 'assets/images/position.webp';
 import { useLazyGetDistanceQuery } from 'services/mapAPI';
-
 interface IMap {
     restaurants?: IRestaurant[];
     isDetailPage?: boolean;
