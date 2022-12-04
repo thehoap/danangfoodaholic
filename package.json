@@ -8,8 +8,8 @@
         "node": "14.x"
     },
     "scripts": {
-        "start": "nodemon backend/server.js",
-        "server": "nodemon backend/server.js",
+        "start": "nodemon server.js",
+        "server": "nodemon server.js",
         "client": "npm start --prefix frontend",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
