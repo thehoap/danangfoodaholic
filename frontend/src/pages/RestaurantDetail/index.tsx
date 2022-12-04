@@ -20,7 +20,7 @@ const RestaurantDetail = () => {
     const { id } = useParams();
     const [searchParams, _] = useSearchParams();
     const appDispatch = useAppDispatch();
-
+    console.log(process.env.REACT_APP_MAPBOX_ACCESS_TOKEN);
     const [
         getRestaurant,
         { data: dataRestaurantDetail, isLoading, isFetching },

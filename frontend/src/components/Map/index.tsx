@@ -6,6 +6,11 @@ import markerIcon from 'assets/images/marker-icon.webp';
 import position from 'assets/images/position.webp';
 import { useLazyGetDistanceQuery } from 'services/mapAPI';
 
+import mapboxgl from 'mapbox-gl';
+// @ts-ignore
+mapboxgl.workerClass =
+    require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 interface IMap {
     restaurants?: IRestaurant[];
     isDetailPage?: boolean;
