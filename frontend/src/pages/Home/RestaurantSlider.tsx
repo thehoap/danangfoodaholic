@@ -1,7 +1,8 @@
-import { Rate, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
+import Rate from 'components/Rate';
 import { PATH } from 'constants/path';
 import { Link } from 'react-router-dom';
-import { getAverage } from 'utils/calculate';
+import { getAverage, roundToHalf } from 'utils/calculate';
 import { checkTimeBetween } from 'utils/dateFormat';
 import { StyledRestaurantSlider } from './styles';
 
@@ -14,6 +15,7 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
     const timeNow = `${dateObj.getHours()}:${dateObj.getMinutes()}`;
     const isOnline = checkTimeBetween(timeNow, restaurant?.time);
 
+    const rating = getAverage(restaurant?.ratings.average || []);
     return (
         <StyledRestaurantSlider>
             <div className="image-wrapper">
@@ -30,8 +32,12 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
                     </Tooltip>
                 </h4>
                 <Rate
-                    value={getAverage(restaurant?.ratings.average || [])}
+                    value={
+                        Number.isInteger(rating) ? rating : roundToHalf(rating)
+                    }
+                    exactValue={rating}
                     disabled
+                    allowHalf
                 />
                 <div>
                     <span>{restaurant?.priceRange}</span>

@@ -8,8 +8,8 @@
         "node": "16.x"
     },
     "scripts": {
-        "start": "node index.js",
-        "server": "nodemon index.js",
+        "start": "node backend/index.js",
+        "server": "nodemon backend/index.js",
         "client": "npm start --prefix frontend",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },

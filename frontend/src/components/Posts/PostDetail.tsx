@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Comment as AntComment, Divider, Popover, Skeleton } from 'antd';
-import { isInteger, uniqBy } from 'lodash';
+import { uniqBy } from 'lodash';
 
 import { Comment, Heart } from 'assets/icons';
 import Profile from 'components/Profile';
@@ -169,7 +169,9 @@ const PostDetail = ({ post }: IPostDetail) => {
                     <span className="rating-average"> {average}</span>
                     <Rate
                         value={
-                            isInteger(average) ? average : roundToHalf(average)
+                            Number.isInteger(average)
+                                ? average
+                                : roundToHalf(average)
                         }
                         exactValue={average}
                         disabled
