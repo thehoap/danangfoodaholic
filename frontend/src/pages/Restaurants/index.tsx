@@ -59,7 +59,7 @@ const Restaurants = () => {
             <Pagination
                 current={currentPage}
                 onChange={(page) => setCurrentPage(page)}
-                total={data?.data.totalDocs}
+                total={data?.data?.totalDocs || 0}
                 pageSize={PAGINATION.PAGE_SIZE}
                 showLessItems
             />
