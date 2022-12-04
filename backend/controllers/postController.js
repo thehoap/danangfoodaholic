@@ -47,6 +47,15 @@ const getPostDetail = async (req, res) => {
         .sort({ createdAt: 'asc' })
         .populate('comments');
 
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, post));
+};
+/* 
+    @route POST /posts
+    @access PRIVATE
+*/
+const createPost = async (req, res) => {
+    const post = await Post.create(req.body);
+
     const restaurant = await Restaurant.findById(post.restaurantId);
     restaurant.ratings = {
         space: [...restaurant.ratings.space, post.ratings.space],
@@ -57,15 +66,6 @@ const getPostDetail = async (req, res) => {
         average: [...restaurant.ratings.average, post.ratings.average],
     };
     await Restaurant.updateOne({ _id: post.restaurantId }, restaurant);
-
-    res.status(StatusCodes.OK).json(responseFormat(true, {}, post));
-};
-/* 
-    @route POST /posts
-    @access PRIVATE
-*/
-const createPost = async (req, res) => {
-    const post = await Post.create(req.body);
 
     if (post) {
         res.status(StatusCodes.CREATED).json(responseFormat(true, {}, post));
