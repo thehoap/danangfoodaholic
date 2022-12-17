@@ -219,6 +219,9 @@ const PostDetail = ({ post, setPosts }: IPostDetail) => {
                             }
                             trigger={['click']}
                             placement="bottomCenter"
+                            getPopupContainer={(node) =>
+                                node.parentElement as HTMLElement
+                            }
                         >
                             <MoreHoriz />
                         </Dropdown>

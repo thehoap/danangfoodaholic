@@ -1,4 +1,4 @@
-import { flexSpaceBetween } from './../../constants/css';
+import { flexSpaceBetween, flexCenter } from './../../constants/css';
 import { COLOR } from 'constants/data';
 import styled from 'styled-components';
 
@@ -40,6 +40,11 @@ export const StyledPostDetail = styled.div`
             .rating-average {
                 font-size: 20px;
                 font-weight: 600;
+            }
+
+            .ant-dropdown-menu-title-content span {
+                ${flexCenter}
+                gap: 8px;
             }
         }
         &-image {

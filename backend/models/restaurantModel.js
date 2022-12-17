@@ -18,14 +18,6 @@ const restaurantSchema = mongoose.Schema(
             lat: { type: String },
             long: { type: String },
         },
-        ratings: {
-            space: { type: [Number], require: true },
-            food: { type: [Number], require: true },
-            hygiene: { type: [Number], require: true },
-            service: { type: [Number], require: true },
-            price: { type: [Number], require: true },
-            average: { type: [Number], require: true },
-        },
     },
     {
         timestamps: true,

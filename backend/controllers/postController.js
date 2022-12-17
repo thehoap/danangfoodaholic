@@ -56,17 +56,6 @@ const getPostDetail = async (req, res) => {
 const createPost = async (req, res) => {
     const post = await Post.create(req.body);
 
-    const restaurant = await Restaurant.findById(post.restaurantId);
-    restaurant.ratings = {
-        space: [...restaurant.ratings.space, post.ratings.space],
-        food: [...restaurant.ratings.food, post.ratings.food],
-        hygiene: [...restaurant.ratings.hygiene, post.ratings.hygiene],
-        service: [...restaurant.ratings.service, post.ratings.service],
-        price: [...restaurant.ratings.price, post.ratings.price],
-        average: [...restaurant.ratings.average, post.ratings.average],
-    };
-    await Restaurant.updateOne({ _id: post.restaurantId }, restaurant);
-
     if (post) {
         res.status(StatusCodes.CREATED).json(responseFormat(true, {}, post));
     } else {

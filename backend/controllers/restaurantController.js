@@ -3,6 +3,7 @@ import StatusCodes from 'http-status-codes';
 
 import Restaurant from '../models/restaurantModel.js';
 import Menu from '../models/menuModel.js';
+import Post from '../models/postModel.js';
 import responseFormat from '../utils/responseFormat.js';
 
 /* 
@@ -45,8 +46,31 @@ const getRestaurants = expressAsyncHandler(async (req, res) => {
 const getRestaurant = expressAsyncHandler(async (req, res) => {
     const id = req.params.id;
     const restaurant = await Restaurant.findById(id).lean();
+
     const menu = await Menu.findOne({ id: restaurant.menuId });
     restaurant.menu = menu.items;
+
+    const posts = await Post.find({ restaurantId: id }).lean();
+    let ratings = {
+        space: [],
+        food: [],
+        hygiene: [],
+        service: [],
+        price: [],
+        average: [],
+    };
+    posts.forEach((post) => {
+        ratings = {
+            ...ratings,
+            space: ratings.space.concat(post.ratings.space),
+            food: ratings.food.concat(post.ratings.food),
+            hygiene: ratings.hygiene.concat(post.ratings.hygiene),
+            service: ratings.service.concat(post.ratings.service),
+            price: ratings.price.concat(post.ratings.price),
+            average: ratings.average.concat(post.ratings.average),
+        };
+    });
+    restaurant.ratings = ratings;
 
     res.status(StatusCodes.OK).json(responseFormat(true, {}, restaurant));
 });

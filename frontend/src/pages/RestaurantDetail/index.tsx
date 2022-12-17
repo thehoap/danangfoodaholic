@@ -75,7 +75,7 @@ const RestaurantDetail = () => {
                     appDispatch(getReviewedRestaurant(res?.data?.data));
                 }
             });
-    }, []);
+    }, [posts]);
 
     const handleChangeTab = (tab: string) => {
         navigate({
