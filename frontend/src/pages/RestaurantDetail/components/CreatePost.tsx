@@ -17,14 +17,14 @@ import { useCreatePostMutation } from 'services/postAPI';
 import { textareaConvertHTML } from 'utils/input';
 import TextArea from 'components/TextArea';
 import { getAverage } from 'utils/calculate';
-import { FACEBOOK_BREAKLINE, TAB } from 'constants/data';
-import {
-    useTestMessageMutation,
-    useTestPhotoMutation,
-} from 'services/facebookAPI';
-import useUploadFacebook from 'hooks/useUploadFacebook';
+import { TAB } from 'constants/data';
+import { useTestPhotoMutation } from 'services/facebookAPI';
 
-const CreatePost = () => {
+interface ICreatePost {
+    setPosts: SetStateType<IPost[]>;
+}
+
+const CreatePost = ({ setPosts }: ICreatePost) => {
     const navigate = useNavigate();
     const { id: restaurantId } = useParams();
     const { userId } = useAppSelector((state) => state.profile);
@@ -38,7 +38,7 @@ const CreatePost = () => {
     // const [testMessage, { data, isLoading }] = useTestMessageMutation();
     const [testPhoto, { data, isLoading }] = useTestPhotoMutation();
 
-    const [images, setImages] = useState<FormData>();
+    const [images, setImages] = useState<FormData | null>(null);
 
     const initialValues: IPostFormInput = {
         id: '',
@@ -112,6 +112,8 @@ const CreatePost = () => {
             }
             createPost(postValue).then(() => {
                 formik.setValues(initialValues);
+                setImages(null);
+                setPosts([]);
                 handleNavigateView();
             });
         },

@@ -65,6 +65,7 @@ const RestaurantDetail = () => {
         ratings: { space, food, hygiene, service, price, average },
     } = restaurantDetail;
     const [amountPosts, setAmoutPosts] = useState<number>(0);
+    const [posts, setPosts] = useState<IPost[]>([]);
 
     useEffect(() => {
         if (id)
@@ -129,6 +130,8 @@ const RestaurantDetail = () => {
                                         <Posts
                                             restaurantId={id}
                                             setAmoutPosts={setAmoutPosts}
+                                            posts={posts}
+                                            setPosts={setPosts}
                                         />
                                     </Col>
                                     <Col span={8}>
@@ -149,7 +152,7 @@ const RestaurantDetail = () => {
                         {
                             label: 'Post your review',
                             key: TAB.CREATE,
-                            children: <CreatePost />,
+                            children: <CreatePost setPosts={setPosts} />,
                         },
                     ]}
                 />

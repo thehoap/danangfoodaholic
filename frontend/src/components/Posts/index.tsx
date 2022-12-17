@@ -11,15 +11,16 @@ import { StyledPosts } from './styles';
 interface IPosts {
     restaurantId?: string;
     setAmoutPosts?: SetStateType<number>;
+    posts: IPost[];
+    setPosts: SetStateType<IPost[]>;
 }
 
-const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
+const Posts = ({ restaurantId, setAmoutPosts, posts, setPosts }: IPosts) => {
     const navigate = useNavigate();
     const [searchParams, _] = useSearchParams();
     const [getPosts, { data, isLoading, isFetching }] = useLazyGetPostsQuery();
 
     const _hashtag = searchParams.get('hashtag');
-    const [posts, setPosts] = useState<IPost[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hashtag, setHashtag] = useState<string>(_hashtag || '');
     const [fisrtLoading, setFirstLoading] = useState(true);
