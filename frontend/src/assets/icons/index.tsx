@@ -19,6 +19,7 @@ export { ReactComponent as Location } from './location.svg';
 export { ReactComponent as Logout } from './logout.svg';
 export { ReactComponent as Marker } from './marker.svg';
 export { ReactComponent as Money } from './money.svg';
+export { ReactComponent as More } from './more.svg';
 export { ReactComponent as Password } from './password.svg';
 export { ReactComponent as Post } from './post.svg';
 export { ReactComponent as Timer } from './timer.svg';

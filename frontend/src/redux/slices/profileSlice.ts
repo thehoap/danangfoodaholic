@@ -4,6 +4,7 @@ const initialState = {
     image: '',
     name: '',
     email: '',
+    role: '',
     userId: '',
 };
 
@@ -15,6 +16,7 @@ const profile = createSlice({
             state.image = action.payload.image;
             state.name = action.payload.name;
             state.email = action.payload.email;
+            state.role = action.payload.role;
             state.userId = action.payload.userId;
         },
     },

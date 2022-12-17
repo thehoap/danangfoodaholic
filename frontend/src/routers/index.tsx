@@ -10,15 +10,24 @@ import RestaurantDetail from 'pages/RestaurantDetail';
 import Posts from 'pages/Posts';
 import Profile from 'pages/Profile';
 import Error from 'pages/Error';
+import ManageUsers from 'pages/ManageUsers';
+import ManagePosts from 'pages/ManagePosts';
+import { useAppSelector } from 'redux/hooks';
 
 const Routers = () => {
     const token = localStorage.getItem('token');
+    const { role } = useAppSelector((state) => state.profile);
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<ProtectedRoute />}>
-                    <Route path={PATH.HOME.path} element={<Home />} />
+                <Route element={<ProtectedRoute roles={['USER', 'ADMIN']} />}>
+                    <Route
+                        path={PATH.HOME.path}
+                        element={role === 'USER' ? <Home /> : <ManageUsers />}
+                    />
+                </Route>
+                <Route element={<ProtectedRoute roles={['USER']} />}>
                     <Route
                         path={PATH.RESTAURANTS.path}
                         element={<Restaurants />}
@@ -30,6 +39,16 @@ const Routers = () => {
                     <Route path={PATH.POSTS.path} element={<Posts />} />
                     <Route path={PATH.POSTS.DETAIL} element={<Posts />} />
                     <Route path={PATH.PROFILE.path} element={<Profile />} />
+                </Route>
+                <Route element={<ProtectedRoute roles={['ADMIN']} />}>
+                    <Route
+                        path={PATH.MANAGE_USERS.path}
+                        element={<ManageUsers />}
+                    />
+                    <Route
+                        path={PATH.MANAGE_POSTS.path}
+                        element={<ManagePosts />}
+                    />
                 </Route>
                 <Route
                     path={PATH.LOGIN.path}

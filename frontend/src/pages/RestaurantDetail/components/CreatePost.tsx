@@ -39,8 +39,6 @@ const CreatePost = () => {
     const [testPhoto, { data, isLoading }] = useTestPhotoMutation();
 
     const [images, setImages] = useState<FormData>();
-    const [cloundinaryImages, setCloudinaryImages] = useState<string[]>([]);
-    const [isReady, setIsReady] = useState<boolean>(false);
 
     const initialValues: IPostFormInput = {
         id: '',
@@ -106,7 +104,6 @@ const CreatePost = () => {
             if (images) {
                 postValue.images = await uploadImages(images)
                     .then((res: any) => {
-                        setCloudinaryImages(res.data);
                         return res.data;
                     })
                     .catch((error: IError) => {
@@ -114,7 +111,8 @@ const CreatePost = () => {
                     });
             }
             createPost(postValue).then(() => {
-                setIsReady(true);
+                formik.setValues(initialValues);
+                handleNavigateView();
             });
         },
     });
@@ -125,17 +123,6 @@ const CreatePost = () => {
             search: `?tab=${TAB.VIEW}`,
         });
     };
-
-    const doneUploadFacebook = useUploadFacebook(
-        formik.values,
-        cloundinaryImages,
-        isReady
-    );
-
-    if (doneUploadFacebook) {
-        formik.setValues(initialValues);
-        handleNavigateView();
-    }
 
     return (
         <StyledCreatePost>

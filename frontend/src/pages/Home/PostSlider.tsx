@@ -10,10 +10,10 @@ const PostSlider = ({ post }: IPostSlider) => {
     return (
         <StyledPostSlider>
             <div className="image-wrapper">
-                <img src={post?.user.image} alt="" />
+                <img src={post?.user?.image} alt="" />
                 <span>
                     <Rate value={1} disabled count={1} />
-                    {post?.ratings.average}
+                    {post?.ratings?.average}
                 </span>
             </div>
             <div className="information">

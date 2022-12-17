@@ -10,34 +10,23 @@ const formatPost = (
     {
         content,
         hashtags,
-        ratings_space,
-        ratings_food,
-        ratings_hygiene,
-        ratings_service,
-        ratings_price,
+        ratings: { space, food, hygiene, service, price },
         is_recommend,
-        total_bill,
-        total_people,
-    }: IPostFormInput,
+        total: { bill, people },
+    }: IPost,
     { address, time, priceRange }: IRestaurantDetail
 ) => {
     let message = `📍 ${address}\n⏰ ${time}\n💰 ${priceRange}`;
-    message += `\n\n${content}`;
-    message += `\n\n⭐ ${getAverage([
-        ratings_space,
-        ratings_food,
-        ratings_hygiene,
-        ratings_service,
-        ratings_price,
-    ])}`;
-    message += `\n🧾 ${formatNumber(total_bill / total_people)} VND / 1 person`;
+    message += `\n\n${content.replaceAll('<br/>', '\n')}`;
+    message += `\n\n⭐ ${getAverage([space, food, hygiene, service, price])}`;
+    message += `\n🧾 ${formatNumber(bill / people)} VND / 1 person`;
     message += is_recommend ? '\n✅ Recommend' : '\n❎ Do not recommend';
     message += `\n\n${hashtags.map((hashtag) => `#${hashtag}`).join(' ')}`;
     return message;
 };
 
 const useUploadFacebook = (
-    post: IPostFormInput,
+    post: IPost | undefined,
     images: string[],
     isReady: boolean
 ) => {
@@ -46,7 +35,7 @@ const useUploadFacebook = (
     const [unpublishPhoto] = useUnpublishPhotoMutation();
     const [publishPhotos] = usePublishPhotosMutation();
 
-    const message = formatPost(post, restaurant);
+    const message = post && formatPost(post, restaurant);
     const [attachedMedias, setAttachedMedias] = useState<any>({});
     const [isDone, setIsDone] = useState<boolean>(false);
 

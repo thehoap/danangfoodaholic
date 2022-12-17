@@ -42,7 +42,10 @@ const Login = () => {
                 .unwrap()
                 .then((res: IResponseFormat<ILoginResponse>) => {
                     localStorage.setItem('token', res.data.token);
-                    navigate('/');
+                    localStorage.setItem('role', res.data.role);
+                    if (res.data.role === 'ADMIN')
+                        navigate(PATH.MANAGE_USERS.path);
+                    else navigate('/');
                 })
                 .catch((error: IError) => {
                     setError(error.data.meta.message);

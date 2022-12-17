@@ -15,6 +15,7 @@ interface ILoginResponse {
     id: string;
     name: string;
     token: string;
+    role: 'USER' | 'ADMIN';
 }
 
 interface IRegisterResponse {
@@ -30,6 +31,7 @@ interface IProfileResponse {
     id: string;
     name: string;
     image: string;
+    role: 'USER' | 'ADMIN';
 }
 
 interface IUser {

@@ -22,7 +22,7 @@ const Header = ({ className }: IHeader) => {
 
     const [getProfile, { data: profile, isSuccess, isFetching }] =
         useLazyGetProfileQuery();
-    const { image, name, email } = useAppSelector((state) => state.profile);
+    const { image, name, role } = useAppSelector((state) => state.profile);
     const userRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -35,6 +35,7 @@ const Header = ({ className }: IHeader) => {
                 image: profile?.data?.image,
                 name: profile?.data?.name,
                 email: profile?.data?.email,
+                role: profile?.data?.role,
                 userId: profile?.data?.id,
             };
             dispatch(updateProfile(payload));
@@ -46,11 +47,17 @@ const Header = ({ className }: IHeader) => {
         window.location.reload();
     };
 
-    const navLinks: { path: string; label: string }[] = [
-        { path: PATH.HOME.path, label: 'Home' },
-        { path: PATH.RESTAURANTS.path, label: 'Restaurants' },
-        { path: PATH.POSTS.path, label: 'Posts' },
-    ];
+    const navLinks: { path: string; label: string }[] =
+        role === 'USER'
+            ? [
+                  { path: PATH.HOME.path, label: 'Home' },
+                  { path: PATH.RESTAURANTS.path, label: 'Restaurants' },
+                  { path: PATH.POSTS.path, label: 'Posts' },
+              ]
+            : [
+                  { path: PATH.MANAGE_USERS.path, label: 'Manage Users' },
+                  { path: PATH.MANAGE_POSTS.path, label: 'Manage Posts' },
+              ];
 
     const menu = (
         <Menu

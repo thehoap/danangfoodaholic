@@ -21,6 +21,12 @@ export const PATH = {
     PROFILE: {
         path: '/profile/:id',
     },
+    MANAGE_USERS: {
+        path: '/manage-users',
+    },
+    MANAGE_POSTS: {
+        path: '/manage-posts',
+    },
     ERROR: {
         path: '*',
     },

@@ -1,0 +1,25 @@
+$headerHeight: 88px;
+
+.layout-admin {
+    &__header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $headerHeight;
+        background-color: #fff;
+        z-index: 9;
+
+        .nav {
+            display: none;
+        }
+    }
+    &__content {
+        background-color: #fcf6ee;
+        margin-top: $headerHeight;
+        min-height: calc(100vh - 88px);
+        padding: 40px 100px;
+    }
+    &__footer {
+    }
+}

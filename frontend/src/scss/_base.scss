@@ -43,6 +43,10 @@ textarea {
     resize: none;
 }
 
+svg {
+    cursor: pointer;
+}
+
 .ant-rate-star {
     color: $primaryColor;
 }
