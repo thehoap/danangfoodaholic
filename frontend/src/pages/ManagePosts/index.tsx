@@ -1,8 +1,8 @@
 import type { ColumnsType } from 'antd/es/table';
-import { Dropdown, Menu, Row, Typography } from 'antd';
+import { Dropdown, Menu, Modal, Row, Typography } from 'antd';
 import AdminLayout from 'layouts/AdminLayout';
 import { StyledManagePosts } from './styles';
-import { useLazyGetPostsQuery } from 'services/postAPI';
+import { useDeletePostMutation, useLazyGetPostsQuery } from 'services/postAPI';
 import { useEffect, useState } from 'react';
 import { ImagesPreview1 } from 'components/ImagesPreview';
 import { Comment, Heart, More } from 'assets/icons';
@@ -16,6 +16,7 @@ const ManagePosts = () => {
     const appDispatch = useAppDispatch();
 
     const [getPosts, { data: posts }] = useLazyGetPostsQuery();
+    const [deletePost] = useDeletePostMutation();
 
     const [postFacebook, setPostFacebook] = useState<IPost>();
     const [isReady, setIsReady] = useState<boolean>(false);
@@ -93,15 +94,20 @@ const ManagePosts = () => {
                                 {
                                     label: (
                                         <span
-                                            onClick={() => {
-                                                setIsReady(true);
-                                                setPostFacebook(record);
-                                                appDispatch(
-                                                    getReviewedRestaurant(
-                                                        record.restaurantId
-                                                    )
-                                                );
-                                            }}
+                                            onClick={() =>
+                                                Modal.confirm({
+                                                    title: 'Upload Facebook',
+                                                    icon: <></>,
+                                                    centered: true,
+                                                    content:
+                                                        'Do you want to upload this post to Facebook page?',
+                                                    okText: 'Upload',
+                                                    onOk: () =>
+                                                        uploadToFacebook(
+                                                            record
+                                                        ),
+                                                })
+                                            }
                                         >
                                             Upload to Facebook
                                         </span>
@@ -109,7 +115,15 @@ const ManagePosts = () => {
                                     key: 'upload-facebook',
                                 },
                                 {
-                                    label: <span>Delete</span>,
+                                    label: (
+                                        <span
+                                            onClick={() =>
+                                                handleDeletePost(record.id)
+                                            }
+                                        >
+                                            Delete
+                                        </span>
+                                    ),
                                     key: 'delete',
                                 },
                             ]}
@@ -127,6 +141,24 @@ const ManagePosts = () => {
     useEffect(() => {
         getPosts({ page: 1, limit: 20 });
     }, []);
+
+    const uploadToFacebook = (record: IPost) => {
+        setIsReady(true);
+        setPostFacebook(record);
+        appDispatch(getReviewedRestaurant(record.restaurantId));
+    };
+
+    const handleDeletePost = (id: string) => {
+        Modal.confirm({
+            title: 'Delete Post',
+            icon: <></>,
+            centered: true,
+            content: 'Do you want to delete this post?',
+            okText: 'Delete',
+            onOk: () => deletePost(id),
+        });
+    };
+
     return (
         <AdminLayout>
             <StyledManagePosts>

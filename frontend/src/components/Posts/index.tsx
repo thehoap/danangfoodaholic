@@ -43,8 +43,8 @@ const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
     }, [hashtag, currentPage]);
 
     useEffect(() => {
-        setPosts((prev) => prev.concat(data?.data.docs || []));
-        setAmoutPosts && setAmoutPosts(data?.data.totalDocs || 0);
+        setPosts((prev) => prev.concat(data?.data?.docs || []));
+        setAmoutPosts && setAmoutPosts(data?.data?.totalDocs || 0);
         data && setFirstLoading(false);
     }, [data]);
 
@@ -57,13 +57,17 @@ const Posts = ({ restaurantId, setAmoutPosts }: IPosts) => {
             ) : posts && posts?.length > 0 ? (
                 <>
                     {posts?.map((post) => (
-                        <PostDetail post={post} key={post.id} />
+                        <PostDetail
+                            post={post}
+                            key={post?.id}
+                            setPosts={setPosts}
+                        />
                     ))}
                     <Button
                         type="primary"
                         onClick={() => setCurrentPage((page) => page + 1)}
                         loading={isFetching}
-                        disabled={data?.data.totalPages === currentPage}
+                        disabled={data?.data?.totalPages === currentPage}
                     >
                         Load more
                     </Button>

@@ -21,13 +21,8 @@ const Routers = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<ProtectedRoute roles={['USER', 'ADMIN']} />}>
-                    <Route
-                        path={PATH.HOME.path}
-                        element={role === 'USER' ? <Home /> : <ManageUsers />}
-                    />
-                </Route>
                 <Route element={<ProtectedRoute roles={['USER']} />}>
+                    <Route path={PATH.HOME.path} element={<Home />} />
                     <Route
                         path={PATH.RESTAURANTS.path}
                         element={<Restaurants />}

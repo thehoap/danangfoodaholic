@@ -1,15 +1,24 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { Comment as AntComment, Divider, Popover, Skeleton } from 'antd';
+import {
+    Comment as AntComment,
+    Divider,
+    Dropdown,
+    Menu,
+    Modal,
+    Popover,
+    Skeleton,
+} from 'antd';
 import { uniqBy } from 'lodash';
 
-import { Comment, Heart } from 'assets/icons';
+import { Comment, Delete, Heart, MoreHoriz } from 'assets/icons';
 import Profile from 'components/Profile';
 import TextArea from 'components/TextArea';
 import { useAppSelector } from 'redux/hooks';
 import {
     useCreateCommentMutation,
+    useDeletePostMutation,
     useLazyGetPostDetailQuery,
     useUpdatePostMutation,
 } from 'services/postAPI';
@@ -28,11 +37,12 @@ import { roundToHalf } from 'utils/calculate';
 
 interface IPostDetail {
     post: IPost;
+    setPosts: SetStateType<IPost[]>;
 }
 
 const dateFormat = 'DD/MM/YYYY hh:mm';
 
-const PostDetail = ({ post }: IPostDetail) => {
+const PostDetail = ({ post, setPosts }: IPostDetail) => {
     const {
         name: userName,
         userId,
@@ -44,11 +54,12 @@ const PostDetail = ({ post }: IPostDetail) => {
     const [updatePost] = useUpdatePostMutation();
     const [createComment] = useCreateCommentMutation();
     const [getPostDetail] = useLazyGetPostDetailQuery();
+    const [deletePost] = useDeletePostMutation();
 
     const {
         id,
         content,
-        user: { image, name },
+        user: { _id: _userId, image, name },
         images,
         hashtags,
         createdAt,
@@ -154,6 +165,17 @@ const PostDetail = ({ post }: IPostDetail) => {
         </p>
     );
 
+    const handleDeletePost = () => {
+        Modal.confirm({
+            title: 'Delete Post',
+            icon: <></>,
+            centered: true,
+            content: 'Do you want to delete this post?',
+            okText: 'Delete',
+            onOk: () => deletePost(id).then(() => setPosts([])),
+        });
+    };
+
     return (
         <StyledPostDetail>
             <section className="section section-header">
@@ -177,6 +199,30 @@ const PostDetail = ({ post }: IPostDetail) => {
                         disabled
                         allowHalf
                     />
+                    {userId === _userId && (
+                        <Dropdown
+                            overlay={
+                                <Menu
+                                    items={[
+                                        {
+                                            label: (
+                                                <span
+                                                    onClick={handleDeletePost}
+                                                >
+                                                    <Delete /> Delete
+                                                </span>
+                                            ),
+                                            key: 'delete',
+                                        },
+                                    ]}
+                                />
+                            }
+                            trigger={['click']}
+                            placement="bottomCenter"
+                        >
+                            <MoreHoriz />
+                        </Dropdown>
+                    )}
                 </div>
             </section>
             <section

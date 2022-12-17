@@ -104,7 +104,11 @@ const updatePost = async (req, res) => {
     @access PRIVATE
 */
 const deletePost = async (req, res) => {
-    res.json({ message: 'delete post' });
+    const id = req.params.id;
+
+    await Post.findByIdAndDelete(id);
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, {}));
 };
 
 export { getPosts, getPostDetail, createPost, updatePost, deletePost };
