@@ -5,3 +5,4 @@ export { commonAPI } from './commonAPI';
 export { postAPI } from './postAPI';
 export { mapAPI } from './mapAPI';
 export { facebookAPI } from './facebookAPI';
+export { userAPI } from './userAPI';

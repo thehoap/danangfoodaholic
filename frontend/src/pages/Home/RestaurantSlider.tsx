@@ -15,7 +15,7 @@ const RestaurantSlider = ({ restaurant }: IRestaurantSlider) => {
     const timeNow = `${dateObj.getHours()}:${dateObj.getMinutes()}`;
     const isOnline = checkTimeBetween(timeNow, restaurant?.time);
 
-    const rating = getAverage(restaurant?.ratings.average || []);
+    const rating = getAverage(restaurant?.ratings?.average || []);
     return (
         <StyledRestaurantSlider>
             <div className="image-wrapper">

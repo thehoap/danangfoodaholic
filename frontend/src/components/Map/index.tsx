@@ -19,8 +19,8 @@ const Map = ({ restaurants, isDetailPage }: IMap) => {
     // Get user's location at the moment
     const [currentLocation, setCurrentLocation] = useState<ICoordinates>(() => {
         const coordinates: ICoordinates = {
-            lat: 16.0663227,
-            long: 108.2055386,
+            lat: 0,
+            long: 0,
         };
         navigator.geolocation.getCurrentPosition(
             (position) => {

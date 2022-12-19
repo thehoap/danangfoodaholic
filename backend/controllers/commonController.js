@@ -43,9 +43,34 @@ const getTrending = async (req, res) => {
         limit = 10,
         query = {};
 
-    const restaurants = await Restaurant.find({}, null, {
+    const _restaurants = await Restaurant.find({}, null, {
         limit: 200,
-    }).sort({ 'ratings.average': -1, name: 1 });
+        sort: { name: 1 },
+    }).lean();
+    const restaurants = [];
+    _restaurants.forEach(async (restaurant) => {
+        const posts = await Post.find({ restaurantId: restaurant._id }).lean();
+        let ratings = {
+            space: [],
+            food: [],
+            hygiene: [],
+            service: [],
+            price: [],
+            average: [],
+        };
+        posts.forEach((post) => {
+            ratings = {
+                ...ratings,
+                space: ratings.space.concat(post.ratings.space),
+                food: ratings.food.concat(post.ratings.food),
+                hygiene: ratings.hygiene.concat(post.ratings.hygiene),
+                service: ratings.service.concat(post.ratings.service),
+                price: ratings.price.concat(post.ratings.price),
+                average: ratings.average.concat(post.ratings.average),
+            };
+        });
+        restaurants.push({ ...restaurant, ratings });
+    });
 
     const _posts = await Post.find({}, null, {
         limit: 50,

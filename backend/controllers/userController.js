@@ -47,6 +47,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         email,
         password: hashedPassword,
         name,
+        role: 'USER',
     });
 
     if (user) {
@@ -134,8 +135,47 @@ const getProfile = expressAsyncHandler(async (req, res) => {
     );
 });
 
+const getUsers = async (req, res) => {
+    let page = 1,
+        limit = 10,
+        query = {};
+
+    const users = await User.paginate(query, {
+        page,
+        limit,
+        lean: true,
+        // sort: '-createdAt',
+    });
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, users));
+};
+
+const updateUser = async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    const user = await User.findByIdAndUpdate(id, body);
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, user));
+};
+
+const deleteUser = async (req, res) => {
+    const id = req.params.id;
+
+    await User.findByIdAndDelete(id);
+
+    res.status(StatusCodes.OK).json(responseFormat(true, {}, {}));
+};
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-export { registerUser, loginUser, getProfile };
+export {
+    registerUser,
+    loginUser,
+    getProfile,
+    getUsers,
+    updateUser,
+    deleteUser,
+};

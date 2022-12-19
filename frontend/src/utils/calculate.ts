@@ -3,7 +3,7 @@ export const getAverage = ([...arg]) => {
         prev += curr;
         return prev;
     }, 0);
-    return Number((total / arg.length).toFixed(1));
+    return Number((total / arg.length).toFixed(1)) || 0;
 };
 
 export const getDecimal = (value: number) => {

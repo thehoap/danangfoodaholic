@@ -43,4 +43,5 @@ interface IUser {
     image: string;
     createdAt: string;
     updatedAt: string;
+    role: string;
 }

@@ -10,6 +10,7 @@ import RestaurantSlider from './RestaurantSlider';
 import { StyledHome } from './styles';
 import { useLazyGetTrendingQuery } from 'services/commonAPI';
 import { PATH } from 'constants/path';
+import { getAverage } from 'utils/calculate';
 
 const restaurantSlidesToShow = 4.5;
 const restaurantResponsive: number[] = [
@@ -58,7 +59,13 @@ const Home = () => {
                     <Divider />
                     <Spin spinning={isFetching}>
                         <Slider
-                            data={restaurants
+                            data={[...restaurants]
+                                .sort((a, b) =>
+                                    getAverage(a.ratings.average) >
+                                    getAverage(b.ratings.average)
+                                        ? -1
+                                        : 1
+                                )
                                 .slice(0, 20)
                                 .map((restaurant, index) => (
                                     <RestaurantSlider
