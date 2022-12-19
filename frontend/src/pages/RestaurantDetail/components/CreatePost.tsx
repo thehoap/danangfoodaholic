@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Button from 'components/Button';
 import InputNumber from 'components/InputNumber';
 import Rating from 'components/Rating';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import Recommend from './Recommend';
 import { StyledCreatePost } from './styles';
 import Select from 'components/Select';
@@ -19,6 +19,7 @@ import TextArea from 'components/TextArea';
 import { getAverage } from 'utils/calculate';
 import { TAB } from 'constants/data';
 import { useTestPhotoMutation } from 'services/facebookAPI';
+import { alertMessage } from 'redux/slices/messageSlice';
 
 interface ICreatePost {
     setPosts: SetStateType<IPost[]>;
@@ -26,6 +27,7 @@ interface ICreatePost {
 
 const CreatePost = ({ setPosts }: ICreatePost) => {
     const navigate = useNavigate();
+    const appDispatch = useAppDispatch();
     const { id: restaurantId } = useParams();
     const { userId } = useAppSelector((state) => state.profile);
 
@@ -114,6 +116,13 @@ const CreatePost = ({ setPosts }: ICreatePost) => {
                 formik.setValues(initialValues);
                 setImages(null);
                 setPosts([]);
+                appDispatch(
+                    alertMessage({
+                        title: 'Success',
+                        content: 'You have created a post successfully.',
+                        type: 'success',
+                    })
+                );
                 handleNavigateView();
             });
         },

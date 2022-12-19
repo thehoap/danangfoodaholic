@@ -23,9 +23,18 @@ const Routers = () => {
             <Routes>
                 <Route element={<ProtectedRoute roles={['ADMIN', 'USER']} />}>
                     <Route path={PATH.PROFILE.path} element={<Profile />} />
+                    <Route
+                        path={PATH.HOME.path}
+                        element={
+                            role === 'ADMIN' ? (
+                                <Navigate to={PATH.MANAGE_USERS.path} replace />
+                            ) : (
+                                <Home />
+                            )
+                        }
+                    />
                 </Route>
                 <Route element={<ProtectedRoute roles={['USER']} />}>
-                    <Route path={PATH.HOME.path} element={<Home />} />
                     <Route
                         path={PATH.RESTAURANTS.path}
                         element={<Restaurants />}

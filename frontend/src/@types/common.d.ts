@@ -23,3 +23,11 @@ interface ITrendingResponse {
     posts: IPost[];
     hashtags: string[];
 }
+
+type MessageType = 'success' | 'error' | 'warning' | '';
+type MessageTitle = 'Success' | 'Error' | 'Warning' | '';
+interface IMessage {
+    title: MessageTitle;
+    content: string;
+    type: MessageType;
+}

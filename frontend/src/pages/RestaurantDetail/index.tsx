@@ -14,6 +14,7 @@ import { getAverage } from 'utils/calculate';
 import { Location, Money, Timer } from 'assets/icons';
 import { useAppDispatch } from 'redux/hooks';
 import { getReviewedRestaurant } from 'redux/slices/restaurantSlice';
+import Alert from 'components/Alert';
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
@@ -85,6 +86,7 @@ const RestaurantDetail = () => {
 
     return (
         <MainLayout>
+            <Alert />
             <StyledRestaurantDetail>
                 <div className="thumbnail">
                     <img src={image} alt="" />

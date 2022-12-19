@@ -7,6 +7,7 @@ import {
 import { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
 import profile from 'redux/slices/profileSlice';
+import message from 'redux/slices/messageSlice';
 import restaurant from 'redux/slices/restaurantSlice';
 import {
     authAPI,
@@ -22,6 +23,7 @@ import {
 const reducer = combineReducers({
     profile,
     restaurant,
+    message,
 
     [authAPI.reducerPath]: authAPI.reducer,
     [profileAPI.reducerPath]: profileAPI.reducer,
